@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import gui.mainUI;
+
 public class loginUI extends JFrame implements ActionListener{
 	
 	/*
@@ -118,6 +120,8 @@ public class loginUI extends JFrame implements ActionListener{
 				String[] values = line.split(",");
 				if(user.equals(values[0]) && password.equals(values[1])){
 					statusLabel.setText("Success!");
+					frame.dispose(); //login window closes when login is successful
+					new mainUI();
 					return;
 				}
 			}
@@ -126,7 +130,4 @@ public class loginUI extends JFrame implements ActionListener{
 		}
 		statusLabel.setText("Wrong Credentials!");
 	}
-	
-	
-
 }
