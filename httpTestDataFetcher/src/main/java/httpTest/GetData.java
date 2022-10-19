@@ -19,7 +19,7 @@ public class GetData {
 
 		String aCountry = "CAN";
 		String urlString = String.format(
-				"http://api.worldbank.org/v2/country/%s/indicator/SP.POP.TOTL?date=2000:2001&format=json", aCountry);
+				"http://api.worldbank.org/v2/country/%s/indicator/SP.POP.TOTL?date=2005:2010&format=json", aCountry);
 		System.out.println(urlString);
 		int populationForYear = 0;
 		int cummulativePopulation = 0;

@@ -6,7 +6,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.awt.Container;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -22,7 +25,9 @@ import login.loginUI;
 public class mainUI extends JFrame{
 
 	public static void main(String[] args) {
+		
 		new mainUI();
+		
 	}
 
 	/*
@@ -55,27 +60,17 @@ public class mainUI extends JFrame{
 		
 		
 		
-		
-		
-		
 		JLabel chooseCountryLabel = new JLabel("Choose a country: ");
-		Vector<String> countriesNames = new Vector<String>();
-		countriesNames.add("USA");
-		countriesNames.add("Canada");
-		countriesNames.add("France");
-		countriesNames.add("China");
-		countriesNames.add("Brazil");
-		countriesNames.sort(null);
+		Vector<String> countriesNames = getCountryList();
 		JComboBox<String> countriesList = new JComboBox<String>(countriesNames);
 
 		JLabel from = new JLabel("From");
 		JLabel to = new JLabel("To");
-		Vector<String> years = new Vector<String>();
-		for (int i = 2022; i >= 2010; i--) {
-			years.add("" + i);
-		}
-		JComboBox<String> fromList = new JComboBox<String>(years);
-		JComboBox<String> toList = new JComboBox<String>(years);
+		Vector<Integer> years = getYears();
+		
+		
+		JComboBox<Integer> fromList = new JComboBox<Integer>(years);
+		JComboBox<Integer> toList = new JComboBox<Integer>(years);
 
 		JPanel north = new JPanel();
 		north.add(chooseCountryLabel);
@@ -126,19 +121,17 @@ public class mainUI extends JFrame{
 		frame.add(south, BorderLayout.SOUTH);
 	}
 	
-	public void getCountryList() {
+	public Vector<String> getCountryList() {
 		JSONParser jsonParser = new JSONParser();
-        
-        try (FileReader reader = new FileReader("employees.json"))
-        {
-            //Read JSON file
-            Object obj = jsonParser.parse(reader);
- 
-            JSONArray employeeList = (JSONArray) obj;
-            System.out.println(employeeList);
-             
-            //Iterate over employee array
-            employeeList.forEach( emp -> parseEmployeeObject( (JSONObject) emp ) );
+		ArrayList<String> tempCountries = new ArrayList<>();
+		Vector<String> countries = null;
+        try{
+        	FileReader reader = new FileReader("countries.json");
+        	JSONObject countriesJSON = (JSONObject) jsonParser.parse(reader);
+        	
+        	tempCountries = (ArrayList<String>) countriesJSON.get("countries");
+        	countries = new Vector<>(tempCountries);
+     		
  
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -147,6 +140,31 @@ public class mainUI extends JFrame{
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        
+        return countries;
+	}
+	
+	public Vector<Integer> getYears(){
+		JSONParser jsonParser = new JSONParser();
+		ArrayList<Integer> tempYears = new ArrayList<>();
+		Vector<Integer> years = null;
+        try{
+        	FileReader reader = new FileReader("years.json");
+        	JSONObject yearsJSON = (JSONObject) jsonParser.parse(reader);
+        	
+        	tempYears = (ArrayList<Integer>) yearsJSON.get("years");
+        	years = new Vector<Integer>(tempYears);
+     		
+ 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
+        return years;
 	}
 
 	
