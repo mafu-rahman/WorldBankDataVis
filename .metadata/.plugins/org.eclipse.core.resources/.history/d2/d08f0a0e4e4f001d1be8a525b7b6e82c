@@ -1,0 +1,83 @@
+package gui;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import login.loginUI;
+
+public class mainUI extends JFrame{
+
+	public static void main(String[] args) {
+		new mainUI();
+	}
+
+	/*
+	 * Class Attributes
+	 */
+	private static JFrame frame;
+	private static JPanel panel;
+	private static JLabel usernameLabel;
+	private static JLabel passwordLabel;
+	private static JLabel statusLabel;
+	private static JTextField usernameText;
+	private static JPasswordField passwordText;
+	
+	private static JPanel panel1, panel2, panel3, panel4, panel5;
+	
+	public mainUI() {
+		frame = new JFrame();
+		panel = new JPanel();
+		panel.setLayout(null);
+		frame.setTitle("Country Statistics");
+		frame.setSize(1024, 720);
+		
+		topPanel();
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public void topPanel() {
+		JLabel chooseCountryLabel = new JLabel("Choose a country: ");
+		Vector<String> countriesNames = new Vector<String>();
+		countriesNames.add("USA");
+		countriesNames.add("Canada");
+		countriesNames.add("France");
+		countriesNames.add("China");
+		countriesNames.add("Brazil");
+		countriesNames.sort(null);
+		JComboBox<String> countriesList = new JComboBox<String>(countriesNames);
+
+		JLabel from = new JLabel("From");
+		JLabel to = new JLabel("To");
+		Vector<String> years = new Vector<String>();
+		for (int i = 2021; i >= 2010; i--) {
+			years.add("" + i);
+		}
+		JComboBox<String> fromList = new JComboBox<String>(years);
+		JComboBox<String> toList = new JComboBox<String>(years);
+
+		JPanel north = new JPanel();
+		north.add(chooseCountryLabel);
+		north.add(countriesList);
+		north.add(from);
+		north.add(fromList);
+		north.add(to);
+		north.add(toList);
+		frame.add(north);
+
+	}
+
+	
+	
+	
+	
+}
