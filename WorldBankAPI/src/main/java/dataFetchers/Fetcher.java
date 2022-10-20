@@ -23,6 +23,7 @@ public class Fetcher {
 	private String countryCode;
 	private int startYear;
 	private int endYear;
+	private String analysisType;
 	
 	public Fetcher() {}
 	
@@ -34,6 +35,30 @@ public class Fetcher {
 			this.startYear = sYear;
 			this.endYear = eYear;
 		}
+	}
+	
+	
+	public Fetcher(String countryCode, String analyseType, int sYear, int eYear) {
+		if(countryChecker(countryCode)) {
+			this.countryCode = countryCode;
+		}
+		if(dateChecker(sYear, eYear)) {
+			this.startYear = sYear;
+			this.endYear = eYear;
+		}
+		if(analysisChecker(analyseType)) {
+			this.analysisType = analyseType;
+		}
+	}
+	
+	private boolean analysisChecker(String analyse) {
+		for(String s : ANALYSIS_TYPES) {
+			if(s.equals(analyse)) {
+				System.out.println(String.format("Valid analysis code found: %s", analyse));
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	private boolean countryChecker(String code) {
@@ -57,7 +82,8 @@ public class Fetcher {
 	
 	public void fetchData() {
 		String country = this.countryCode;
-		String urlString = String.format("http://api.worldbank.org/v2/country/%s/indicator/SP.POP.TOTL?date=%d:%d&format=json", country, this.startYear, this.endYear);
+		String analysisType = "SP.POP.TOTL";
+		String urlString = String.format("http://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json", country, analysisType, this.startYear, this.endYear);
 		System.out.println("Connecting to URL: " + urlString);
 		int popYear = 0;
 		int cumPop = 0;
@@ -123,6 +149,10 @@ public class Fetcher {
 	
 	public void setEndYear(int eYear) {
 		this.endYear = eYear;
+	}
+	
+	public void setAnalysisType(String analyse) {
+		
 	}
 	
 	public static void main(String[] args) {
