@@ -15,7 +15,9 @@ public class Fetcher {
 	private int startYear;
 	private int endYear;
 	private String analysisType;
+	// Country Codes
 	private static String[] CODES = {"CAN", "UK", "USA", "CN", "BRA"};
+	// Data Sets
 	private static String[] ANALYSIS_TYPES = {"SP.POP.TOTL", 				// Total population
 											  "EN.ATM.CO2E.PC",				// CO2 Emissions 
 											  "EN.ATM.PM25.MC.M3", 			// PM2.5 air pollution, mean annual exposure
@@ -26,6 +28,9 @@ public class Fetcher {
 											  "SE.XPD.TOTL.GD.ZS"};			// Govt expenditure on education, total (% GDP)
 		
 	
+	/*
+	 * Constructor
+	 */
 	public Fetcher(String countryCode, String analyseType, int sYear, int eYear) {
 		if(countryChecker(countryCode)) {
 			this.countryCode = countryCode;
@@ -39,6 +44,9 @@ public class Fetcher {
 		}
 	}
 	
+	/*
+	 * check if analysisType, start year, end year, and countryCode are valid
+	 */
 	private boolean analysisChecker(String analyse) {
 		for(String s : ANALYSIS_TYPES) {
 			if(s.equals(analyse)) {
@@ -67,7 +75,10 @@ public class Fetcher {
 		return false;
 	}
 	
-	
+
+	/*
+	 * fetch data from world bank API and then analyze according to dataset type
+	 */
 	public void fetchData() {
 		String country = this.countryCode;
 		String urlString = String.format("http://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json", country, this.analysisType, this.startYear, this.endYear);
@@ -112,6 +123,9 @@ public class Fetcher {
 	}
 	
 	
+	/*
+	 * getters and setters
+	 */
 	public String getCountry() {
 		return this.countryCode;
 	}
