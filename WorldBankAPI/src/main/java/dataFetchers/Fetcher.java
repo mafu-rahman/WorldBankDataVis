@@ -115,6 +115,8 @@ public class Fetcher {
 					analyser.computeAvg(jsonArray, sizeOfResults);
 				}
 				
+				// TODO: Add analysers for the remaining datasets
+				
 			}
 
 		} catch (IOException e) {
