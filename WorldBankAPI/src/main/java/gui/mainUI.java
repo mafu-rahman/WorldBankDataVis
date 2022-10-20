@@ -5,7 +5,12 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import dataFetchers.Fetcher;
+
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
 import login.loginUI;
 
@@ -35,20 +41,18 @@ public class mainUI extends JFrame{
 	 */
 	private static JFrame frame;
 	private static JPanel panel;
-	private static JLabel usernameLabel;
-	private static JLabel passwordLabel;
-	private static JLabel statusLabel;
-	private static JTextField usernameText;
-	private static JPasswordField passwordText;
+	private static JComboBox<String> countriesList;
+	private static JComboBox<Integer> fromList;
+	private static JComboBox<Integer> toList;
+
 	
-	private static JPanel panel1, panel2, panel3, panel4, panel5;
-	
+		
 	public mainUI() {
 		frame = new JFrame();
 		panel = new JPanel();
 		panel.setLayout(null);
 		frame.setTitle("Country Statistics");
-		frame.setSize(1024, 720);
+		frame.setSize(1200, 720);
 		
 		topPanel();
 		bottomPanel();
@@ -62,15 +66,15 @@ public class mainUI extends JFrame{
 		
 		JLabel chooseCountryLabel = new JLabel("Choose a country: ");
 		Vector<String> countriesNames = getCountryList();
-		JComboBox<String> countriesList = new JComboBox<String>(countriesNames);
+		this.countriesList = new JComboBox<String>(countriesNames);
 
 		JLabel from = new JLabel("From");
 		JLabel to = new JLabel("To");
 		Vector<Integer> years = getYears();
 		
 		
-		JComboBox<Integer> fromList = new JComboBox<Integer>(years);
-		JComboBox<Integer> toList = new JComboBox<Integer>(years);
+		fromList = new JComboBox<Integer>(years);
+		toList = new JComboBox<Integer>(years);
 
 		JPanel north = new JPanel();
 		north.add(chooseCountryLabel);
@@ -84,7 +88,7 @@ public class mainUI extends JFrame{
 	
 	public void bottomPanel() {
 		JButton recalculate = new JButton("Recalculate");
-
+			
 		JLabel viewsLabel = new JLabel("Available Views: ");
 
 		Vector<String> viewsNames = new Vector<String>();
@@ -118,6 +122,21 @@ public class mainUI extends JFrame{
 		south.add(methodLabel);
 		south.add(methodsList);
 		south.add(recalculate);
+		
+		/*
+		 * On pressing calculate button
+		 */
+		recalculate.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String country = (String) mainUI.countriesList.getSelectedItem();
+				long fromYear = (long) fromList.getSelectedItem();
+				long toyear = (long) toList.getSelectedItem();
+				Fetcher fetcher = new Fetcher(country, "EN.ATM.CO2E.PC", (int)fromYear, (int)toyear);
+				fetcher.fetchData();
+				
+			}
+		});
 		frame.add(south, BorderLayout.SOUTH);
 	}
 	

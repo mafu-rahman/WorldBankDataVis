@@ -3,18 +3,18 @@ package analyser;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
-public class EmissionsAnalyser extends Analyser {
+public class EnergyUseAnalyser extends Analyser {
 	
-	private double emuYear;
-	private double cumEmu;
+	private double currYear;
+	private double cumYear;
 	private JsonArray jsonArray;
 	private int sizeOfResults;
 	private String country;
 	private double mean;
 	
-	public EmissionsAnalyser(JsonArray jsonArray, int sizeOfResults, String country) {
-		this.cumEmu = 0;
-		this.emuYear = 0;
+	public EnergyUseAnalyser(JsonArray jsonArray, int sizeOfResults, String country) {
+		this.cumYear = 0;
+		this.currYear = 0;
 		this.jsonArray = jsonArray;
 		this.country = country;
 		this.sizeOfResults = sizeOfResults;
@@ -25,16 +25,16 @@ public class EmissionsAnalyser extends Analyser {
 		for (int i = 0; i < sizeOfResults; i++) {
 			year = jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("date").getAsInt();
 			if (jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("value").isJsonNull())
-				emuYear = 0.0;
+				currYear = 0.0;
 			else
-				emuYear = jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("value")
+				currYear = jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("value")
 						.getAsDouble();
 
-			System.out.println("Emissions for " + this.country + " in " + year + " is " + emuYear);
-			this.cumEmu = this.cumEmu + emuYear;
+			System.out.println("Energy Use Per Capita for " + this.country + " in " + year + " is " + currYear);
+			this.cumYear = this.cumYear + currYear;
 		}
 		
-		this.mean = calcMean(this.cumEmu, this.sizeOfResults);
+		this.mean = calcMean(this.cumYear, this.sizeOfResults);
 		printMean();
 		
 		return this.mean;

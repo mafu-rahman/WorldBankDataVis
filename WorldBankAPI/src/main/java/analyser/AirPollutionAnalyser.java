@@ -3,7 +3,7 @@ package analyser;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
-public class EmissionsAnalyser extends Analyser {
+public class AirPollutionAnalyser extends Analyser {
 	
 	private double emuYear;
 	private double cumEmu;
@@ -12,7 +12,7 @@ public class EmissionsAnalyser extends Analyser {
 	private String country;
 	private double mean;
 	
-	public EmissionsAnalyser(JsonArray jsonArray, int sizeOfResults, String country) {
+	public AirPollutionAnalyser(JsonArray jsonArray, int sizeOfResults, String country) {
 		this.cumEmu = 0;
 		this.emuYear = 0;
 		this.jsonArray = jsonArray;
@@ -30,7 +30,7 @@ public class EmissionsAnalyser extends Analyser {
 				emuYear = jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("value")
 						.getAsDouble();
 
-			System.out.println("Emissions for " + this.country + " in " + year + " is " + emuYear);
+			System.out.println("PM2.5 air pollution, mean annual exposure for " + this.country + " in " + year + " is " + emuYear);
 			this.cumEmu = this.cumEmu + emuYear;
 		}
 		

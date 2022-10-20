@@ -12,7 +12,7 @@ public class TestCases {
 		fail("Not yet implemented");
 	}
 	
-	// Test if system allows login when credentials are correct
+	// Test if system allows login when credentials are incorrect
 	@Test 
 	public void test_login_01() {
 	}

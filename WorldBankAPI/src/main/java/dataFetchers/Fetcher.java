@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
+
+import javax.xml.crypto.dsig.keyinfo.PGPData;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import analyser.*;
@@ -25,9 +28,8 @@ public class Fetcher {
 											  "EG.USE.PCAP.KG.OE",			// Energy Use (kg of oil equivalent per capita)
 											  "NY.GDP.PCAP.CD",				// GDP Per Capita 
 											  "SH.MED.BEDS.ZS",				// Hospital Beds (per 1000 people)
-											  "SE.XPD.TOTL.GD.ZS"};			// Govt expenditure on education, total (% GDP)
+											  "SH.XPD.CHEX.PC.CD"};			// Current health expenditure per capita (current US$)
 		
-	
 	/*
 	 * Constructor
 	 */
@@ -68,7 +70,7 @@ public class Fetcher {
 	}
 	
 	private boolean dateChecker(int sYear, int eYear) {
-		if(sYear < eYear) {
+		if(sYear <= eYear) {
 			System.out.println(String.format("Valid Dates found: %d, %d", sYear, eYear));
 			return true;
 		}
@@ -105,20 +107,55 @@ public class Fetcher {
 				JsonArray jsonArray = new JsonParser().parse(inline).getAsJsonArray();
 				int sizeOfResults = jsonArray.get(1).getAsJsonArray().size();
 				
+				
+				//"SP.POP.TOTL",					//Total population
 				if(this.analysisType.equals("SP.POP.TOTL")) {
 					PopulationAnalyser analyser = new PopulationAnalyser(jsonArray, sizeOfResults, country);
 					analyser.computeAvg(jsonArray, sizeOfResults);
 				}
 				
+				//"EN.ATM.CO2E.PC",				// CO2 Emissions
 				else if(this.analysisType.equals("EN.ATM.CO2E.PC")) {
 					EmissionsAnalyser analyser = new EmissionsAnalyser(jsonArray, sizeOfResults, country);
 					analyser.computeAvg(jsonArray, sizeOfResults);
 				}
 				
-				// TODO: Add analysers for the remaining datasets
+				//"EN.ATM.PM25.MC.M3", 			// PM2.5 air pollution, mean annual exposure
+				else if(this.analysisType.equals("EN.ATM.PM25.MC.M3")) {
+					AirPollutionAnalyser analyser = new AirPollutionAnalyser(jsonArray, sizeOfResults, country);
+					analyser.computeAvg(jsonArray, sizeOfResults);
+				}
 				
+				//"AG.LND.FRST.ZS",				// Forest Area (% of land area)
+				else if(this.analysisType.equals("AG.LND.FRST.ZS")) {
+					ForestAreaAnalyser analyser = new ForestAreaAnalyser(jsonArray, sizeOfResults, country);
+					analyser.computeAvg(jsonArray, sizeOfResults);
+				}
+				
+				//"EG.USE.PCAP.KG.OE",			// Energy Use (kg of oil equivalent per capita)
+				else if(this.analysisType.equals("EG.USE.PCAP.KG.OE")) {
+					EnergyUseAnalyser analyser = new EnergyUseAnalyser(jsonArray, sizeOfResults, country);
+					analyser.computeAvg(jsonArray, sizeOfResults);
+				}
+				
+				//"NY.GDP.PCAP.CD",				// GDP Per Capita 
+				else if(this.analysisType.equals("NY.GDP.PCAP.CD")) {
+					GDPperCapitaAnalyser analyser = new GDPperCapitaAnalyser(jsonArray, sizeOfResults, country);
+					analyser.computeAvg(jsonArray, sizeOfResults);
+				}
+				
+				//"SH.MED.BEDS.ZS",				// Hospital Beds (per 1000 people)
+				else if(this.analysisType.equals("SH.MED.BEDS.ZS")) {
+					HospitalBedsAnalyser analyser = new HospitalBedsAnalyser(jsonArray, sizeOfResults, country);
+					analyser.computeAvg(jsonArray, sizeOfResults);
+				}
+				
+				//"SE.XPD.TOTL.GD.ZS"};			// Govt expenditure on education, total (% GDP)
+				else if(this.analysisType.equals("SH.XPD.CHEX.PC.CD")) {
+					HealthExpensePerCapita analyser = new HealthExpensePerCapita(jsonArray, sizeOfResults, country);
+					analyser.computeAvg(jsonArray, sizeOfResults);
+				}				
 			}
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -160,8 +197,11 @@ public class Fetcher {
 		this.analysisType = analyse;
 	}
 	
-	public static void main(String[] args) { Fetcher fetcher = new Fetcher("USA", "EN.ATM.CO2E.PC", 2000, 2006);
-		fetcher.fetchData();
+	public static void main(String[] args) { 
+			
+			Fetcher fetcher = new Fetcher("USA", ANALYSIS_TYPES[7], 2000, 2006);
+			fetcher.fetchData();
+		
 	}
 	
 }
