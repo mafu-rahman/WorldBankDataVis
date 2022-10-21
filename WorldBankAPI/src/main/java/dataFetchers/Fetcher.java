@@ -33,7 +33,7 @@ public class Fetcher {
 	/*
 	 * Constructor
 	 */
-	public Fetcher(String countryCode, int analysisIndex, int sYear, int eYear) {
+	public Fetcher(String countryCode, String analyseType, int sYear, int eYear) {
 		if(countryChecker(countryCode)) {
 			this.countryCode = countryCode;
 		}
@@ -41,9 +41,9 @@ public class Fetcher {
 			this.startYear = sYear;
 			this.endYear = eYear;
 		}
-//		if(analysisChecker(analyseType)) {
-//			this.analysisType = analyseType;
-//		}
+		if(analysisChecker(analyseType)) {
+			this.analysisType = analyseType;
+		}
 	}
 	
 	/*
