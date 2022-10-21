@@ -51,6 +51,12 @@ public class Fetcher {
 	 */
 	private void visualizeData(JsonArray jrr) {
 		System.out.println(jrr);
+		jrr = jrr.get(1).getAsJsonArray();
+		for(int i=0; i<jrr.size(); i++) {
+			System.out.println("date: " + jrr.get(i).getAsJsonObject().get("date").getAsInt());
+			System.out.println("value: " + jrr.get(i).getAsJsonObject().get("value").getAsDouble());
+		}
+		
 		
 	}
 
