@@ -43,7 +43,7 @@ public class GDPperCapitaAnalyser extends Analyser {
 	@Override
 	public void printMean() {
 		System.out.println(
-				"The average emissions as micrograms per cubic metre over the selected years is " + this.mean);
+				"The average GDP per capita over the selected years is " + this.mean);
 	}
 
 }
