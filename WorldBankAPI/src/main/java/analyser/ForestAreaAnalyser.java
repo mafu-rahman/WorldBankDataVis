@@ -42,7 +42,7 @@ public class ForestAreaAnalyser extends Analyser {
 	@Override
 	public void printMean() {
 		System.out.println(
-				"The average emissions as micrograms per cubic metre over the selected years is " + this.mean);
+				"The average mean annual exposure of PM2.5 air pollution over the selected years is " + this.mean);
 	}
 
 }
