@@ -1,10 +1,15 @@
 package gui;
 
+
+
+
 import java.awt.BorderLayout;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 
 import dataFetchers.Fetcher;
 
@@ -15,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -59,6 +65,7 @@ public class mainUI extends JFrame{
 	private static JComboBox<String> countriesList;
 	private static JComboBox<Integer> fromList;
 	private static JComboBox<Integer> toList;
+	private static JComboBox<String> methodsList;
 
 	
 		
@@ -123,16 +130,15 @@ public class mainUI extends JFrame{
 		JLabel methodLabel = new JLabel("        Choose analysis method: ");
 
 		Vector<String> methodsNames = new Vector<String>();
+		methodsNames = getAnalysisList();
+		methodsList = new JComboBox<String>(methodsNames);
+
 		
-
-		JComboBox<String> methodsList = new JComboBox<String>(methodsNames);
-
 		JPanel south = new JPanel();
 		south.add(viewsLabel);
 		south.add(viewsList);
 		south.add(addView);
 		south.add(removeView);
-
 		south.add(methodLabel);
 		south.add(methodsList);
 		south.add(recalculate);
@@ -146,7 +152,8 @@ public class mainUI extends JFrame{
 				String country = (String) mainUI.countriesList.getSelectedItem();
 				long fromYear = (long) fromList.getSelectedItem();
 				long toyear = (long) toList.getSelectedItem();
-				Fetcher fetcher = new Fetcher(country, "EN.ATM.CO2E.PC", (int)fromYear, (int)toyear);
+				int analysisIndex = methodsList.getSelectedIndex();
+				Fetcher fetcher = new Fetcher(country, analysisIndex, (int)fromYear, (int)toyear);
 				fetcher.fetchData();
 				
 			}
@@ -154,6 +161,9 @@ public class mainUI extends JFrame{
 		frame.add(south, BorderLayout.SOUTH);
 	}
 	
+	/*
+	 * Parses from countries.json file to get available years
+	 */
 	public Vector<String> getCountryList() {
 		JSONParser jsonParser = new JSONParser();
 		ArrayList<String> tempCountries = new ArrayList<>();
@@ -177,6 +187,9 @@ public class mainUI extends JFrame{
         return countries;
 	}
 	
+	/*
+	 * parses from years.json to get available years
+	 */
 	public Vector<Integer> getYears(){
 		JSONParser jsonParser = new JSONParser();
 		ArrayList<Integer> tempYears = new ArrayList<>();
@@ -199,9 +212,31 @@ public class mainUI extends JFrame{
         
         return years;
 	}
-
 	
-	
-	
-	
+	/*
+	 * Parses from analysis.json file to display options
+	 */
+	public Vector<String> getAnalysisList(){
+		JsonParser jsonParser = new JsonParser();
+		
+		Vector<String> list = new Vector<>();
+		
+        try{
+        	FileReader reader = new FileReader("analysis.json");
+        	
+        	JsonArray jsonArray = (JsonArray) jsonParser.parse(reader);
+        	
+        	for(int i=0; i<jsonArray.size(); i++) {
+        		list.add(jsonArray.get(i).getAsJsonObject().get("type").getAsString());
+        	}
+        	
+ 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return list;
+	}
 }

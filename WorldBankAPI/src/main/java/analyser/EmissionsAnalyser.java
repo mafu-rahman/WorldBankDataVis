@@ -1,9 +1,18 @@
 package analyser;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Vector;
+
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
 public class EmissionsAnalyser extends Analyser {
+	
 	
 	private double emuYear;
 	private double cumEmu;
