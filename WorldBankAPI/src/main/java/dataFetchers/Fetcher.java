@@ -43,9 +43,9 @@ public class Fetcher {
 		}
 		
 		fetchData();
-		visualizeData(jsonArray);
 		
 	}
+	
 	/*
 	 * To be implemented
 	 */
@@ -94,8 +94,8 @@ public class Fetcher {
 	public void fetchData() {
 		parseAnalysisType(analyseIndex);
 		for(String s : analysisTypeCodes) {
-			System.out.println(s);
 			fetchData(s);
+			visualizeData(jsonArray);
 		}
 	}
 	
