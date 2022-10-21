@@ -123,12 +123,7 @@ public class mainUI extends JFrame{
 		JLabel methodLabel = new JLabel("        Choose analysis method: ");
 
 		Vector<String> methodsNames = new Vector<String>();
-		methodsNames.add("Mortality");
-		methodsNames.add("Mortality vs Expenses");
-		methodsNames.add("Mortality vs Expenses & Hospital Beds");
-		methodsNames.add("Mortality vs GDP");
-		methodsNames.add("Unemployment vs GDP");
-		methodsNames.add("Unemployment");
+		
 
 		JComboBox<String> methodsList = new JComboBox<String>(methodsNames);
 
