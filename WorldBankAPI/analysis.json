@@ -25,5 +25,12 @@
 		"type":"Fossil fuel consumption vs Renewable energy consumption",
 		"codes":["EG.USE.COMM.FO.ZS", "EG.FEC.RNEW.ZS"],
 		"bannedVisualizations":["Pie Chart"]
+	},
+	
+	{ 
+		"index":4,
+		"type":"Total Population",
+		"codes":["SP.POP.TOTL"],
+		"bannedVisualizations":["Pie Chart"]
 	}
 ]

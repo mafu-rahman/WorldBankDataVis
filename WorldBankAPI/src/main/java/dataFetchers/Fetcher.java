@@ -1,9 +1,12 @@
 package dataFetchers;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.Vector;
 
 import javax.xml.crypto.dsig.keyinfo.PGPData;
 
@@ -17,23 +20,20 @@ public class Fetcher {
 	private String countryCode;
 	private int startYear;
 	private int endYear;
-	private String analysisType;
+	private Vector<String> analysisTypeCodes;
+	private Vector<String> bannedVisual;
+	private JsonArray jsonArray;
+	private int analyseIndex;
+	
 	// Country Codes
 	private static String[] CODES = {"CAN", "UK", "USA", "CN", "BRA"};
-	// Data Sets
-	private static String[] ANALYSIS_TYPES = {"SP.POP.TOTL", 				// Total population
-											  "EN.ATM.CO2E.PC",				// CO2 Emissions 
-											  "EN.ATM.PM25.MC.M3", 			// PM2.5 air pollution, mean annual exposure
-											  "AG.LND.FRST.ZS",				// Forest Area (% of land area)
-											  "EG.USE.PCAP.KG.OE",			// Energy Use (kg of oil equivalent per capita)
-											  "NY.GDP.PCAP.CD",				// GDP Per Capita 
-											  "SH.MED.BEDS.ZS",				// Hospital Beds (per 1000 people)
-											  "SH.XPD.CHEX.PC.CD"};			// Current health expenditure per capita (current US$)
+
 		
 	/*
 	 * Constructor
 	 */
-	public Fetcher(String countryCode, String analyseType, int sYear, int eYear) {
+	public Fetcher(String countryCode, int analyseIndex, int sYear, int eYear) {
+		this.analyseIndex = analyseIndex;
 		if(countryChecker(countryCode)) {
 			this.countryCode = countryCode;
 		}
@@ -41,23 +41,98 @@ public class Fetcher {
 			this.startYear = sYear;
 			this.endYear = eYear;
 		}
-		if(analysisChecker(analyseType)) {
-			this.analysisType = analyseType;
+		
+		fetchData();
+		visualizeData(jsonArray);
+		
+	}
+	/*
+	 * To be implemented
+	 */
+	private void visualizeData(JsonArray jrr) {
+		System.out.println(jrr);
+		
+	}
+
+	
+	public void parseAnalysisType(int index) {
+		JsonParser jsonParser = new JsonParser();
+		
+		analysisTypeCodes = new Vector<>();
+		bannedVisual = new Vector<>();
+		
+        try{
+        	FileReader reader = new FileReader("analysis.json");
+        	
+        	JsonArray jsonArray = (JsonArray) jsonParser.parse(reader);
+        	
+        	JsonArray analysisCodes = jsonArray.get(index).getAsJsonObject().get("codes").getAsJsonArray();
+        	
+        	for(int i=0; i< analysisCodes.size(); i++) {
+        		analysisTypeCodes.add(analysisCodes.get(i).getAsString());
+        	}
+        	
+        	JsonArray bannedVisualJSON = jsonArray.get(index).getAsJsonObject().get("bannedVisualizations").getAsJsonArray();
+        	
+        	for(int i=0; i< bannedVisualJSON.size(); i++) {
+        		bannedVisual.add(bannedVisualJSON.get(i).getAsString());
+        	}        	
+        	
+ 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	
+	/*
+	 * fetch data from world bank API and then analyze according to dataset type
+	 */
+	
+	public void fetchData() {
+		parseAnalysisType(analyseIndex);
+		for(String s : analysisTypeCodes) {
+			System.out.println(s);
+			fetchData(s);
 		}
 	}
+	
+	public void fetchData(String analysisTypeCode) {
+		String country = this.countryCode;
+		String urlString = String.format("http://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json", country, analysisTypeCode, this.startYear, this.endYear);
+		System.out.println("Connecting to URL: " + urlString);
+		
+		try {
+			
+			URL url = new URL(urlString);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.connect();
+			
+			int responsecode = conn.getResponseCode();
+			if (responsecode == 200) {
+				String inline = "";
+				Scanner sc = new Scanner(url.openStream());
+				while (sc.hasNext()) {
+					inline += sc.nextLine();
+				}
+				sc.close();
+				
+				jsonArray = new JsonParser().parse(inline).getAsJsonArray();
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	/*
 	 * check if analysisType, start year, end year, and countryCode are valid
 	 */
-	private boolean analysisChecker(String analyse) {
-		for(String s : ANALYSIS_TYPES) {
-			if(s.equals(analyse)) {
-				System.out.println(String.format("Valid analysis code found: %s", analyse));
-				return true;
-			}
-		}
-		return false;
-	}
 	
 	private boolean countryChecker(String code) {
 		for(String s : CODES) {
@@ -77,90 +152,6 @@ public class Fetcher {
 		return false;
 	}
 	
-
-	/*
-	 * fetch data from world bank API and then analyze according to dataset type
-	 */
-	public void fetchData() {
-		String country = this.countryCode;
-		String urlString = String.format("http://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json", country, this.analysisType, this.startYear, this.endYear);
-		System.out.println("Connecting to URL: " + urlString);
-		int popYear = 0;
-		int cumPop = 0;
-		
-		try {
-			
-			URL url = new URL(urlString);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-			conn.connect();
-			
-			int responsecode = conn.getResponseCode();
-			if (responsecode == 200) {
-				String inline = "";
-				Scanner sc = new Scanner(url.openStream());
-				while (sc.hasNext()) {
-					inline += sc.nextLine();
-				}
-				sc.close();
-				
-				JsonArray jsonArray = new JsonParser().parse(inline).getAsJsonArray();
-				int sizeOfResults = jsonArray.get(1).getAsJsonArray().size();
-				
-				
-				//"SP.POP.TOTL",					//Total population
-				if(this.analysisType.equals("SP.POP.TOTL")) {
-					PopulationAnalyser analyser = new PopulationAnalyser(jsonArray, sizeOfResults, country);
-					analyser.computeAvg(jsonArray, sizeOfResults);
-				}
-				
-				//"EN.ATM.CO2E.PC",				// CO2 Emissions
-				else if(this.analysisType.equals("EN.ATM.CO2E.PC")) {
-					EmissionsAnalyser analyser = new EmissionsAnalyser(jsonArray, sizeOfResults, country);
-					analyser.computeAvg(jsonArray, sizeOfResults);
-				}
-				
-				//"EN.ATM.PM25.MC.M3", 			// PM2.5 air pollution, mean annual exposure
-				else if(this.analysisType.equals("EN.ATM.PM25.MC.M3")) {
-					AirPollutionAnalyser analyser = new AirPollutionAnalyser(jsonArray, sizeOfResults, country);
-					analyser.computeAvg(jsonArray, sizeOfResults);
-				}
-				
-				//"AG.LND.FRST.ZS",				// Forest Area (% of land area)
-				else if(this.analysisType.equals("AG.LND.FRST.ZS")) {
-					ForestAreaAnalyser analyser = new ForestAreaAnalyser(jsonArray, sizeOfResults, country);
-					analyser.computeAvg(jsonArray, sizeOfResults);
-				}
-				
-				//"EG.USE.PCAP.KG.OE",			// Energy Use (kg of oil equivalent per capita)
-				else if(this.analysisType.equals("EG.USE.PCAP.KG.OE")) {
-					EnergyUseAnalyser analyser = new EnergyUseAnalyser(jsonArray, sizeOfResults, country);
-					analyser.computeAvg(jsonArray, sizeOfResults);
-				}
-				
-				//"NY.GDP.PCAP.CD",				// GDP Per Capita 
-				else if(this.analysisType.equals("NY.GDP.PCAP.CD")) {
-					GDPperCapitaAnalyser analyser = new GDPperCapitaAnalyser(jsonArray, sizeOfResults, country);
-					analyser.computeAvg(jsonArray, sizeOfResults);
-				}
-				
-				//"SH.MED.BEDS.ZS",				// Hospital Beds (per 1000 people)
-				else if(this.analysisType.equals("SH.MED.BEDS.ZS")) {
-					HospitalBedsAnalyser analyser = new HospitalBedsAnalyser(jsonArray, sizeOfResults, country);
-					analyser.computeAvg(jsonArray, sizeOfResults);
-				}
-				
-				//"SE.XPD.TOTL.GD.ZS"};			// Govt expenditure on education, total (% GDP)
-				else if(this.analysisType.equals("SH.XPD.CHEX.PC.CD")) {
-					HealthExpensePerCapita analyser = new HealthExpensePerCapita(jsonArray, sizeOfResults, country);
-					analyser.computeAvg(jsonArray, sizeOfResults);
-				}				
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	
 	/*
 	 * getters and setters
@@ -177,10 +168,6 @@ public class Fetcher {
 		return this.endYear;
 	}
 	
-	public String getAnalysisType() {
-		return this.analysisType;
-	}
-	
 	public void setCountry(String country) {
 		this.countryCode = country;
 	}
@@ -193,14 +180,10 @@ public class Fetcher {
 		this.endYear = eYear;
 	}
 	
-	public void setAnalysisType(String analyse) {
-		this.analysisType = analyse;
-	}
-	
 	public static void main(String[] args) { 
 			
-			Fetcher fetcher = new Fetcher("USA", ANALYSIS_TYPES[7], 2000, 2006);
-			fetcher.fetchData();
+			//Fetcher fetcher = new Fetcher("USA", 0, 2000, 2006);
+			//fetcher.fetchData();
 		
 	}
 	

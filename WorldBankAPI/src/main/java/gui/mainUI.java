@@ -154,7 +154,6 @@ public class mainUI extends JFrame{
 				long toyear = (long) toList.getSelectedItem();
 				int analysisIndex = methodsList.getSelectedIndex();
 				Fetcher fetcher = new Fetcher(country, analysisIndex, (int)fromYear, (int)toyear);
-				fetcher.fetchData();
 				
 			}
 		});
