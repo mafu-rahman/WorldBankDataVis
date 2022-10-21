@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -34,7 +35,21 @@ public class mainUI extends JFrame{
 		
 		new mainUI();
 		
+		
 	}
+	
+	/*
+	 * This method returns list of all countries
+	 */
+	public static Vector<String> getAllCountries() {
+	    Vector<String> countries = new Vector<>();
+	    String[] countryCodes = Locale.getISOCountries();
+	    for (int i = 0; i < countryCodes.length; i++) {
+	        Locale obj = new Locale("", countryCodes[i]);
+	        countries.add(obj.getDisplayCountry());
+	    }
+	    return countries;
+	 }
 
 	/*
 	 * Class Attributes
@@ -65,7 +80,10 @@ public class mainUI extends JFrame{
 		
 		
 		JLabel chooseCountryLabel = new JLabel("Choose a country: ");
+		//country list
 		Vector<String> countriesNames = getCountryList();
+		//Vector<String> countriesNames = getAllCountries();
+		
 		this.countriesList = new JComboBox<String>(countriesNames);
 
 		JLabel from = new JLabel("From");
@@ -90,13 +108,14 @@ public class mainUI extends JFrame{
 		JButton recalculate = new JButton("Recalculate");
 			
 		JLabel viewsLabel = new JLabel("Available Views: ");
-
 		Vector<String> viewsNames = new Vector<String>();
 		viewsNames.add("Pie Chart");
 		viewsNames.add("Line Chart");
 		viewsNames.add("Bar Chart");
 		viewsNames.add("Scatter Chart");
 		viewsNames.add("Report");
+		
+		
 		JComboBox<String> viewsList = new JComboBox<String>(viewsNames);
 		JButton addView = new JButton("+");
 		JButton removeView = new JButton("-");
