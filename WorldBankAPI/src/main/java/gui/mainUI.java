@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -59,6 +60,7 @@ public class mainUI extends JFrame{
 	private static JComboBox<String> countriesList;
 	private static JComboBox<Integer> fromList;
 	private static JComboBox<Integer> toList;
+	private static Vector<String> viewsNames;
 
 	
 		
@@ -108,7 +110,7 @@ public class mainUI extends JFrame{
 		JButton recalculate = new JButton("Recalculate");
 			
 		JLabel viewsLabel = new JLabel("Available Views: ");
-		Vector<String> viewsNames = new Vector<String>();
+		viewsNames = new Vector<String>();
 		viewsNames.add("Pie Chart");
 		viewsNames.add("Line Chart");
 		viewsNames.add("Bar Chart");
@@ -130,8 +132,9 @@ public class mainUI extends JFrame{
 		methodsNames.add("Unemployment vs GDP");
 		methodsNames.add("Unemployment");
 
+		
 		JComboBox<String> methodsList = new JComboBox<String>(methodsNames);
-
+		
 		JPanel south = new JPanel();
 		south.add(viewsLabel);
 		south.add(viewsList);

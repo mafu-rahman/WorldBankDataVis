@@ -487,6 +487,7 @@ public class MainUI extends JFrame {
 		frame.setSize(900, 600);
 		frame.pack();
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	// TODO Auto-generated method stub
 

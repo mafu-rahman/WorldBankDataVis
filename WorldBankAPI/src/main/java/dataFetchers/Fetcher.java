@@ -19,7 +19,7 @@ public class Fetcher {
 	private int endYear;
 	private String analysisType;
 	// Country Codes
-	private static String[] CODES = {"CAN", "UK", "USA", "CN", "BRA"};
+	private static String[] CODES = {"CAN", "GBR", "USA", "CN", "BRA"};
 	// Data Sets
 	private static String[] ANALYSIS_TYPES = {"SP.POP.TOTL", 				// Total population
 											  "EN.ATM.CO2E.PC",				// CO2 Emissions 
