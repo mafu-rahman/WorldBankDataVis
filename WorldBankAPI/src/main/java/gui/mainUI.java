@@ -1,14 +1,20 @@
 package gui;
 
+
+
+
 import java.awt.BorderLayout;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+
 import dataFetchers.Fetcher;
 
 import java.awt.Container;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -33,70 +39,65 @@ import login.loginUI;
 public class mainUI extends JFrame{
 
 	public static void main(String[] args) {
-		
-		new mainUI();
-		
-		
+		new mainUI();	
 	}
-	
-	/*
-	 * This method returns list of all countries
-	 */
-	public static Vector<String> getAllCountries() {
-	    Vector<String> countries = new Vector<>();
-	    String[] countryCodes = Locale.getISOCountries();
-	    for (int i = 0; i < countryCodes.length; i++) {
-	        Locale obj = new Locale("", countryCodes[i]);
-	        countries.add(obj.getDisplayCountry());
-	    }
-	    return countries;
-	 }
 
 	/*
 	 * Class Attributes
 	 */
 	private static JFrame frame;
 	private static JPanel panel;
+	
 	private static JComboBox<String> countriesList;
 	private static JComboBox<Integer> fromList;
 	private static JComboBox<Integer> toList;
-	private static Vector<String> viewsNames;
+	
+	private static JComboBox<String> methodsList;
+	private static JComboBox<String> viewsList;
+	
+	private static JButton addView;
+	private static JButton removeView;
+	private static JButton recalculate;
+	
+	private ArrayList<JsonArray> retrievedJsonArray;
+	
+	private ArrayList<Visualization> visual;
 
 	
-		
+	//private static dataParser dataparse;
+	
+	/*
+	 * Constructor
+	 */
 	public mainUI() {
 		frame = new JFrame();
 		panel = new JPanel();
 		panel.setLayout(null);
 		frame.setTitle("Country Statistics");
-		frame.setSize(1200, 720);
 		
 		topPanel();
 		bottomPanel();
+		
+		frame.setSize(1200, 720);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 	}
 	
 	public void topPanel() {
 		
-		
-		
 		JLabel chooseCountryLabel = new JLabel("Choose a country: ");
-		//country list
-		Vector<String> countriesNames = getCountryList();
-		//Vector<String> countriesNames = getAllCountries();
 		
+		Vector<String> countriesNames = DATAPARSER.getCountryList();
 		this.countriesList = new JComboBox<String>(countriesNames);
 
 		JLabel from = new JLabel("From");
 		JLabel to = new JLabel("To");
-		Vector<Integer> years = getYears();
-		
-		
+		Vector<Integer> years = DATAPARSER.getYears();
 		fromList = new JComboBox<Integer>(years);
 		toList = new JComboBox<Integer>(years);
 
-		JPanel north = new JPanel();
+		JPanel north = new JPanel();		
 		north.add(chooseCountryLabel);
 		north.add(countriesList);
 		north.add(from);
@@ -107,40 +108,30 @@ public class mainUI extends JFrame{
 	}
 	
 	public void bottomPanel() {
-		JButton recalculate = new JButton("Recalculate");
-			
+		recalculate = new JButton("Recalculate");
 		JLabel viewsLabel = new JLabel("Available Views: ");
-		viewsNames = new Vector<String>();
-		viewsNames.add("Pie Chart");
+		
+		Vector<String> viewsNames = new Vector<String>();
 		viewsNames.add("Line Chart");
 		viewsNames.add("Bar Chart");
 		viewsNames.add("Scatter Chart");
-		viewsNames.add("Report");
+		viewsNames.add("Pie Chart");
+		viewsNames.add("Report");		
+		viewsList = new JComboBox<String>(viewsNames);
 		
-		
-		JComboBox<String> viewsList = new JComboBox<String>(viewsNames);
-		JButton addView = new JButton("+");
-		JButton removeView = new JButton("-");
+		this.addView = new JButton("+");
+		this.removeView = new JButton("-");
 
 		JLabel methodLabel = new JLabel("        Choose analysis method: ");
-
 		Vector<String> methodsNames = new Vector<String>();
-		methodsNames.add("Mortality");
-		methodsNames.add("Mortality vs Expenses");
-		methodsNames.add("Mortality vs Expenses & Hospital Beds");
-		methodsNames.add("Mortality vs GDP");
-		methodsNames.add("Unemployment vs GDP");
-		methodsNames.add("Unemployment");
-
-		
-		JComboBox<String> methodsList = new JComboBox<String>(methodsNames);
+		methodsNames = DATAPARSER.getAnalysisList();
+		methodsList = new JComboBox<String>(methodsNames);
 		
 		JPanel south = new JPanel();
 		south.add(viewsLabel);
 		south.add(viewsList);
 		south.add(addView);
 		south.add(removeView);
-
 		south.add(methodLabel);
 		south.add(methodsList);
 		south.add(recalculate);
@@ -151,64 +142,35 @@ public class mainUI extends JFrame{
 		recalculate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				String country = (String) mainUI.countriesList.getSelectedItem();
 				long fromYear = (long) fromList.getSelectedItem();
-				long toyear = (long) toList.getSelectedItem();
-				Fetcher fetcher = new Fetcher(country, "EN.ATM.CO2E.PC", (int)fromYear, (int)toyear);
-				fetcher.fetchData();
+				long toYear = (long) toList.getSelectedItem();
+				String visualType = (String) viewsList.getSelectedItem();
+				int analyseIndex = methodsList.getSelectedIndex();
+				retrievedJsonArray = new ArrayList<>();
+								
+				ArrayList<String> analyseTypeCodes = DATAPARSER.getAnalysisCodes(analyseIndex);
+				ArrayList<String> bannedVisuals = DATAPARSER.getBannedVisuals(analyseIndex);
+				
+				for(String s: analyseTypeCodes) {
+					Fetcher fetcher = new Fetcher(country, (int)fromYear, (int)toYear);
+					retrievedJsonArray.add(fetcher.fetchData(s));
+				}
+				
+				Visualization v = new Visualization(visualType, retrievedJsonArray);
+				v.drawChart();	
 				
 			}
 		});
+		
 		frame.add(south, BorderLayout.SOUTH);
 	}
 	
-	public Vector<String> getCountryList() {
-		JSONParser jsonParser = new JSONParser();
-		ArrayList<String> tempCountries = new ArrayList<>();
-		Vector<String> countries = null;
-        try{
-        	FileReader reader = new FileReader("countries.json");
-        	JSONObject countriesJSON = (JSONObject) jsonParser.parse(reader);
-        	
-        	tempCountries = (ArrayList<String>) countriesJSON.get("countries");
-        	countries = new Vector<>(tempCountries);
-     		
- 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        
-        return countries;
-	}
 	
-	public Vector<Integer> getYears(){
-		JSONParser jsonParser = new JSONParser();
-		ArrayList<Integer> tempYears = new ArrayList<>();
-		Vector<Integer> years = null;
-        try{
-        	FileReader reader = new FileReader("years.json");
-        	JSONObject yearsJSON = (JSONObject) jsonParser.parse(reader);
-        	
-        	tempYears = (ArrayList<Integer>) yearsJSON.get("years");
-        	years = new Vector<Integer>(tempYears);
-     		
- 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        
-        return years;
-	}
-
-	
+	/*
+	 * Getters and setters
+	 */
 	
 	
 	

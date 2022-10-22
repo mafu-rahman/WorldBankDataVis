@@ -1,4 +1,6 @@
-/tests/
-/login/
-/dataFetchers/
 /META-INF/
+/analyser/
+/gui/
+/dataFetchers/
+/statsVisualiser/
+/login/
