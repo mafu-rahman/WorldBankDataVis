@@ -1,5 +1,7 @@
 package tests;
 import login.*;
+import dataFetchers.*;
+import analyser.*;
 
 import static org.junit.Assert.*;
 
@@ -88,62 +90,111 @@ public class TestCases {
 	
 	@Test 
 	public void test_analyser_01() {
+		fail("Umimplemented");
 		
 	}
 	
 	@Test 
 	public void test_analyser_02() {
+		fail("Umimplemented");
 		
 	}
 	
 	@Test
 	public void test_analyser_03() {
+		fail("Umimplemented");
 		
 	}
 
 	@Test
 	public void test_analyser_04() {
+		fail("Umimplemented");
 		
 	}
 
+	/*
+	 * Test Line Chart
+	 */
 	@Test
 	public void test_visualizer_01() {
+		fail("Umimplemented");
 		
 	}
 	
+	/*
+	 * Test Bar Chart
+	 */
 	@Test
 	public void test_visualizer_02() {
+		fail("Umimplemented");
 		
 	}
 	
+	/*
+	 * Test Report
+	 */
 	@Test
 	public void test_visualizer_03() {
+		fail("Umimplemented");
 		
 	}
 	
+	/*
+	 * Test Pie Chart
+	 */
 	@Test
 	public void test_visualizer_04() {
+		fail("Umimplemented");
 		
 	}
 	
+	/*
+	 * Test Fetching for CAN
+	 */
 	@Test
 	public void test_fetcher_01() {
-		
+		Fetcher fetcher = new Fetcher("CAN", "SP.POP.TOTL", 2000, 2001);
+		assertEquals(2000, fetcher.getStartYear());
+		assertEquals(2001, fetcher.getEndYear());
+		assertEquals("CAN", fetcher.getCountry());
+		assertEquals("SP.POP.TOTL", fetcher.getAnalysisType());
 	}
 	
+	/*
+	 * Test Fetching for USA
+	 */
 	@Test
 	public void test_fetcher_02() {
-		
+		Fetcher fetcher = new Fetcher("USA", "EN.ATM.CO2E.PC", 2000, 2006);
+		assertEquals(2000, fetcher.getStartYear());
+		assertEquals(2006, fetcher.getEndYear());
+		assertEquals("USA", fetcher.getCountry());
+		assertEquals("EN.ATM.CO2E.PC", fetcher.getAnalysisType());
 	}
 	
+	
+	/*
+	 * Test Fetching for BRA
+	 */
 	@Test
 	public void test_fetcher_03() {
-		
+		Fetcher fetcher = new Fetcher("BRA", "NY.GDP.PCAP.CD", 2001, 2011);
+		assertEquals(2001, fetcher.getStartYear());
+		assertEquals(2011, fetcher.getEndYear());
+		assertEquals("BRA", fetcher.getCountry());
+		assertEquals("NY.GDP.PCAP.CD", fetcher.getAnalysisType());
 	}
 	
+	/*
+	 * Test Fetching for CN
+	 */
 	@Test
 	public void test_fetcher_04() {
-		
+		Fetcher fetcher = new Fetcher("CN", "SP.POP.TOTL", 2000, 2001);
+		assertEquals(2000, fetcher.getStartYear());
+		assertEquals(2001, fetcher.getEndYear());
+		assertEquals("CN", fetcher.getCountry());
+		assertEquals("SP.POP.TOTL", fetcher.getAnalysisType());
 	}
 	
 }

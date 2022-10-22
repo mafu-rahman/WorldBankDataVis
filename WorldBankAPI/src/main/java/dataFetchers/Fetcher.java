@@ -199,7 +199,7 @@ public class Fetcher {
 	
 	public static void main(String[] args) { 
 			
-			Fetcher fetcher = new Fetcher("USA", ANALYSIS_TYPES[7], 2000, 2006);
+			Fetcher fetcher = new Fetcher("BRA", ANALYSIS_TYPES[0], 2003, 2001);
 			fetcher.fetchData();
 		
 	}
