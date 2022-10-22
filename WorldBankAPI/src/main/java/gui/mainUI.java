@@ -169,8 +169,15 @@ public class mainUI extends JFrame{
 				
 			}
 		});
-		
 		frame.add(south, BorderLayout.SOUTH);
+		addPanel();
+	}
+	
+	public void addPanel() {
+		JPanel west = new JPanel();
+		west.setLayout(new GridLayout(2, 0));
+		addCharts(west);
+		frame.add(west, BorderLayout.WEST);
 	}
 	
 	private void addCharts(JPanel panel) {
