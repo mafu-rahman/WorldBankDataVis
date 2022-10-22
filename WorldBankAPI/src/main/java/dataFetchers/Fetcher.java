@@ -24,6 +24,7 @@ public class Fetcher {
 	private Vector<String> bannedVisual;
 	private JsonArray jsonArray;
 	private int analyseIndex;
+	private String visualType;
 	
 	// Country Codes
 	private static String[] CODES = {"CAN", "UK", "USA", "CN", "BRA"};
@@ -41,9 +42,6 @@ public class Fetcher {
 			this.startYear = sYear;
 			this.endYear = eYear;
 		}
-		
-		fetchData();
-		
 	}
 	
 	/*
@@ -52,10 +50,10 @@ public class Fetcher {
 	private void visualizeData(JsonArray jrr) {
 		System.out.println(jrr);
 		jrr = jrr.get(1).getAsJsonArray();
-		for(int i=0; i<jrr.size(); i++) {
-			System.out.println("date: " + jrr.get(i).getAsJsonObject().get("date").getAsInt());
-			System.out.println("value: " + jrr.get(i).getAsJsonObject().get("value").getAsDouble());
-		}
+//		for(int i=0; i<jrr.size(); i++) {
+//			System.out.println("date: " + jrr.get(i).getAsJsonObject().get("date").getAsInt());
+//			System.out.println("value: " + jrr.get(i).getAsJsonObject().get("value").getAsDouble());
+//		}
 		
 		
 	}
@@ -99,6 +97,7 @@ public class Fetcher {
 	
 	public void fetchData() {
 		parseAnalysisType(analyseIndex);
+		
 		for(String s : analysisTypeCodes) {
 			fetchData(s);
 			visualizeData(jsonArray);
@@ -191,6 +190,11 @@ public class Fetcher {
 			//Fetcher fetcher = new Fetcher("USA", 0, 2000, 2006);
 			//fetcher.fetchData();
 		
+	}
+
+	public void setAnalyseType(String visualType) {
+
+		this.visualType = visualType;
 	}
 	
 }
