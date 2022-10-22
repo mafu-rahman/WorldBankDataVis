@@ -132,8 +132,12 @@ public class Fetcher {
 
 	}
 
-	public void setAnalyseType(String visualType) {
+	public void setVisualType(String visualType) {
 		this.visualType = visualType;
+	}
+	
+	public String getVisualType() {
+		return this.visualType;
 	}
 	
 }

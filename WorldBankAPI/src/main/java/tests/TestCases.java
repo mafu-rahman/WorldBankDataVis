@@ -168,7 +168,10 @@ public class TestCases {
 	 */
 	@Test
 	public void test_fetcher_01() {
-		fail("Umimplemented");
+		Fetcher fetcher = new Fetcher("CAN", 2000, 2001);
+		assertEquals("CAN", fetcher.getCountry());
+		assertEquals(2000, fetcher.getStartYear());
+		assertEquals(2001, fetcher.getEndYear());
 	}
 	
 	/*
