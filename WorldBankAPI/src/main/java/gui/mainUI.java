@@ -6,6 +6,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -83,6 +84,7 @@ public class mainUI extends JFrame{
 		
 		topPanel();
 		bottomPanel();
+		addPanel();
 		
 		frame.setSize(1200, 720);
 		frame.setVisible(true);
@@ -170,7 +172,6 @@ public class mainUI extends JFrame{
 			}
 		});
 		frame.add(south, BorderLayout.SOUTH);
-		addPanel();
 	}
 	
 	public void addPanel() {
@@ -182,6 +183,7 @@ public class mainUI extends JFrame{
 	
 	private void addCharts(JPanel panel) {
 		createReport(panel);
+		createBlueReport(panel);
 	}
 	
 	private void createReport(JPanel panel) {
@@ -196,6 +198,25 @@ public class mainUI extends JFrame{
 		report.setText(reportMessage);
 		JScrollPane outputPane = new JScrollPane(report);
 		panel.add(outputPane);
+		
+	}
+	
+	private void createBlueReport(JPanel panel) {
+		JTextArea report = new JTextArea();
+		report.setEditable(false);
+		report.setPreferredSize(new Dimension(400, 300));
+		report.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		report.setBackground(Color.blue);
+		
+		String reportMessage = "Test Message" + "\n";
+		
+		report.setText(reportMessage);
+		JScrollPane outputPane = new JScrollPane(report);
+		panel.add(outputPane);
+	}
+	
+	private void createPie(JPanel panel) {
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
 	}
 }
