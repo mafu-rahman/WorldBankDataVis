@@ -58,10 +58,11 @@ public class Visualization {
 	
 	private void drawLineChart() {
 		for(int i=0; i<years.size(); i++) {
+			System.out.println(visualType);
+
 			ArrayList<Integer> y = years.get(i);
 			ArrayList<Double> v = values.get(i);
 			for(int j=0; j<y.size(); j++) {
-				System.out.println(visualType);
 				System.out.println("Year: " + y.get(j) + " Value: " + v.get(j));
 
 			}

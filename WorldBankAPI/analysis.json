@@ -16,7 +16,7 @@
 	{ 
 		"index":2,
 		"type":"Renewable energy output vs Renewable energy consumption",
-		"codes":["EG.ELC.RNEW.ZS ", "EG.FEC.RNEW.ZS"],
+		"codes":["EG.ELC.RNEW.ZS", "EG.FEC.RNEW.ZS"],
 		"bannedVisualizations":["Pie Chart"]
 	},
 	
