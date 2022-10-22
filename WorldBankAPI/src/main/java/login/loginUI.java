@@ -35,6 +35,8 @@ public class loginUI extends JFrame implements ActionListener{
 	private static JTextField usernameText;
 	private static JPasswordField passwordText;
 	private static JButton loginButton;
+	private String username;
+	private String password;
 	
 
 	/*
@@ -102,6 +104,8 @@ public class loginUI extends JFrame implements ActionListener{
 		//getting the username and password from the UI text field
 		String user = usernameText.getText();
 		String password = passwordText.getText();
+		this.username = usernameText.getText();
+		this.password = passwordText.getText();
 		
 		/*
 		 * Theres a .csv file where username and passwords are stored as comma separated values (.csv)
@@ -130,4 +134,21 @@ public class loginUI extends JFrame implements ActionListener{
 		}
 		statusLabel.setText("Wrong Credentials!");
 	}
+	
+	public void setUsername(String user) {
+		this.username = user;
+	}
+	
+	public void setPassword(String pass) {
+		this.password = pass;
+	}
+	
+	public String getUsername() {
+		return this.username;
+	}
+	
+	public String getPassword() {
+		return this.password;
+	}
+	
 }

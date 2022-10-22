@@ -1,5 +1,2 @@
-/META-INF/
-/analyser/
-/gui/
-/statsVisualiser/
-/dataFetchers/
+/tests/
+/login/
