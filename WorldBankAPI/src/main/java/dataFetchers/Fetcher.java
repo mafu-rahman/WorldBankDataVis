@@ -42,7 +42,9 @@ public class Fetcher {
 	
 	public JsonArray fetchData(String analysisTypeCode) {
 		String country = this.countryCode;
-		String urlString = String.format("http://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json", country, analysisTypeCode, this.startYear, this.endYear);
+		String urlString = String.format(""
+				+ "http://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json"
+				, country, analysisTypeCode, this.startYear, this.endYear);
 		System.out.println("Connecting to URL: " + urlString);
 		JsonArray retrievedJsonArray = new JsonArray();
 		
@@ -125,8 +127,9 @@ public class Fetcher {
 	}
 	
 	public static void main(String[] args) { 
-			Fetcher fetcher = new Fetcher("USA", 2000, 2006);
-			fetcher.fetchData();
+		// Fetcher fetcher = new Fetcher("USA", 2000, 2006);
+		// fetcher.fetchData("SP.POP.TOTL");
+
 	}
 
 	public void setAnalyseType(String visualType) {
