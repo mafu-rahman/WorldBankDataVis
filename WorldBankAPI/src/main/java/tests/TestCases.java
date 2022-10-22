@@ -18,38 +18,54 @@ public class TestCases {
 	@Test 
 	public void test_login_01() {
 		loginUI loginui = new loginUI();
+<<<<<<< Updated upstream
 		loginui.setUsername("mafurrrr");
 		loginui.setPassword("wrongpassword");
+=======
+		loginui.setUsername("wrong username");
+		loginui.setPassword("wrong password");
+>>>>>>> Stashed changes
 		String path = "credentials.csv";
 		String line = "";
+		boolean condition = false;
 		try {
 			BufferedReader br = new BufferedReader(new FileReader((path)));
 			while((line = br.readLine()) != null) {
 				String[] values = line.split(",");
-				assertFalse(loginui.getUsername().equals(values[0]) && loginui.getPassword().equals(values[1]));
+				if(loginui.getUsername().equals(values[0]) && loginui.getPassword().equals(values[1])) {
+					condition = true;
+				}
 			}
 		}catch(Exception exception) {
 			exception.printStackTrace();
 		}
+		
+		assertFalse(condition);
+
 	}
 	
 	// Test if system allows login when credentials are correct
 	@Test
 	public void test_login_02() {
 		loginUI loginui = new loginUI();
-		loginui.setUsername("mafu");
-		loginui.setPassword("password");
+		loginui.setUsername("admin");
+		loginui.setPassword("admin");
 		String path = "credentials.csv";
 		String line = "";
+		boolean condition = false;
 		try {
 			BufferedReader br = new BufferedReader(new FileReader((path)));
 			while((line = br.readLine()) != null) {
 				String[] values = line.split(",");
-				assertTrue(loginui.getUsername().equals(values[0]) && loginui.getPassword().equals(values[1]));
+				if(loginui.getUsername().equals(values[0]) && loginui.getPassword().equals(values[1])) {
+					condition = true;
+				}
 			}
 		}catch(Exception exception) {
 			exception.printStackTrace();
 		}
+		
+		assertTrue(condition);
 	}
 	
 	// Test if system allows login when credentials are not provided
