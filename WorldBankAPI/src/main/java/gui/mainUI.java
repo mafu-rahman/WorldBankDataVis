@@ -1,8 +1,6 @@
 package gui;
 
-
-
-
+import gui.DATAPARSER;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -69,6 +67,8 @@ public class mainUI extends JFrame{
 	private ArrayList<JsonArray> retrievedJsonArray;
 	
 	private ArrayList<Visualization> visual;
+	
+	JPanel west;
 
 	
 	//private static dataParser dataparse;
@@ -86,7 +86,7 @@ public class mainUI extends JFrame{
 		bottomPanel();
 		addPanel();
 		
-		frame.setSize(1200, 720);
+		frame.setSize(1200, 800);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -144,6 +144,9 @@ public class mainUI extends JFrame{
 		south.add(methodsList);
 		south.add(recalculate);
 		
+		west = new JPanel();
+		west.setLayout(new GridLayout(2, 0));
+		
 		/*
 		 * On pressing calculate button
 		 */
@@ -168,15 +171,18 @@ public class mainUI extends JFrame{
 				
 				Visualization v = new Visualization(visualType, retrievedJsonArray);
 				v.drawChart();	
+				addPanel();
 				
+				frame.invalidate();
+				frame.validate();
+				frame.repaint();
+
 			}
 		});
 		frame.add(south, BorderLayout.SOUTH);
 	}
 	
 	public void addPanel() {
-		JPanel west = new JPanel();
-		west.setLayout(new GridLayout(2, 0));
 		addCharts(west);
 		frame.add(west, BorderLayout.WEST);
 	}
@@ -190,7 +196,7 @@ public class mainUI extends JFrame{
 		JTextArea report = new JTextArea();
 		report.setEditable(false);
 		report.setPreferredSize(new Dimension(400, 300));
-		report.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		report.setBackground(Color.red);
 		
 		String reportMessage = "Test Message" + "\n";
