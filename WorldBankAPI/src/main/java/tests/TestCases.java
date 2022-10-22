@@ -18,18 +18,12 @@ public class TestCases {
 	@Test 
 	public void test_login_01() {
 		loginUI loginui = new loginUI();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 		loginui.setUsername("mafurrrr");
 		loginui.setPassword("wrongpassword");
-=======
 		loginui.setUsername("wrong username");
 		loginui.setPassword("wrong password");
->>>>>>> Stashed changes
-=======
 		loginui.setUsername("wrong username");
 		loginui.setPassword("wrong password");
->>>>>>> Stashed changes
 		String path = "credentials.csv";
 		String line = "";
 		boolean condition = false;
