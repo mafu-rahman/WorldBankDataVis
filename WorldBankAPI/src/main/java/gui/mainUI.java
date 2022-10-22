@@ -84,7 +84,7 @@ public class mainUI extends JFrame{
 		topPanel();
 		bottomPanel();
 		
-		frame.setSize(1200, 720);
+		frame.setSize(1200, 800);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -194,7 +194,7 @@ public class mainUI extends JFrame{
 		JTextArea report = new JTextArea();
 		report.setEditable(false);
 		report.setPreferredSize(new Dimension(400, 300));
-		report.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		report.setBackground(Color.red);
 		
 		String reportMessage = "Test Message" + "\n";
