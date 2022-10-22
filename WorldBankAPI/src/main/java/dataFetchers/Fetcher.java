@@ -20,10 +20,7 @@ public class Fetcher {
 	private String countryCode;
 	private int startYear;
 	private int endYear;
-	private Vector<String> analysisTypeCodes;
 	private Vector<String> bannedVisual;
-	private JsonArray jsonArray;
-	private int analyseIndex;
 	private String visualType;
 	
 	// Country Codes
@@ -33,8 +30,7 @@ public class Fetcher {
 	/*
 	 * Constructor
 	 */
-	public Fetcher(String countryCode, int analyseIndex, int sYear, int eYear) {
-		this.analyseIndex = analyseIndex;
+	public Fetcher(String countryCode, int sYear, int eYear) {
 		if(countryChecker(countryCode)) {
 			this.countryCode = countryCode;
 		}
@@ -44,70 +40,11 @@ public class Fetcher {
 		}
 	}
 	
-	/*
-	 * To be implemented
-	 */
-	private void visualizeData(JsonArray jrr) {
-		System.out.println(jrr);
-		jrr = jrr.get(1).getAsJsonArray();
-//		for(int i=0; i<jrr.size(); i++) {
-//			System.out.println("date: " + jrr.get(i).getAsJsonObject().get("date").getAsInt());
-//			System.out.println("value: " + jrr.get(i).getAsJsonObject().get("value").getAsDouble());
-//		}
-		
-		
-	}
-
-	
-	public void parseAnalysisType(int index) {
-		JsonParser jsonParser = new JsonParser();
-		
-		analysisTypeCodes = new Vector<>();
-		bannedVisual = new Vector<>();
-		
-        try{
-        	FileReader reader = new FileReader("analysis.json");
-        	
-        	JsonArray jsonArray = (JsonArray) jsonParser.parse(reader);
-        	
-        	JsonArray analysisCodes = jsonArray.get(index).getAsJsonObject().get("codes").getAsJsonArray();
-        	
-        	for(int i=0; i< analysisCodes.size(); i++) {
-        		analysisTypeCodes.add(analysisCodes.get(i).getAsString());
-        	}
-        	
-        	JsonArray bannedVisualJSON = jsonArray.get(index).getAsJsonObject().get("bannedVisualizations").getAsJsonArray();
-        	
-        	for(int i=0; i< bannedVisualJSON.size(); i++) {
-        		bannedVisual.add(bannedVisualJSON.get(i).getAsString());
-        	}        	
-        	
- 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-	}
-	
-	
-	/*
-	 * fetch data from world bank API and then analyze according to dataset type
-	 */
-	
-	public void fetchData() {
-		parseAnalysisType(analyseIndex);
-		
-		for(String s : analysisTypeCodes) {
-			fetchData(s);
-			visualizeData(jsonArray);
-		}
-	}
-	
-	public void fetchData(String analysisTypeCode) {
+	public JsonArray fetchData(String analysisTypeCode) {
 		String country = this.countryCode;
 		String urlString = String.format("http://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json", country, analysisTypeCode, this.startYear, this.endYear);
 		System.out.println("Connecting to URL: " + urlString);
+		JsonArray retrievedJsonArray = new JsonArray();
 		
 		try {
 			
@@ -125,12 +62,14 @@ public class Fetcher {
 				}
 				sc.close();
 				
-				jsonArray = new JsonParser().parse(inline).getAsJsonArray();
+				retrievedJsonArray = new JsonParser().parse(inline).getAsJsonArray();
 				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		return retrievedJsonArray;
 		
 	}
 	
@@ -193,7 +132,6 @@ public class Fetcher {
 	}
 
 	public void setAnalyseType(String visualType) {
-
 		this.visualType = visualType;
 	}
 	
