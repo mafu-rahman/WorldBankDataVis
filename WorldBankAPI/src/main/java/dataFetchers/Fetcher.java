@@ -125,10 +125,8 @@ public class Fetcher {
 	}
 	
 	public static void main(String[] args) { 
-			
-			//Fetcher fetcher = new Fetcher("USA", 0, 2000, 2006);
-			//fetcher.fetchData();
-		
+			Fetcher fetcher = new Fetcher("USA", 2000, 2006);
+			fetcher.fetchData();
 	}
 
 	public void setAnalyseType(String visualType) {

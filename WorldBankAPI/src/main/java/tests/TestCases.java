@@ -168,11 +168,7 @@ public class TestCases {
 	 */
 	@Test
 	public void test_fetcher_01() {
-		Fetcher fetcher = new Fetcher("CAN", "SP.POP.TOTL", 2000, 2001);
-		assertEquals(2000, fetcher.getStartYear());
-		assertEquals(2001, fetcher.getEndYear());
-		assertEquals("CAN", fetcher.getCountry());
-		assertEquals("SP.POP.TOTL", fetcher.getAnalysisType());
+		fail("Umimplemented");
 	}
 	
 	/*
@@ -180,11 +176,7 @@ public class TestCases {
 	 */
 	@Test
 	public void test_fetcher_02() {
-		Fetcher fetcher = new Fetcher("USA", "EN.ATM.CO2E.PC", 2000, 2006);
-		assertEquals(2000, fetcher.getStartYear());
-		assertEquals(2006, fetcher.getEndYear());
-		assertEquals("USA", fetcher.getCountry());
-		assertEquals("EN.ATM.CO2E.PC", fetcher.getAnalysisType());
+		fail("Umimplemented");
 	}
 	
 	
@@ -193,11 +185,7 @@ public class TestCases {
 	 */
 	@Test
 	public void test_fetcher_03() {
-		Fetcher fetcher = new Fetcher("BRA", "NY.GDP.PCAP.CD", 2001, 2011);
-		assertEquals(2001, fetcher.getStartYear());
-		assertEquals(2011, fetcher.getEndYear());
-		assertEquals("BRA", fetcher.getCountry());
-		assertEquals("NY.GDP.PCAP.CD", fetcher.getAnalysisType());
+		fail("Umimplemented");
 	}
 	
 	/*
@@ -205,11 +193,7 @@ public class TestCases {
 	 */
 	@Test
 	public void test_fetcher_04() {
-		Fetcher fetcher = new Fetcher("CN", "SP.POP.TOTL", 2000, 2001);
-		assertEquals(2000, fetcher.getStartYear());
-		assertEquals(2001, fetcher.getEndYear());
-		assertEquals("CN", fetcher.getCountry());
-		assertEquals("SP.POP.TOTL", fetcher.getAnalysisType());
+		fail("Umimplemented");
 	}
 	
 }
