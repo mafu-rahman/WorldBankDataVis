@@ -44,15 +44,15 @@ public class mainUI extends JFrame{
 	/*
 	 * This method returns list of all countries
 	 */
-//	public static Vector<String> getAllCountries() {
-//	    Vector<String> countries = new Vector<>();
-//	    String[] countryCodes = Locale.getISOCountries();
-//	    for (int i = 0; i < countryCodes.length; i++) {
-//	        Locale obj = new Locale("", countryCodes[i]);
-//	        countries.add(obj.getDisplayCountry());
-//	    }
-//	    return countries;
-//	 }
+	public static Vector<String> getAllCountries() {
+	    Vector<String> countries = new Vector<>();
+	    String[] countryCodes = Locale.getISOCountries();
+	    for (int i = 0; i < countryCodes.length; i++) {
+	        Locale obj = new Locale("", countryCodes[i]);
+	        countries.add(obj.getDisplayCountry());
+	    }
+	    return countries;
+	 }
 
 	/*
 	 * Class Attributes
@@ -78,11 +78,14 @@ public class mainUI extends JFrame{
 		panel = new JPanel();
 		panel.setLayout(null);
 		frame.setTitle("Country Statistics");
+		
+		topPanel();
+		bottomPanel();
+		
 		frame.setSize(1200, 720);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		topPanel();
-		bottomPanel();
+		
 	}
 	
 	public void topPanel() {
