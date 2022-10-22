@@ -36,7 +36,7 @@ public class DATAPARSER {
 	public DATAPARSER() {}
 	
 	/*
-	 * Parses from the retrievd json file and extracts only the years
+	 * Parses froj the retrievd json file and extracts only the years
 	 */
 	public static ArrayList<ArrayList<Integer>> parseRetrievedJSONDataYears(ArrayList<JsonArray> retrievedJsonArray){
 		ArrayList<ArrayList<Integer>> outerArray = new ArrayList<>();

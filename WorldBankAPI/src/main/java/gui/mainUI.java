@@ -1,8 +1,6 @@
 package gui;
 
-
-
-
+import gui.DATAPARSER;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -68,6 +66,8 @@ public class mainUI extends JFrame{
 	private ArrayList<JsonArray> retrievedJsonArray;
 	
 	private ArrayList<Visualization> visual;
+	
+	JPanel west;
 
 	
 	//private static dataParser dataparse;
@@ -142,6 +142,9 @@ public class mainUI extends JFrame{
 		south.add(methodsList);
 		south.add(recalculate);
 		
+		west = new JPanel();
+		west.setLayout(new GridLayout(2, 0));
+		
 		/*
 		 * On pressing calculate button
 		 */
@@ -166,16 +169,19 @@ public class mainUI extends JFrame{
 				
 				Visualization v = new Visualization(visualType, retrievedJsonArray);
 				v.drawChart();	
+				addPanel();
 				
+				frame.invalidate();
+				frame.validate();
+				frame.repaint();
+
 			}
 		});
 		frame.add(south, BorderLayout.SOUTH);
-		addPanel();
+		
 	}
 	
 	public void addPanel() {
-		JPanel west = new JPanel();
-		west.setLayout(new GridLayout(2, 0));
 		addCharts(west);
 		frame.add(west, BorderLayout.WEST);
 	}
