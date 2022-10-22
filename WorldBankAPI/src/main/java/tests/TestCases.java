@@ -85,5 +85,65 @@ public class TestCases {
 			exception.printStackTrace();
 		}
 	}
+	
+	@Test 
+	public void test_analyser_01() {
+		
+	}
+	
+	@Test 
+	public void test_analyser_02() {
+		
+	}
+	
+	@Test
+	public void test_analyser_03() {
+		
+	}
 
+	@Test
+	public void test_analyser_04() {
+		
+	}
+
+	@Test
+	public void test_visualizer_01() {
+		
+	}
+	
+	@Test
+	public void test_visualizer_02() {
+		
+	}
+	
+	@Test
+	public void test_visualizer_03() {
+		
+	}
+	
+	@Test
+	public void test_visualizer_04() {
+		
+	}
+	
+	@Test
+	public void test_fetcher_01() {
+		
+	}
+	
+	@Test
+	public void test_fetcher_02() {
+		
+	}
+	
+	@Test
+	public void test_fetcher_03() {
+		
+	}
+	
+	@Test
+	public void test_fetcher_04() {
+		
+	}
+	
 }
