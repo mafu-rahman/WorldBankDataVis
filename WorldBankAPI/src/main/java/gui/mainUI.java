@@ -14,6 +14,7 @@ import com.google.gson.JsonParser;
 import dataFetchers.Fetcher;
 
 import java.awt.Container;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -40,19 +41,6 @@ public class mainUI extends JFrame{
 	public static void main(String[] args) {
 		new mainUI();	
 	}
-	
-	/*
-	 * This method returns list of all countries
-	 */
-//	public static Vector<String> getAllCountries() {
-//	    Vector<String> countries = new Vector<>();
-//	    String[] countryCodes = Locale.getISOCountries();
-//	    for (int i = 0; i < countryCodes.length; i++) {
-//	        Locale obj = new Locale("", countryCodes[i]);
-//	        countries.add(obj.getDisplayCountry());
-//	    }
-//	    return countries;
-//	 }
 
 	/*
 	 * Class Attributes
@@ -69,6 +57,14 @@ public class mainUI extends JFrame{
 	
 	private static JButton addView;
 	private static JButton removeView;
+	private static JButton recalculate;
+	
+	private ArrayList<JsonArray> retrievedJsonArray;
+	
+	private ArrayList<Visualization> visual;
+
+	
+	//private static dataParser dataparse;
 	
 	/*
 	 * Constructor
@@ -78,34 +74,30 @@ public class mainUI extends JFrame{
 		panel = new JPanel();
 		panel.setLayout(null);
 		frame.setTitle("Country Statistics");
+		
+		topPanel();
+		bottomPanel();
+		
 		frame.setSize(1200, 720);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		topPanel();
-		bottomPanel();
+		
 	}
 	
 	public void topPanel() {
 		
 		JLabel chooseCountryLabel = new JLabel("Choose a country: ");
 		
-		// fetching country list
-		Vector<String> countriesNames = getCountryList();
-		
-		//Vector<String> countriesNames = getAllCountries();
-		
+		Vector<String> countriesNames = DATAPARSER.getCountryList();
 		this.countriesList = new JComboBox<String>(countriesNames);
 
-		
-		// fetching years
 		JLabel from = new JLabel("From");
 		JLabel to = new JLabel("To");
-		Vector<Integer> years = getYears();
-		
+		Vector<Integer> years = DATAPARSER.getYears();
 		fromList = new JComboBox<Integer>(years);
 		toList = new JComboBox<Integer>(years);
 
-		JPanel north = new JPanel();
+		JPanel north = new JPanel();		
 		north.add(chooseCountryLabel);
 		north.add(countriesList);
 		north.add(from);
@@ -116,7 +108,7 @@ public class mainUI extends JFrame{
 	}
 	
 	public void bottomPanel() {
-		JButton recalculate = new JButton("Recalculate");
+		recalculate = new JButton("Recalculate");
 		JLabel viewsLabel = new JLabel("Available Views: ");
 		
 		Vector<String> viewsNames = new Vector<String>();
@@ -132,7 +124,7 @@ public class mainUI extends JFrame{
 
 		JLabel methodLabel = new JLabel("        Choose analysis method: ");
 		Vector<String> methodsNames = new Vector<String>();
-		methodsNames = getAnalysisList();
+		methodsNames = DATAPARSER.getAnalysisList();
 		methodsList = new JComboBox<String>(methodsNames);
 		
 		JPanel south = new JPanel();
@@ -150,100 +142,36 @@ public class mainUI extends JFrame{
 		recalculate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				String country = (String) mainUI.countriesList.getSelectedItem();
 				long fromYear = (long) fromList.getSelectedItem();
-				long toyear = (long) toList.getSelectedItem();
+				long toYear = (long) toList.getSelectedItem();
+				String visualType = (String) viewsList.getSelectedItem();
 				int analyseIndex = methodsList.getSelectedIndex();
-				Fetcher fetcher = new Fetcher(country, analyseIndex, (int)fromYear, (int)toyear);
-				fetcher.setAnalyseType((String) viewsList.getSelectedItem());
-				fetcher.fetchData();
+				retrievedJsonArray = new ArrayList<>();
+								
+				ArrayList<String> analyseTypeCodes = DATAPARSER.getAnalysisCodes(analyseIndex);
+				ArrayList<String> bannedVisuals = DATAPARSER.getBannedVisuals(analyseIndex);
+				
+				for(String s: analyseTypeCodes) {
+					Fetcher fetcher = new Fetcher(country, (int)fromYear, (int)toYear);
+					retrievedJsonArray.add(fetcher.fetchData(s));
+				}
+				
+				Visualization v = new Visualization(visualType, retrievedJsonArray);
+				v.drawChart();	
+				
 			}
 		});
+		
 		frame.add(south, BorderLayout.SOUTH);
 	}
 	
-	/*
-	 * Parses from countries.json file to get available years
-	 */
-	public Vector<String> getCountryList() {
-		JSONParser jsonParser = new JSONParser();
-		ArrayList<String> tempCountries = new ArrayList<>();
-		Vector<String> countries = null;
-        try{
-        	FileReader reader = new FileReader("countries.json");
-        	JSONObject countriesJSON = (JSONObject) jsonParser.parse(reader);
-        	
-        	tempCountries = (ArrayList<String>) countriesJSON.get("countries");
-        	countries = new Vector<>(tempCountries);
-     		
- 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        
-        return countries;
-	}
-	
-	/*
-	 * parses from years.json to get available years
-	 */
-	public Vector<Integer> getYears(){
-		JSONParser jsonParser = new JSONParser();
-		ArrayList<Integer> tempYears = new ArrayList<>();
-		Vector<Integer> years = null;
-        try{
-        	FileReader reader = new FileReader("years.json");
-        	JSONObject yearsJSON = (JSONObject) jsonParser.parse(reader);
-        	
-        	tempYears = (ArrayList<Integer>) yearsJSON.get("years");
-        	years = new Vector<Integer>(tempYears);
-     		
- 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        
-        return years;
-	}
-	
-	/*
-	 * Parses from analysis.json file to display options
-	 */
-	public Vector<String> getAnalysisList(){
-		JsonParser jsonParser = new JsonParser();
-		
-		Vector<String> list = new Vector<>();
-		
-        try{
-        	FileReader reader = new FileReader("analysis.json");
-        	
-        	JsonArray jsonArray = (JsonArray) jsonParser.parse(reader);
-        	
-        	for(int i=0; i<jsonArray.size(); i++) {
-        		list.add(jsonArray.get(i).getAsJsonObject().get("type").getAsString());
-        	}
-        	
- 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        return list;
-	}
 	
 	/*
 	 * Getters and setters
 	 */
+	
 	
 	
 }

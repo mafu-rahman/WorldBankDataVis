@@ -56,18 +56,18 @@ public class loginUI extends JFrame implements ActionListener{
 		panel.add(usernameLabel);
 
 		//password label
-		passwordLabel = new JLabel("Password:");
-		passwordLabel.setBounds(10,  50,  80,  25);
+		passwordLabel = new JLabel("Enter Password:");
+		passwordLabel.setBounds(10,  50,  120,  25);
 		panel.add(passwordLabel);
 
 		//username text
 		usernameText = new JTextField(20); 
-		usernameText.setBounds(100, 20, 165, 25);
+		usernameText.setBounds(160, 20, 165, 25);
 		panel.add(usernameText);
 
 		//password text
 		passwordText = new JPasswordField(20); 
-		passwordText.setBounds(100, 50, 165, 25);
+		passwordText.setBounds(160, 50, 165, 25);
 		panel.add(passwordText);
 
 		//login button
