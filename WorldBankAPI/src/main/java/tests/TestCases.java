@@ -18,8 +18,8 @@ public class TestCases {
 	@Test 
 	public void test_login_01() {
 		loginUI loginui = new loginUI();
-		loginui.setUsername("mafu");
-		loginui.setPassword("password");
+		loginui.setUsername("mafurrrr");
+		loginui.setPassword("wrongpassword");
 		String path = "credentials.csv";
 		String line = "";
 		try {
