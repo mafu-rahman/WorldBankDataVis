@@ -35,15 +35,18 @@ public class DATAPARSER {
 	
 	public DATAPARSER() {}
 	
+	/*
+	 * Parses from the retrievd json file and extracts only the years
+	 */
 	public static ArrayList<ArrayList<Integer>> parseRetrievedJSONDataYears(ArrayList<JsonArray> retrievedJsonArray){
 		ArrayList<ArrayList<Integer>> outerArray = new ArrayList<>();
 		
 		for(int i=0; i<retrievedJsonArray.size(); i++) {
-			JsonArray jsonArray = retrievedJsonArray.get(i);
+			JsonArray jsonArray = retrievedJsonArray.get(i).get(1).getAsJsonArray();
 			ArrayList<Integer> innerArray = new ArrayList<>();
 			
 			for(int j=0; j<jsonArray.size(); j++) {
-				int years = jsonArray.get(1).getAsJsonArray().get(j).getAsJsonObject().get("date").getAsInt();
+				int years = jsonArray.get(j).getAsJsonObject().get("date").getAsInt();
 				innerArray.add(years);
 			}
 			outerArray.add(innerArray);
@@ -51,18 +54,21 @@ public class DATAPARSER {
 		return outerArray;
 	}
 	
+	/*
+	 * Parses from the retrievd json file and extracts only the values to corresponding years
+	 */
 	public static ArrayList<ArrayList<Double>> parseRetrievedJSONDataValues(ArrayList<JsonArray> retrievedJsonArray){
 		
 		ArrayList<ArrayList<Double>> outerArray = new ArrayList<>();
 		
 		for(int i=0; i<retrievedJsonArray.size(); i++) {
-			JsonArray jsonArray = retrievedJsonArray.get(i);
+			JsonArray jsonArray = retrievedJsonArray.get(i).get(1).getAsJsonArray();
 			ArrayList<Double> innerArray = new ArrayList<>();
 			
 			for(int j=0; j<jsonArray.size(); j++) {
 				double value=0.0;
-				if(jsonArray.get(1).getAsJsonArray().get(j).getAsJsonObject().get("value") != null) {
-					value = jsonArray.get(1).getAsJsonArray().get(j).getAsJsonObject().get("value").getAsDouble();
+				if(jsonArray.get(j).getAsJsonObject().get("value") != null) {
+					value = jsonArray.get(j).getAsJsonObject().get("value").getAsDouble();
 				}
 				innerArray.add(value);
 			}
