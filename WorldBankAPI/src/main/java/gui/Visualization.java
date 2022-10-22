@@ -61,8 +61,8 @@ public class Visualization {
 			ArrayList<Integer> y = years.get(i);
 			ArrayList<Double> v = values.get(i);
 			for(int j=0; j<y.size(); j++) {
-				System.out.println("Year: " + y.get(j));
-				System.out.println("Value: " + v.get(j));
+				System.out.println(visualType);
+				System.out.println("Year: " + y.get(j) + " Value: " + v.get(j));
 
 			}
 		}
