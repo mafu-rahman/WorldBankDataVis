@@ -24,7 +24,7 @@ public class Fetcher {
 	private String visualType;
 	
 	// Country Codes
-	private static String[] CODES = {"CAN", "UK", "USA", "CN", "BRA"};
+	private static String[] CODES = {"CAN", "GBR", "USA", "CN", "BRA"};
 
 		
 	/*
