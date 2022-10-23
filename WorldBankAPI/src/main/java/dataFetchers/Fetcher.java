@@ -3,13 +3,18 @@ package dataFetchers;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Vector;
 
 import javax.xml.crypto.dsig.keyinfo.PGPData;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import analyser.*;
@@ -112,6 +117,30 @@ public class Fetcher {
 	}
 	
 	/*
+	 * Extract analysis type from index give by matching to json file
+	 * @return String value of the analysis type 
+	 */
+	
+	public String extractAnalysisType(int index) {
+		if(!(index >= 0 && index <= 9)) {
+			throw new IllegalArgumentException("Error: Invalid Analysis Type!");
+		}
+		try {
+			Gson gson = new Gson();
+			Reader reader = Files.newBufferedReader(Paths.get("analysis.json"));
+			Map<?, ?> map = gson.fromJson(reader, Map.class);
+			for(Map.Entry<?, ?> entry : map.entrySet()) {
+				System.out.println(entry.getKey() + "=" + entry.getValue());
+			}
+			reader.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/*
 	 * getters and setters
 	 */
 	public String getCountry() {
@@ -164,9 +193,9 @@ public class Fetcher {
 	}
 	
 	public static void main(String[] args) { 
-		// Fetcher fetcher = new Fetcher("USA", 2000, 2006);
-		// fetcher.fetchData("SP.POP.TOTL");
 
+		Fetcher fetcher = new Fetcher("USA", 0, 2000, 2001);
+		fetcher.extractAnalysisType(0);
 	}
 	
 }
