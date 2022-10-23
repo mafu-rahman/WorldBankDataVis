@@ -129,6 +129,8 @@ public class Visualization {
 		
 		int numYears = this.years.size() - 1;
 		
+		reportMessage += topicReport + "\n---------------------------------\n";
+		
 		while(numYears != 0) {
 			reportMessage += "Year " + this.years.get(numYears);
 			if(numYears > 0) {
@@ -136,9 +138,6 @@ public class Visualization {
 			}
 			numYears--;
 		}
-		
-		reportMessage += topicReport + "\n---------------------------------\n";
-		
 		
 		
 		report.setText(reportMessage);
