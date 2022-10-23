@@ -65,16 +65,12 @@ public class mainUI extends JFrame{
 	private static JButton recalculate;
 	
 	private ArrayList<JsonArray> retrievedJsonArray;
-	
 	private ArrayList<Visualization> visual;
 	
 	JPanel west;
 
-	
-	//private static dataParser dataparse;
-	
-	/*
-	 * Constructor
+	/**
+	 * Constructor Method
 	 */
 	public mainUI() {
 		frame = new JFrame();
@@ -92,6 +88,10 @@ public class mainUI extends JFrame{
 		
 	}
 	
+	/**
+	 * Create elements (buttons, drop-down menus) on the top panel
+	 * of the program window.
+	 */
 	public void topPanel() {
 		
 		JLabel chooseCountryLabel = new JLabel("Choose a country: ");
@@ -115,6 +115,10 @@ public class mainUI extends JFrame{
 		frame.add(north, BorderLayout.NORTH);
 	}
 	
+	/**
+	 * Create elements (buttons, drop-down menus) on the bottom panel
+	 * of the program window.
+	 */
 	public void bottomPanel() {
 		recalculate = new JButton("Recalculate");
 		JLabel viewsLabel = new JLabel("Available Views: ");
@@ -147,9 +151,7 @@ public class mainUI extends JFrame{
 		west = new JPanel();
 		west.setLayout(new GridLayout(2, 0));
 		
-		/*
-		 * On pressing calculate button
-		 */
+		// On pressing calculate button
 		recalculate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -182,6 +184,9 @@ public class mainUI extends JFrame{
 		frame.add(south, BorderLayout.SOUTH);
 	}
 	
+	/**
+	 * Add a visualization panel to the window
+	 */
 	public void addPanel() {
 		addCharts(west);
 		frame.add(west, BorderLayout.WEST);
@@ -189,19 +194,21 @@ public class mainUI extends JFrame{
 	
 	private void addCharts(JPanel panel) {
 		createReport(panel);
-		createBlueReport(panel);
 	}
 	
+	/**
+	 * Create a report for the window
+	 * @param panel 
+	 */
 	private void createReport(JPanel panel) {
 		JTextArea report = new JTextArea();
 		report.setEditable(false);
 		report.setPreferredSize(new Dimension(400, 300));
 		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-		report.setBackground(Color.red);
+		report.setBackground(Color.WHITE);
 		String reportMessage = "";
 		
-		DATAPARSER dp = new DATAPARSER();
-		Vector<String> topics = dp.getAnalysisList();
+		Vector<String> topics = DATAPARSER.getAnalysisList();
 		reportMessage += topics.get(0);
 		
 		reportMessage += "\n" ;
@@ -209,25 +216,6 @@ public class mainUI extends JFrame{
 		report.setText(reportMessage);
 		JScrollPane outputPane = new JScrollPane(report);
 		panel.add(outputPane);
-		
 	}
 	
-	private void createBlueReport(JPanel panel) {
-		JTextArea report = new JTextArea();
-		report.setEditable(false);
-		report.setPreferredSize(new Dimension(400, 300));
-		report.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-		report.setBackground(Color.blue);
-		
-		String reportMessage = "Test Message" + "\n";
-		
-		report.setText(reportMessage);
-		JScrollPane outputPane = new JScrollPane(report);
-		panel.add(outputPane);
-	}
-	
-	private void createPie(JPanel panel) {
-		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		
-	}
 }
