@@ -39,14 +39,10 @@ public class Visualization {
 	private ArrayList<ArrayList<Double>> values;
 	private String topic;
 	
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-	
-	/*
-	 * Constructor methods
+	/**
+	 * Constructor method for visualization class
+	 * @param visualType visualization type i.e bar chart, line chart, etc.
+	 * @param retrievedJsonArray the contents of the analysis.json file 
 	 */
 	public Visualization(String visualType, ArrayList<JsonArray> retrievedJsonArray) {
 		this.visualType = visualType;
@@ -64,6 +60,10 @@ public class Visualization {
 		this.values = DATAPARSER.parseRetrievedJSONDataValues(retrievedJsonArray);
 	}
 	
+	/**
+	 * Method used to draw charts based on given analysisIndex
+	 * @param analysisIndex index of analysis mode to be used
+	 */
 	public void drawChart(int analysisIndex) {
 		if(visualType.equals("Line Chart")) {
 			drawLineChart();
@@ -82,6 +82,9 @@ public class Visualization {
 		}
 	}
 	
+	/**
+	 * Method used to draw a line chart
+	 */
 	private void drawLineChart() {
 		for(int i=0; i<years.size(); i++) {
 			System.out.println(visualType);
@@ -95,6 +98,9 @@ public class Visualization {
 		}
 	}
 	
+	/**
+	 * Method used to draw a pie chart
+	 */
 	private void drawPieChart() {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		int size = this.years.size() - 1;
@@ -115,7 +121,7 @@ public class Visualization {
 		chartPanel.setBackground(Color.white);
 	}
 	
-	/*
+	/**
 	 * Method used to Draw a Report 
 	 * @param analysisIndex index of analysis mode
 	 */
@@ -156,10 +162,16 @@ public class Visualization {
 		// panel.add(outputPane);
 	}
 	
+	/**
+	 * Method used to draw a bar chart
+	 */
 	private static void drawBarChart() {
 		
 	}
 	
+	/**
+	 * Method used to draw a scatter chart
+	 */
 	private static void drawScatterChart() {
 		TimeSeries s1;
 	}

@@ -35,8 +35,10 @@ public class DATAPARSER {
 	
 	public DATAPARSER() {}
 	
-	/*
-	 * Parses froj the retrievd json file and extracts only the years
+	/**
+	 * Method used to parse from the retrieved JSON file and extract only the years
+	 * @param retrievedJsonArray contents of the retrieved file
+	 * @return outerArray ArrayList of all available years
 	 */
 	public static ArrayList<ArrayList<Integer>> parseRetrievedJSONDataYears(ArrayList<JsonArray> retrievedJsonArray){
 		ArrayList<ArrayList<Integer>> outerArray = new ArrayList<>();
@@ -54,8 +56,10 @@ public class DATAPARSER {
 		return outerArray;
 	}
 	
-	/*
-	 * Parses from the retrievd json file and extracts only the values to corresponding years
+	/**
+	 * Method used to parse from the retrieved JSON file and extracts only the years
+	 * @param retrievedJsonArray contents of the retrieved file
+	 * @return outerArray ArrayList of all available years
 	 */
 	public static ArrayList<ArrayList<Double>> parseRetrievedJSONDataValues(ArrayList<JsonArray> retrievedJsonArray){
 		
@@ -78,8 +82,9 @@ public class DATAPARSER {
 	} 
 	
 	
-	/*
-	 * Parses from countries.json file to get available years
+	/**
+	 * Parses from countries.json file to get available countries
+	 * @return countries List of all available countries 
 	 */
 	public static Vector<String> getCountryList() {
 		JSONParser jsonParser = new JSONParser();
@@ -104,8 +109,9 @@ public class DATAPARSER {
         return countries;
 	}
 	
-	/*
-	 * parses from years.json to get available years
+	/**
+	 * Parses from years.json to get available years
+	 * @return years List of all available years
 	 */
 	public static Vector<Integer> getYears(){
 		JSONParser jsonParser = new JSONParser();
@@ -131,8 +137,9 @@ public class DATAPARSER {
 	}
 
 	
-	/*
+	/**
 	 * Parses from analysis.json file to display options
+	 * @return list List of all available options
 	 */
 	public static Vector<String> getAnalysisList(){
 		JsonParser jsonParser = new JsonParser();
@@ -159,8 +166,10 @@ public class DATAPARSER {
 	}
 
 
-	/*
+	/**
 	 * This method parses only the analysis type codes from analysis.json of a given index
+	 * @param analyseIndex Index of analysis option 
+	 * @return analysisTypeCodes List of all available analysis type codes
 	 */
 	public static ArrayList<String> getAnalysisCodes(int analyseIndex){
 		
@@ -189,8 +198,10 @@ public class DATAPARSER {
 	}
 
 
-	/*
+	/**
 	 * This method parses only the banned visuals of a specific index from analysis.json
+	 * @param analyseIndex Index of analysis option
+	 * @return bannedVisual List of all banned visualizations for the given analyisIndex 
 	 */
 	public static ArrayList<String> getBannedVisuals(int analyseIndex) {
 		
@@ -215,7 +226,7 @@ public class DATAPARSER {
             e.printStackTrace();
         }
 		
-		return null;
+		return bannedVisual;
 	}
 
 }
