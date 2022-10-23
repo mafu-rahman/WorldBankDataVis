@@ -22,6 +22,7 @@ public class Fetcher {
 	private int endYear;
 	private Vector<String> bannedVisual;
 	private String visualType;
+	private int analysisType;
 	
 	// Country Codes
 	private static String[] CODES = {"CAN", "GBR", "USA", "CN", "BRA"};
@@ -114,6 +115,14 @@ public class Fetcher {
 		return this.endYear;
 	}
 	
+	public int getAnalysisType() {
+		return this.analysisType;
+	}
+	
+	public void setAnalysisType(int analysis) {
+		this.analysisType = analysis;
+	}
+	
 	public void setCountry(String country) {
 		this.countryCode = country;
 	}
@@ -125,12 +134,6 @@ public class Fetcher {
 	public void setEndYear(int eYear) {
 		this.endYear = eYear;
 	}
-	
-	public static void main(String[] args) { 
-		// Fetcher fetcher = new Fetcher("USA", 2000, 2006);
-		// fetcher.fetchData("SP.POP.TOTL");
-
-	}
 
 	public void setVisualType(String visualType) {
 		this.visualType = visualType;
@@ -138,6 +141,12 @@ public class Fetcher {
 	
 	public String getVisualType() {
 		return this.visualType;
+	}
+	
+	public static void main(String[] args) { 
+		// Fetcher fetcher = new Fetcher("USA", 2000, 2006);
+		// fetcher.fetchData("SP.POP.TOTL");
+
 	}
 	
 }
