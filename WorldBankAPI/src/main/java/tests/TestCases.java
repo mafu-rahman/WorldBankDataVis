@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -99,26 +100,34 @@ public class TestCases {
 		}
 	}
 	
+	// Test analyser
 	@Test 
 	public void test_analyser_01() {
+		Analyser analyser = new Analyser();
+		double avg = analyser.calcMean(10, 2);
+		assertEquals(5, avg, 0);
 	}
 	
 	@Test 
 	public void test_analyser_02() {
-		fail("Umimplemented");
-		
+		Analyser analyser = new Analyser();
+		double avg = analyser.calcMean(100, 2);
+		assertEquals(50, avg, 0);
+		assertEquals(50, analyser.getMean(), 0);
 	}
 	
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void test_analyser_03() {
-		fail("Umimplemented");
-		
+		Analyser analyser = new Analyser();
+		double avg = analyser.calcMean(0, 2);
 	}
 
 	@Test
 	public void test_analyser_04() {
-		fail("Umimplemented");
-		
+		Analyser analyser = new Analyser();
+		double avg = analyser.calcMean(50, 2);
+		assertEquals(25, avg, 0);
+		assertEquals(25, analyser.getMean(), 0);
 	}
 
 	/*

@@ -2,28 +2,27 @@ package analyser;
 
 public class Analyser {
 	
-	
-	private int mean;
-	private double doubleMean;
+	private double mean;
 	
 	public Analyser() {
 		this.mean = 0;
-		this.doubleMean = 0;
-	}
-	
-	
-	public int calcMean(int sum, int totalnums) {
-		this.mean = sum / totalnums;
-		return this.mean;
 	}
 	
 	public double calcMean(double sum, double totalnums) {
-		this.doubleMean = (double) sum / (double) totalnums;
-		return this.doubleMean;
+		if(sum == 0) {
+			throw new IllegalArgumentException("Error: Attemping to divide zero by a number!");
+		}
+		this.mean = (double) sum / (double) totalnums;
+		return this.mean;
 	}
 	
 	public void printMean() {
 		System.out.println("The mean is " + this.mean);
 	}
+	
+	public double getMean() {
+		return this.mean;
+	}
+	
 	
 }
