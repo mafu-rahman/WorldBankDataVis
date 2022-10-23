@@ -78,26 +78,8 @@ public class Visualization {
 		
 		else if(visualType.equals("Report")) {
 			createReport(west);
-			//createTimeSeries(west);
 		}
 	}
-	
-	private void drawLineChart(JPanel panel) {
-		System.out.println(visualType);
-
-		JTextArea report = new JTextArea();
-		report.setEditable(false);
-		report.setPreferredSize(new Dimension(400, 300));
-		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-		report.setBackground(Color.red);
-		
-		String reportMessage = "Test Message" + "\n";
-		
-		report.setText(reportMessage);
-		JScrollPane outputPane = new JScrollPane(report);
-		panel.add(outputPane);
-	}
-	
 
 	private void createReport(JPanel west) {
 		JTextArea report = new JTextArea();
