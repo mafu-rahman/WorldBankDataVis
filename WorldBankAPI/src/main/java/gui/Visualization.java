@@ -1,11 +1,13 @@
 package gui;
 
 import gui.DATAPARSER;
+import dataFetchers.Fetcher;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -31,6 +33,7 @@ import com.google.gson.JsonArray;
 public class Visualization {
 	
 	private static String visualType;
+	private int analysisType; 
 	private ArrayList<JsonArray> retrievedJsonArray;
 	private ArrayList<ArrayList<Integer>> years;
 	private ArrayList<ArrayList<Double>> values;
@@ -50,7 +53,15 @@ public class Visualization {
 		this.values = DATAPARSER.parseRetrievedJSONDataValues(retrievedJsonArray);
 	}
 	
-	public void drawChart() {
+	public Visualization(String visualType, int analysisType, ArrayList<JsonArray> retrievedJsonArray) {
+		this.visualType = visualType;
+		this.analysisType = analysisType;
+		this.retrievedJsonArray = retrievedJsonArray;
+		this.years = DATAPARSER.parseRetrievedJSONDataYears(retrievedJsonArray);
+		this.values = DATAPARSER.parseRetrievedJSONDataValues(retrievedJsonArray);
+	}
+	
+	public void drawChart(int analysisIndex) {
 		if(visualType.equals("Line Chart")) {
 			drawLineChart();
 		}
@@ -61,7 +72,7 @@ public class Visualization {
 			drawScatterChart();
 		}
 		else if(visualType.equals("Report")) {
-			drawReport();
+			drawReport(analysisIndex);
 		}
 		else if(visualType.equals("Pie Chart")) {
 			drawPieChart();
@@ -87,6 +98,7 @@ public class Visualization {
 		while(size >= 0) {
 			// TODO: Make dataset read in value from this.years 
 			// Integer x = this.years.get(size);
+			// Double x = this.values.get(size);
 			dataset.addValue(1, "A", "B");
 			size--;
 		}
@@ -100,18 +112,38 @@ public class Visualization {
 		chartPanel.setBackground(Color.white);
 	}
 	
-	private void drawReport() {
+	private void drawReport(int analysisIndex) {
 		String reportMessage = "";
 		JTextArea report = new JTextArea();
 		
 		report.setEditable(false);
 		report.setPreferredSize(new Dimension(400, 300));
 		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-		report.setBackground(Color.red);
+		report.setBackground(Color.white);
+		
+		DATAPARSER dp = new DATAPARSER();
+		ArrayList<String> codes = dp.getAnalysisCodes(analysisIndex);
+		Vector<String> topics = dp.getAnalysisList();
+		String topicReport = topics.get(analysisIndex);
+		int sizeOfResults = codes.size();
+		
+		int numYears = this.years.size() - 1;
+		
+		while(numYears != 0) {
+			reportMessage += "Year " + this.years.get(numYears);
+			if(numYears > 0) {
+				reportMessage += "\n\n";
+			}
+			numYears--;
+		}
+		
+		reportMessage += topicReport + "\n---------------------------------\n";
+		
 		
 		
 		report.setText(reportMessage);
 		JScrollPane outputPane = new JScrollPane(report);	
+		// panel.add(outputPane);
 	}
 	
 	private static void drawBarChart() {
@@ -119,7 +151,7 @@ public class Visualization {
 	}
 	
 	private static void drawScatterChart() {
-		
+		TimeSeries s1;
 	}
 	
 	

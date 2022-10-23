@@ -170,7 +170,7 @@ public class mainUI extends JFrame{
 				}
 				
 				Visualization v = new Visualization(visualType, retrievedJsonArray);
-				v.drawChart();	
+				// v.drawChart();	
 				addPanel();
 				
 				frame.invalidate();
