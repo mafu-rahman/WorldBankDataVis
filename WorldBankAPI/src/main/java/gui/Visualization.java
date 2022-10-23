@@ -85,6 +85,8 @@ public class Visualization {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		int size = this.years.size() - 1;
 		while(size >= 0) {
+			// TODO: Make dataset read in value from this.years 
+			// Integer x = this.years.get(size);
 			dataset.addValue(1, "A", "B");
 			size--;
 		}
