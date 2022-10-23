@@ -145,12 +145,12 @@ public class MainUI extends JFrame {
 	}
 
 	private void createCharts(JPanel west) {
-		createLine(west);
-		createTimeSeries(west);
-		createBar(west);
-		createPie(west);
+		//createLine(west);
+		//createTimeSeries(west);
+		//createBar(west);
+		//createPie(west);
 		createScatter(west);
-		createReport(west);
+		//createReport(west);
 
 	}
 
@@ -200,8 +200,7 @@ public class MainUI extends JFrame {
 		series2.add(new Year(2012), 8399);
 		series2.add(new Year(2011), 8130);
 		series2.add(new Year(2010), 7930);
-		TimeSeriesCollection dataset2 = new TimeSeriesCollection();
-		dataset2.addSeries(series2);
+		
 
 		TimeSeries series3 = new TimeSeries("Hospital Beds/1000 people");
 		series3.add(new Year(2018), 2.92);
@@ -215,12 +214,18 @@ public class MainUI extends JFrame {
 		series3.add(new Year(2010), 3.05);
 
 		TimeSeriesCollection dataset = new TimeSeriesCollection();
+		TimeSeriesCollection dataset2 = new TimeSeriesCollection();
+		
+		TimeSeriesCollection dataset3 = new TimeSeriesCollection();
 		dataset.addSeries(series1);
-		dataset.addSeries(series3);
+		dataset2.addSeries(series2);
+		dataset3.addSeries(series3);
 
 		XYPlot plot = new XYPlot();
 		XYItemRenderer itemrenderer1 = new XYLineAndShapeRenderer(false, true);
 		XYItemRenderer itemrenderer2 = new XYLineAndShapeRenderer(false, true);
+		XYItemRenderer itemrenderer3 = new XYLineAndShapeRenderer(false, true);
+
 
 		plot.setDataset(0, dataset);
 		plot.setRenderer(0, itemrenderer1);
@@ -229,11 +234,16 @@ public class MainUI extends JFrame {
 		plot.setRangeAxis(new NumberAxis(""));
 
 		plot.setDataset(1, dataset2);
-		plot.setRenderer(1, itemrenderer2);
+		plot.setRenderer(1, itemrenderer1);
 		plot.setRangeAxis(1, new NumberAxis("US$"));
+		
+		plot.setDataset(2, dataset3);
+		plot.setRenderer(2, itemrenderer1);
+		plot.setRangeAxis(2, new NumberAxis("EU$"));
 
 		plot.mapDatasetToRangeAxis(0, 0);// 1st dataset to 1st y-axis
 		plot.mapDatasetToRangeAxis(1, 1); // 2nd dataset to 2nd y-axis
+		plot.mapDatasetToRangeAxis(2, 2);
 
 		JFreeChart scatterChart = new JFreeChart("Mortality vs Expenses & Hospital Beds",
 				new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
