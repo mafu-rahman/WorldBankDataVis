@@ -68,20 +68,13 @@ public class TestCases {
 	}
 	
 	// Test if system allows login when credentials are not provided
-	@Test
+	@Test(expected = NullPointerException.class)
 	public void test_login_03() {
 		loginUI loginui = new loginUI();
 		String path = "credentials.csv";
 		String line = "";
-		try {
-			BufferedReader br = new BufferedReader(new FileReader((path)));
-			while((line = br.readLine()) != null) {
-				String[] values = line.split(",");
-				assertFalse(loginui.getUsername().equals(values[0]) && loginui.getPassword().equals(values[1]));
-			}
-		}catch(Exception exception) {
-			exception.printStackTrace();
-		}
+		
+		assertEquals("Error: No username entered!", loginui.getUsername());
 	}
 	
 	// Test if system allows login when username has an empty character at the end
@@ -172,6 +165,7 @@ public class TestCases {
 		assertEquals("CAN", fetcher.getCountry());
 		assertEquals(2000, fetcher.getStartYear());
 		assertEquals(2001, fetcher.getEndYear());
+		fetcher.setCountry("NOPE");
 	}
 	
 	/*

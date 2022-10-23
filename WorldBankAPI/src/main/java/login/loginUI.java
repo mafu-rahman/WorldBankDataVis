@@ -144,10 +144,16 @@ public class loginUI extends JFrame implements ActionListener{
 	}
 	
 	public String getUsername() {
+		if(this.username == null) {
+			throw new NullPointerException("Error: No username entered!");
+		}
 		return this.username;
 	}
 	
 	public String getPassword() {
+		if(this.password == null) {
+			throw new NullPointerException("Error: No password entered!");
+		}
 		return this.password;
 	}
 	
