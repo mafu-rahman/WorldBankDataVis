@@ -198,8 +198,13 @@ public class mainUI extends JFrame{
 		report.setPreferredSize(new Dimension(400, 300));
 		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		report.setBackground(Color.red);
+		String reportMessage = "";
 		
-		String reportMessage = "Test Message" + "\n";
+		DATAPARSER dp = new DATAPARSER();
+		Vector<String> topics = dp.getAnalysisList();
+		reportMessage += topics.get(0);
+		
+		reportMessage += "\n" ;
 		
 		report.setText(reportMessage);
 		JScrollPane outputPane = new JScrollPane(report);

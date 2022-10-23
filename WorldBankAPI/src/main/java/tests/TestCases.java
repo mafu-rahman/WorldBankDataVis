@@ -2,12 +2,15 @@ package tests;
 import login.*;
 import dataFetchers.*;
 import analyser.*;
+import gui.DATAPARSER;
 
 import static org.junit.Assert.*;
 
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Vector;
 
 import org.junit.Test;
 
@@ -98,8 +101,6 @@ public class TestCases {
 	
 	@Test 
 	public void test_analyser_01() {
-		fail("Umimplemented");
-		
 	}
 	
 	@Test 
@@ -187,6 +188,20 @@ public class TestCases {
 	 */
 	@Test
 	public void test_fetcher_03() {
+		Fetcher fetcher = new Fetcher("BRA", 2000, 2011);
+		fetcher.setAnalysisType(2);
+		assertEquals("BRA", fetcher.getCountry());
+		assertEquals(2000, fetcher.getStartYear());
+		assertEquals(2011, fetcher.getEndYear());
+		DATAPARSER dp = new DATAPARSER();
+		Vector<String> countryList = dp.getCountryList();
+		boolean condition = false;
+		for(String x : countryList) {
+			if(x.equals(fetcher.getCountry())) {
+				condition = true;
+			}
+		}
+		assertTrue(condition);
 	}
 	
 	/*
@@ -194,7 +209,18 @@ public class TestCases {
 	 */
 	@Test
 	public void test_fetcher_04() {
-		fail("Umimplemented");
+		Fetcher fetcher = new Fetcher("CN", 2000, 2008);
+		fetcher.setAnalysisType(8);
+		assertEquals("CN", fetcher.getCountry());
+		assertEquals(2000, fetcher.getStartYear());
+		assertEquals(2008, fetcher.getEndYear());
+		DATAPARSER dp = new DATAPARSER();
+		ArrayList<String> x = dp.getAnalysisCodes(8);
+		boolean condition = false;
+		if(x.get(0).equals("PV.EST") && x.get(1).equals("NY.GDP.MKTP.KD.ZG")) {
+			condition = true;
+		}
+		assertTrue(condition);
 	}
 	
 }

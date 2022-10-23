@@ -2,6 +2,8 @@ package analyser;
 
 public class Analyser {
 	
+	public Analyser() {}
+	
 	private int mean;
 	private double doubleMean;
 	

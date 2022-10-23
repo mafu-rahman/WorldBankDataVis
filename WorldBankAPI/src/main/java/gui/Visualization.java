@@ -101,13 +101,14 @@ public class Visualization {
 	}
 	
 	private void drawReport() {
+		String reportMessage = "";
 		JTextArea report = new JTextArea();
+		
 		report.setEditable(false);
 		report.setPreferredSize(new Dimension(400, 300));
 		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		report.setBackground(Color.red);
 		
-		String reportMessage = "Test Message" + "\n";
 		
 		report.setText(reportMessage);
 		JScrollPane outputPane = new JScrollPane(report);	
