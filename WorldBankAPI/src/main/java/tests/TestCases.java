@@ -18,7 +18,9 @@ import org.junit.Test;
 public class TestCases {
 
 	
-	// Test if system allows login when credentials are incorrect
+	/**
+	 *  Test if system allows login when credentials are incorrect
+	 */
 	@Test 
 	public void test_login_01() {
 		loginUI loginui = new loginUI();
@@ -47,7 +49,9 @@ public class TestCases {
 
 	}
 	
-	// Test if system allows login when credentials are correct
+	/**
+	 *  Test if system allows login when credentials are correct
+	 */
 	@Test
 	public void test_login_02() {
 		loginUI loginui = new loginUI();
@@ -71,7 +75,9 @@ public class TestCases {
 		assertTrue(condition);
 	}
 	
-	// Test if system allows login when credentials are not provided
+	/**
+	 *  Test if system allows login when credentials are not provided
+	 */
 	@Test(expected = NullPointerException.class)
 	public void test_login_03() {
 		loginUI loginui = new loginUI();
@@ -81,7 +87,9 @@ public class TestCases {
 		assertEquals("Error: No username entered!", loginui.getUsername());
 	}
 	
-	// Test if system allows login when username has an empty character at the end
+	/**
+	 *  Test if system allows login when username has an empty character at the end
+	 */
 	@Test 
 	public void test_login_04() {
 		loginUI loginui = new loginUI();
@@ -100,7 +108,9 @@ public class TestCases {
 		}
 	}
 	
-	// Test analyser
+	/**
+	 *  Test analyser
+	 */
 	@Test 
 	public void test_analyser_01() {
 		Analyser analyser = new Analyser();
@@ -130,7 +140,7 @@ public class TestCases {
 		assertEquals(25, analyser.getMean(), 0);
 	}
 
-	/*
+	/**
 	 * Test Line Chart
 	 */
 	@Test
@@ -139,7 +149,7 @@ public class TestCases {
 		
 	}
 	
-	/*
+	/**
 	 * Test Bar Chart
 	 */
 	@Test
@@ -148,7 +158,7 @@ public class TestCases {
 		
 	}
 	
-	/*
+	/**
 	 * Test Report
 	 */
 	@Test
@@ -157,7 +167,7 @@ public class TestCases {
 		
 	}
 	
-	/*
+	/**
 	 * Test Pie Chart
 	 */
 	@Test
@@ -166,7 +176,7 @@ public class TestCases {
 		
 	}
 	
-	/*
+	/**
 	 * Test Fetching for CAN and then check if an invalid country code was set
 	 */
 	@Test(expected = IllegalArgumentException.class)
@@ -178,7 +188,7 @@ public class TestCases {
 		fetcher.setCountry("NOPE");
 	}
 	
-	/*
+	/**
 	 * Test Fetching for USA and then check if a valid country code was set
 	 */
 	@Test
@@ -192,7 +202,7 @@ public class TestCases {
 	}
 	
 	
-	/*
+	/**
 	 * Test Fetching for BRA 
 	 */
 	@Test
@@ -213,7 +223,7 @@ public class TestCases {
 		assertTrue(condition);
 	}
 	
-	/*
+	/**
 	 * Test Fetching for CN
 	 */
 	@Test
