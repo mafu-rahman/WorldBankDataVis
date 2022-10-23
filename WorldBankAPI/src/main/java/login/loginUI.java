@@ -39,8 +39,10 @@ public class loginUI extends JFrame implements ActionListener{
 	private String password;
 	
 
-	/*
-	 * Main Method
+	/**
+	 * Main method 
+	 * @param args
+	 * @throws FileNotFoundException
 	 */
 	public static void main(String[] args) throws FileNotFoundException{
 		
@@ -86,19 +88,17 @@ public class loginUI extends JFrame implements ActionListener{
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-	
-	/*
-	 *  Static factory Methods
-	 */
-	
-	
-	/*
-	 * Constructors
+	/**
+	 * Constructor Method
 	 */
 	public loginUI() {
 	}
 
-
+	/**
+	 * Checks if the recalculate button was clicked on, if clicked,
+	 * it generates the desired visualization 
+	 * @param e Event that triggers activation 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//getting the username and password from the UI text field
@@ -135,14 +135,26 @@ public class loginUI extends JFrame implements ActionListener{
 		statusLabel.setText("Wrong Credentials!");
 	}
 	
+	/**
+	 * Setter Method
+	 * @param user String value of username to be used instead of the previous value
+	 */
 	public void setUsername(String user) {
 		this.username = user;
 	}
 	
+	/**
+	 * Setter Method
+	 * @param pass String value of the password to be used instead of the previous value
+	 */
 	public void setPassword(String pass) {
 		this.password = pass;
 	}
 	
+	/**
+	 * Getter Method
+	 * @return username
+	 */
 	public String getUsername() {
 		if(this.username == null) {
 			throw new NullPointerException("Error: No username entered!");
@@ -150,6 +162,10 @@ public class loginUI extends JFrame implements ActionListener{
 		return this.username;
 	}
 	
+	/**
+	 * Getter Method
+	 * @return password 
+	 */
 	public String getPassword() {
 		if(this.password == null) {
 			throw new NullPointerException("Error: No password entered!");
