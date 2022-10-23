@@ -9,6 +9,8 @@ import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -97,7 +99,16 @@ public class Visualization {
 	}
 	
 	private void drawReport() {
+		JTextArea report = new JTextArea();
+		report.setEditable(false);
+		report.setPreferredSize(new Dimension(400, 300));
+		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		report.setBackground(Color.red);
 		
+		String reportMessage = "Test Message" + "\n";
+		
+		report.setText(reportMessage);
+		JScrollPane outputPane = new JScrollPane(report);	
 	}
 	
 	private static void drawBarChart() {
