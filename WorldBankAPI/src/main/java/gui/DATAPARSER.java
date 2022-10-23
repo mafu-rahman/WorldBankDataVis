@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonParser;
 
 import dataFetchers.Fetcher;
@@ -67,7 +68,7 @@ public class DATAPARSER {
 			
 			for(int j=0; j<jsonArray.size(); j++) {
 				double value=0.0;
-				if(jsonArray.get(j).getAsJsonObject().get("value") != null) {
+				if(jsonArray.get(j).getAsJsonObject().get("value") != JsonNull.INSTANCE) {
 					value = jsonArray.get(j).getAsJsonObject().get("value").getAsDouble();
 				}
 				innerArray.add(value);

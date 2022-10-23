@@ -6,6 +6,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -80,30 +81,55 @@ public class Visualization {
 			createReport(west);
 		}
 	}
+	
+	private void createLine(JPanel west) {
+		
+		XYSeriesCollection dataset = new XYSeriesCollection();;
+		
+		for(int i=0; i<years.size(); i++) {
+			ArrayList<Integer> y = years.get(i);
+			ArrayList<Double>  v = values.get(i);
+			//String topic = DATAPARSER.getTopic();
+			String topic = "" + i;
+			XYSeries series = new XYSeries(topic);
+			for(int j=0; j<y.size(); j++) {
+				series.add(y.get(j), v.get(j));
+			}
+			dataset.addSeries(series);
+		}
+		
+		JFreeChart chart = ChartFactory.createXYLineChart(visualType, "Year", "", dataset,
+				PlotOrientation.VERTICAL, true, true, false);
 
-	private void createReport(JPanel west) {
-		JTextArea report = new JTextArea();
-		report.setEditable(false);
-		report.setPreferredSize(new Dimension(400, 300));
-		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-		report.setBackground(Color.white);
-		String reportMessage, reportMessage2;
+		XYPlot plot = chart.getXYPlot();
 
-		reportMessage = "Mortality vs Expenses & Hospital Beds\n" + "==============================\n" + "Year 2018:\n"
-				+ "\tMortality/1000 births => 5.6\n" + "\tHealth Expenditure per Capita => 10624\n"
-				+ "\tHospital Beds/1000 people => 2.92\n" + "\n" + "Year 2017:\n" + "\tMortality/1000 births => 5.7\n"
-				+ "\tHealth Expenditure per Capita => 10209\n" + "\tHospital Beds/1000 people => 2.87\n" + "\n"
-				+ "Year 2016:\n" + "\tMortality/1000 births => 5.8\n" + "\tHealth Expenditure per Capita => 9877\n"
-				+ "\tHospital Beds/1000 people => 2.77\n";
+		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+		renderer.setSeriesPaint(0, Color.RED);
+		renderer.setSeriesStroke(0, new BasicStroke(2.0f));
 
-		reportMessage2 = "Unemployment: Mev vs Women\n" + "==========================\n" + "Men=>\n"
-				+ "\tEmployed: 96.054%\n" + "\tUnemployed: 3.946%\n" + "\n" + "Women=>\n" + "\tEmployed: 96.163%\n"
-				+ "\tUnemployed: 3.837%\n";
+		plot.setRenderer(renderer);
+		plot.setBackgroundPaint(Color.white);
 
-		report.setText(reportMessage);
-		JScrollPane outputScrollPane = new JScrollPane(report);
-		west.add(outputScrollPane);
+		plot.setRangeGridlinesVisible(true);
+		plot.setRangeGridlinePaint(Color.BLACK);
+
+		plot.setDomainGridlinesVisible(true);
+		plot.setDomainGridlinePaint(Color.BLACK);
+
+		chart.getLegend().setFrame(BlockBorder.NONE);
+
+		chart.setTitle(
+				new TextTitle(visualType, new Font("Serif", java.awt.Font.BOLD, 18)));
+
+		ChartPanel chartPanel = new ChartPanel(chart);
+		chartPanel.setPreferredSize(new Dimension(400, 300));
+		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		chartPanel.setBackground(Color.white);
+		west.add(chartPanel);
+
 	}
+
+	
 
 	private void createScatter(JPanel west) {
 		TimeSeries series1 = new TimeSeries("Mortality/1000 births");
@@ -270,75 +296,7 @@ public class Visualization {
 		west.add(chartPanel);
 	}
 
-	private void createLine(JPanel west) {
-		XYSeries series1 = new XYSeries("Mortality/1000 births");
-		series1.add(2018, 5.6);
-		series1.add(2017, 5.7);
-		series1.add(2016, 5.8);
-		series1.add(2015, 5.8);
-		series1.add(2014, 5.9);
-		series1.add(2013, 6.0);
-		series1.add(2012, 6.1);
-		series1.add(2011, 6.2);
-		series1.add(2010, 6.4);
-
-		XYSeries series2 = new XYSeries("Health Expenditure per Capita");
-		series2.add(2018, 10624);
-		series2.add(2017, 10209);
-		series2.add(2016, 9877);
-		series2.add(2015, 9491);
-		series2.add(2014, 9023);
-		series2.add(2013, 8599);
-		series2.add(2012, 8399);
-		series2.add(2011, 8130);
-		series2.add(2010, 7930);
-
-		XYSeries series3 = new XYSeries("Hospital Beds/1000 people");
-		series3.add(2018, 2.92);
-		series3.add(2017, 2.87);
-		series3.add(2016, 2.77);
-		series3.add(2015, 2.8);
-		series3.add(2014, 2.83);
-		series3.add(2013, 2.89);
-		series3.add(2012, 2.93);
-		series3.add(2011, 2.97);
-		series3.add(2010, 3.05);
-
-		XYSeriesCollection dataset = new XYSeriesCollection();
-		dataset.addSeries(series1);
-		dataset.addSeries(series2);
-		dataset.addSeries(series3);
-
-		JFreeChart chart = ChartFactory.createXYLineChart("Mortality vs Expenses & Hospital Beds", "Year", "", dataset,
-				PlotOrientation.VERTICAL, true, true, false);
-
-		XYPlot plot = chart.getXYPlot();
-
-		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-		renderer.setSeriesPaint(0, Color.RED);
-		renderer.setSeriesStroke(0, new BasicStroke(2.0f));
-
-		plot.setRenderer(renderer);
-		plot.setBackgroundPaint(Color.white);
-
-		plot.setRangeGridlinesVisible(true);
-		plot.setRangeGridlinePaint(Color.BLACK);
-
-		plot.setDomainGridlinesVisible(true);
-		plot.setDomainGridlinePaint(Color.BLACK);
-
-		chart.getLegend().setFrame(BlockBorder.NONE);
-
-		chart.setTitle(
-				new TextTitle("Mortality vs Expenses & Hospital Beds", new Font("Serif", java.awt.Font.BOLD, 18)));
-
-		ChartPanel chartPanel = new ChartPanel(chart);
-		chartPanel.setPreferredSize(new Dimension(400, 300));
-		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-		chartPanel.setBackground(Color.white);
-		west.add(chartPanel);
-
-	}
+	
 
 	private void createTimeSeries(JPanel west) {
 		TimeSeries series1 = new TimeSeries("Mortality/1000 births");
@@ -406,6 +364,30 @@ public class Visualization {
 		chartPanel.setBackground(Color.white);
 		west.add(chartPanel);
 
+	}
+	
+	private void createReport(JPanel west) {
+		JTextArea report = new JTextArea();
+		report.setEditable(false);
+		report.setPreferredSize(new Dimension(400, 300));
+		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		report.setBackground(Color.white);
+		String reportMessage, reportMessage2;
+
+		reportMessage = "Mortality vs Expenses & Hospital Beds\n" + "==============================\n" + "Year 2018:\n"
+				+ "\tMortality/1000 births => 5.6\n" + "\tHealth Expenditure per Capita => 10624\n"
+				+ "\tHospital Beds/1000 people => 2.92\n" + "\n" + "Year 2017:\n" + "\tMortality/1000 births => 5.7\n"
+				+ "\tHealth Expenditure per Capita => 10209\n" + "\tHospital Beds/1000 people => 2.87\n" + "\n"
+				+ "Year 2016:\n" + "\tMortality/1000 births => 5.8\n" + "\tHealth Expenditure per Capita => 9877\n"
+				+ "\tHospital Beds/1000 people => 2.77\n";
+
+		reportMessage2 = "Unemployment: Mev vs Women\n" + "==========================\n" + "Men=>\n"
+				+ "\tEmployed: 96.054%\n" + "\tUnemployed: 3.946%\n" + "\n" + "Women=>\n" + "\tEmployed: 96.163%\n"
+				+ "\tUnemployed: 3.837%\n";
+
+		report.setText(reportMessage);
+		JScrollPane outputScrollPane = new JScrollPane(report);
+		west.add(outputScrollPane);
 	}
 
 }

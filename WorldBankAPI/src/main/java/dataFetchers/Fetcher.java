@@ -43,7 +43,7 @@ public class Fetcher {
 	public JsonArray fetchData(String analysisTypeCode) {
 		String country = this.countryCode;
 		String urlString = String.format(""
-				+ "http://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json"
+				+ "\nhttp://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json"
 				, country, analysisTypeCode, this.startYear, this.endYear);
 		System.out.println("Connecting to URL: " + urlString);
 		JsonArray retrievedJsonArray = new JsonArray();

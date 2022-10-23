@@ -178,8 +178,6 @@ public class mainUI extends JFrame{
 		Visualization v = new Visualization(visualType, retrievedJsonArray);
 		v.drawChart(west);			
 		
-		
-		
 		frame.invalidate();
 		frame.validate();
 		frame.repaint();	

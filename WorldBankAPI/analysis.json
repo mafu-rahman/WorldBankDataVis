@@ -36,30 +36,23 @@
 
     {
         "index":5,
-        "type":"Methane vs NO2 vs CO2 emission",
-        "codes":["EN.ATM.METH.PC", "EN.ATM.NOXE.PC", "EN.ATM.COMM.FO.ZS"],
-        "bannedVisualizations":[]
+        "type":"Heat Index vs CO2 Emission",
+        "codes":["EN.CLC.HEAT.XD", "EN.ATM.CO2E.PC"],
+        "bannedVisualizations":["Pie Chart"]
     },
 
     {
         "index":6,
-        "type":"Heat Index vs CO2 Emission",
-        "codes":["EN.CLC.HEAT.XD", "EN.ATM.CO2E.PC"],
-        "bannedVisualizations":[]
+        "type":"Forest land vs Heat Index vs CO2 Emission",
+        "codes":["AG.LND.FRST.ZS", "EN.CLC.HEAT.XD", "EN.ATM.CO2E.PC"],
+        "bannedVisualizations":["Pie Chart"]
     },
 
     {
         "index":7,
-        "type":"Forest land vs Heat Index vs CO2 Emission",
-        "codes":["AG.LND.FRST.ZS", "EN.CLC.HEAT.XD", "EN.ATM.CO2E.PC"],
-        "bannedVisualizations":[]
-    },
-
-    {
-        "index":8,
         "type":"Political Stability vs GDP Growth",
         "codes":["PV.EST", "NY.GDP.MKTP.KD.ZG"],
-        "bannedVisualizations":[]
+        "bannedVisualizations":["Pie Chart"]
     }
 
 ]
