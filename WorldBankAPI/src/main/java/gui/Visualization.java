@@ -45,6 +45,9 @@ public class Visualization {
 
 	}
 	
+	/*
+	 * Constructor methods
+	 */
 	public Visualization(String visualType, ArrayList<JsonArray> retrievedJsonArray) {
 		this.visualType = visualType;
 		this.retrievedJsonArray = retrievedJsonArray;
@@ -135,7 +138,8 @@ public class Visualization {
 		
 		int numYears = this.years.size() - 1;
 		
-		reportMessage += topicReport + "\n---------------------------------\n";
+		reportMessage += topicReport + "\n---------------------------------"
+				+ "-----------------\n";
 		
 		while(numYears != 0) {
 			reportMessage += "Year " + this.years.get(numYears) + "\n";
