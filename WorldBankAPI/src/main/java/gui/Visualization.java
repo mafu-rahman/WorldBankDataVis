@@ -112,6 +112,10 @@ public class Visualization {
 		chartPanel.setBackground(Color.white);
 	}
 	
+	/*
+	 * Method used to Draw a Report 
+	 * @param analysisIndex index of analysis mode
+	 */
 	private void drawReport(int analysisIndex) {
 		String reportMessage = "";
 		JTextArea report = new JTextArea();
@@ -121,9 +125,8 @@ public class Visualization {
 		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		report.setBackground(Color.white);
 		
-		DATAPARSER dp = new DATAPARSER();
-		ArrayList<String> codes = dp.getAnalysisCodes(analysisIndex);
-		Vector<String> topics = dp.getAnalysisList();
+		ArrayList<String> codes = DATAPARSER.getAnalysisCodes(analysisIndex);
+		Vector<String> topics = DATAPARSER.getAnalysisList();
 		
 		String topicReport = topics.get(analysisIndex);
 		String[] tokens = topicReport.split(" vs ");
