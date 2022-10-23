@@ -1,25 +1,12 @@
 package dataFetchers;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Vector;
-import gui.DATAPARSER;
-
-import javax.xml.crypto.dsig.keyinfo.PGPData;
-
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
-import analyser.*;
 
 public class Fetcher {
 	
@@ -34,8 +21,11 @@ public class Fetcher {
 	// Country Codes
 	private static String[] CODES = {"CAN", "GBR", "USA", "CN", "BRA"};
 		
-	/*
-	 * Constructor
+	/**
+	 * Constructor method for fetcher
+	 * @param countryCode code for country 
+	 * @param sYear starting year for the desired period
+	 * @param eYear ending year for the desired period
 	 */
 	public Fetcher(String countryCode, int sYear, int eYear) {
 		if(countryChecker(countryCode)) {
@@ -47,6 +37,13 @@ public class Fetcher {
 		}
 	}
 	
+	/**
+	 * Constructor method for fetcher
+	 * @param countryCode code for country 
+	 * @param analysisType index of type of analysis desired 
+	 * @param sYear starting year for the desired period
+	 * @param eYear ending year for the desired period
+	 */
 	public Fetcher(String countryCode, int analysisType, int sYear, int eYear) {
 		if(countryChecker(countryCode)) {
 			this.countryCode = countryCode;
@@ -60,6 +57,11 @@ public class Fetcher {
 		}
 	}
 	
+	/**
+	 * Method used to fetch data from World Bank API 
+	 * @param analysisTypeCode code from which data is to be fetched, for example, "SP.POP.TOTL" 
+	 * @return retrievedJsonArray JSONArray of data that has been fetched from the API 
+	 */
 	public JsonArray fetchData(String analysisTypeCode) {
 		String country = this.countryCode;
 		String urlString = String.format(""
@@ -96,10 +98,11 @@ public class Fetcher {
 	}
 	
 	
-	/*
-	 * check if analysisType, start year, end year, and countryCode are valid
+	/**
+	 * Check if country is valid
+	 * @param code String value of country code
+	 * @return boolean value true if country is valid, false otherwise
 	 */
-	
 	private boolean countryChecker(String code) {
 		for(String s : CODES) {
 			if(s.equals(code)) {
@@ -110,6 +113,12 @@ public class Fetcher {
 		return false;
 	}
 	
+	/**
+	 * Check if the period over which the analysis is done is valid
+	 * @param sYear starting year
+	 * @param eYear ending year
+	 * @return boolean value true if country is valid, false otherwise
+	 */
 	private boolean dateChecker(int sYear, int eYear) {
 		if(sYear <= eYear) {
 			System.out.println(String.format("Valid Dates found: %d, %d", sYear, eYear));
@@ -118,25 +127,50 @@ public class Fetcher {
 		return false;
 	}
 	
-	/*
-	 * getters and setters
+	/**
+	 * Getter Method
+	 * @return country code 
 	 */
 	public String getCountry() {
 		return this.countryCode;
 	}
 	
+	/**
+	 * Getter Method
+	 * @return starting year
+	 */
 	public int getStartYear() {
 		return this.startYear;
 	}
 	
+	/**
+	 * Getter Method
+	 * @return ending year
+	 */
 	public int getEndYear() {
 		return this.endYear;
 	}
 	
+	/**
+	 * Getter Method
+	 * @return analyis type
+	 */
 	public int getAnalysisType() {
 		return this.analysisType;
 	}
 	
+	/**
+	 * Getter Method
+	 * @return visual type
+	 */
+	public String getVisualType() {
+		return this.visualType;
+	}
+	
+	/**
+	 * Setter Method
+	 * @param analysis
+	 */
 	public void setAnalysisType(int analysis) {
 		if(!(analysis >= 0 && analysis <= 9)) {
 			throw new IllegalArgumentException("Error: Invalid Analysis Type!");
@@ -144,6 +178,10 @@ public class Fetcher {
 		this.analysisType = analysis;
 	}
 	
+	/**
+	 * Setter Method
+	 * @param country
+	 */
 	public void setCountry(String country) {
 		if(!(countryChecker(country))) {
 			throw new IllegalArgumentException("Error: Invalid Country Code!");
@@ -151,14 +189,26 @@ public class Fetcher {
 		this.countryCode = country;
 	}
 	
+	/**
+	 * Setter Method
+	 * @param sYear
+	 */
 	public void setStartYear(int sYear) {
 		this.startYear = sYear;
 	}
 	
+	/**
+	 * Setter Method
+	 * @param eYear
+	 */
 	public void setEndYear(int eYear) {
 		this.endYear = eYear;
 	}
 
+	/**
+	 * Setter Method
+	 * @param visualType
+	 */
 	public void setVisualType(String visualType) {
 		if(bannedVisual.contains(visualType)) {
 			throw new IllegalArgumentException("Error: Attempting to use invalid visualization!");
@@ -166,19 +216,8 @@ public class Fetcher {
 		this.visualType = visualType;
 	}
 	
-	public String getVisualType() {
-		return this.visualType;
-	}
 	
 	public static void main(String[] args) { 
-		Fetcher fetcher = new Fetcher("USA", 0, 2000, 2001);
-		DATAPARSER dp = new DATAPARSER();
-		ArrayList<String> datalist = dp.getAnalysisCodes(0);
-		for(int i = 0; i < datalist.size(); i++) {
-			System.out.println(datalist.get(i));
-		}
-		Vector<String> datatype = dp.getAnalysisList();
-		System.out.println(datatype.get(0));
 	}
 	
 }
