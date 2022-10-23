@@ -26,7 +26,6 @@ public class Fetcher {
 	
 	// Country Codes
 	private static String[] CODES = {"CAN", "GBR", "USA", "CN", "BRA"};
-
 		
 	/*
 	 * Constructor
@@ -38,6 +37,19 @@ public class Fetcher {
 		if(dateChecker(sYear, eYear)) {
 			this.startYear = sYear;
 			this.endYear = eYear;
+		}
+	}
+	
+	public Fetcher(String countryCode, int analysisType, int sYear, int eYear) {
+		if(countryChecker(countryCode)) {
+			this.countryCode = countryCode;
+		}
+		if(dateChecker(sYear, eYear)) {
+			this.startYear = sYear;
+			this.endYear = eYear;
+		}
+		if(analysisType >= 0 && analysisType <= 8) {
+			this.analysisType = analysisType;
 		}
 	}
 	
@@ -98,7 +110,6 @@ public class Fetcher {
 		}
 		return false;
 	}
-	
 	
 	/*
 	 * getters and setters
