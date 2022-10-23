@@ -26,3 +26,7 @@ The project is split up into 5 different modules:
 + Visualization module: visualizes data based on parameters given
 + Parser module: parses data from json files 
  
+All modules are complete with JavaDocs which can be opened in
+a browser from the following directory:
+
+`WorldBankAPI/src/doc/index.html`
