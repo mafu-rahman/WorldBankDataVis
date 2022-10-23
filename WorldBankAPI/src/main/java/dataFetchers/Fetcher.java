@@ -131,10 +131,16 @@ public class Fetcher {
 	}
 	
 	public void setAnalysisType(int analysis) {
+		if(!(analysis >= 0 && analysis <= 9)) {
+			throw new IllegalArgumentException("Error: Invalid Analysis Type!");
+		}
 		this.analysisType = analysis;
 	}
 	
 	public void setCountry(String country) {
+		if(!(countryChecker(country))) {
+			throw new IllegalArgumentException("Error: Invalid Country Code!");
+		}
 		this.countryCode = country;
 	}
 	
@@ -147,6 +153,9 @@ public class Fetcher {
 	}
 
 	public void setVisualType(String visualType) {
+		if(bannedVisual.contains(visualType)) {
+			throw new IllegalArgumentException("Error: Attempting to use invalid visualization!");
+		}
 		this.visualType = visualType;
 	}
 	
