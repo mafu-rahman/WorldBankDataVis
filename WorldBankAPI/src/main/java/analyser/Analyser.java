@@ -2,10 +2,15 @@ package analyser;
 
 public class Analyser {
 	
-	public Analyser() {}
 	
 	private int mean;
 	private double doubleMean;
+	
+	public Analyser() {
+		this.mean = 0;
+		this.doubleMean = 0;
+	}
+	
 	
 	public int calcMean(int sum, int totalnums) {
 		this.mean = sum / totalnums;
