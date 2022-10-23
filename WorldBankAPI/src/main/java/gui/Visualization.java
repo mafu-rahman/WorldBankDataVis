@@ -124,7 +124,10 @@ public class Visualization {
 		DATAPARSER dp = new DATAPARSER();
 		ArrayList<String> codes = dp.getAnalysisCodes(analysisIndex);
 		Vector<String> topics = dp.getAnalysisList();
+		
 		String topicReport = topics.get(analysisIndex);
+		String[] tokens = topicReport.split(" vs ");
+		
 		int sizeOfResults = codes.size();
 		
 		int numYears = this.years.size() - 1;
@@ -132,10 +135,11 @@ public class Visualization {
 		reportMessage += topicReport + "\n---------------------------------\n";
 		
 		while(numYears != 0) {
-			reportMessage += "Year " + this.years.get(numYears);
-			if(numYears > 0) {
-				reportMessage += "\n\n";
+			reportMessage += "Year " + this.years.get(numYears) + "\n";
+			for(int i = 0; i < tokens.length; i++) {
+				reportMessage += tokens[i] + "\n";
 			}
+			reportMessage += "\n\n";
 			numYears--;
 		}
 		
