@@ -157,9 +157,9 @@ public class TestCases {
 	}
 	
 	/*
-	 * Test Fetching for CAN
+	 * Test Fetching for CAN and then check if an invalid country code was set
 	 */
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void test_fetcher_01() {
 		Fetcher fetcher = new Fetcher("CAN", 2000, 2001);
 		assertEquals("CAN", fetcher.getCountry());
@@ -169,20 +169,24 @@ public class TestCases {
 	}
 	
 	/*
-	 * Test Fetching for USA
+	 * Test Fetching for USA and then check if a valid country code was set
 	 */
 	@Test
 	public void test_fetcher_02() {
-		fail("Umimplemented");
+		Fetcher fetcher = new Fetcher("USA", 2000, 2011);
+		assertEquals("USA", fetcher.getCountry());
+		assertEquals(2000, fetcher.getStartYear());
+		assertEquals(2011, fetcher.getEndYear());
+		fetcher.setCountry("BRA");
+		assertEquals("BRA", fetcher.getCountry());
 	}
 	
 	
 	/*
-	 * Test Fetching for BRA
+	 * Test Fetching for BRA 
 	 */
 	@Test
 	public void test_fetcher_03() {
-		fail("Umimplemented");
 	}
 	
 	/*
