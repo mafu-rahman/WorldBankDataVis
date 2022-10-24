@@ -13,6 +13,17 @@ import com.google.gson.JsonParser;
 
 public class Fetcher {
 	
+	public static void main(String[] args) { 
+		Fetcher fetcher = new Fetcher("USA", 2000, 2001);
+		fetcher.setAnalysisType(0);
+		int analysisType = fetcher.getAnalysisType();
+		Vector<String> anType = DATAPARSER.getAnalysisList();
+		System.out.println(anType.get(analysisType));
+		for(int i = 0; i < DATAPARSER.getAnalysisCodes(analysisType).size(); i++) {
+			fetcher.fetchData(DATAPARSER.getAnalysisCodes(analysisType).get(i));
+		}
+	}
+	
 	
 	private String countryCode;
 	private int startYear;
@@ -220,15 +231,6 @@ public class Fetcher {
 	}
 	
 	
-	public static void main(String[] args) { 
-		Fetcher fetcher = new Fetcher("USA", 2000, 2001);
-		fetcher.setAnalysisType(0);
-		int analysisType = fetcher.getAnalysisType();
-		Vector<String> anType = DATAPARSER.getAnalysisList();
-		System.out.println(anType.get(analysisType));
-		for(int i = 0; i < DATAPARSER.getAnalysisCodes(analysisType).size(); i++) {
-			fetcher.fetchData(DATAPARSER.getAnalysisCodes(analysisType).get(i));
-		}
-	}
+	
 	
 }
