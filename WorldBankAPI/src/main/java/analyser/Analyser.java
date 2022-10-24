@@ -40,5 +40,12 @@ public class Analyser {
 		return this.mean;
 	}
 	
+	public static void main(String args[]) {
+		Analyser analyser = new Analyser();
+		analyser.printMean();
+		analyser.calcMean(25, 2);
+		analyser.printMean();
+	}
+	
 	
 }
