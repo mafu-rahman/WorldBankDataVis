@@ -1,17 +1,12 @@
 package login;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.GraphicsEnvironment;
-import java.awt.GridLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +18,7 @@ import gui.mainUI;
 
 public class loginUI extends JFrame implements ActionListener{
 	
+	private static final long serialVersionUID = 1L;
 	/*
 	 * Class attributes
 	 */
@@ -99,6 +95,7 @@ public class loginUI extends JFrame implements ActionListener{
 	 * it generates the desired visualization 
 	 * @param e Event that triggers activation 
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//getting the username and password from the UI text field
@@ -118,6 +115,7 @@ public class loginUI extends JFrame implements ActionListener{
 		 */
 		try {
 			
+			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(new FileReader((path)));
 		
 			while((line = br.readLine()) != null) {

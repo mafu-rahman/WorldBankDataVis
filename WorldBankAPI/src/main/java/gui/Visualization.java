@@ -1,24 +1,18 @@
 package gui;
 
-import gui.DATAPARSER;
+import dataFetchers.DATAPARSER;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -30,13 +24,9 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.renderer.xy.XYSplineRenderer;
 import org.jfree.chart.title.TextTitle;
-import org.jfree.chart.util.TableOrder;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.chart.util.TableOrder;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.time.TimeSeries;
@@ -70,15 +60,15 @@ public class Visualization {
 		this.values = DATAPARSER.parseRetrievedJSONDataValues(retrievedJsonArray);
 	}
 	
-	public Visualization(String visualType, int analysisType, ArrayList<JsonArray> retrievedJsonArray) {
-		this.visualType = visualType;
-		this.analysisType = analysisType;
-		this.retrievedJsonArray = retrievedJsonArray;
-		
-		topic = DATAPARSER.getTopic(retrievedJsonArray);
-		years = DATAPARSER.parseRetrievedJSONDataYears(retrievedJsonArray);
-		values = DATAPARSER.parseRetrievedJSONDataValues(retrievedJsonArray);
-	}
+//	public Visualization(String visualType, int analysisType, ArrayList<JsonArray> retrievedJsonArray) {
+//		this.visualType = visualType;
+//		this.analysisType = analysisType;
+//		this.retrievedJsonArray = retrievedJsonArray;
+//		
+//		topic = DATAPARSER.getTopic(retrievedJsonArray);
+//		years = DATAPARSER.parseRetrievedJSONDataYears(retrievedJsonArray);
+//		values = DATAPARSER.parseRetrievedJSONDataValues(retrievedJsonArray);
+//	}
 	
 	/**
 	 * Method used to draw charts based on given analysisIndex

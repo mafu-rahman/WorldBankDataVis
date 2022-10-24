@@ -1,4 +1,4 @@
-package gui;
+package dataFetchers;
 
 import java.awt.BorderLayout;
 import org.json.simple.JSONObject;

@@ -3,13 +3,11 @@ import login.*;
 import gui.Visualization;
 import dataFetchers.*;
 import analyser.*;
-import gui.DATAPARSER;
+import dataFetchers.DATAPARSER;
 
 import static org.junit.Assert.*;
 
-import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -39,6 +37,7 @@ public class TestCases {
 		String line = "";
 		boolean condition = false;
 		try {
+			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(new FileReader((path)));
 			while((line = br.readLine()) != null) {
 				String[] values = line.split(",");
@@ -66,6 +65,7 @@ public class TestCases {
 		String line = "";
 		boolean condition = false;
 		try {
+			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(new FileReader((path)));
 			while((line = br.readLine()) != null) {
 				String[] values = line.split(",");
@@ -86,8 +86,7 @@ public class TestCases {
 	@Test(expected = NullPointerException.class)
 	public void test_login_03() {
 		loginUI loginui = new loginUI();
-		String path = "credentials.csv";
-		String line = "";
+		
 		
 		assertEquals("Error: No username entered!", loginui.getUsername());
 	}
@@ -103,6 +102,7 @@ public class TestCases {
 		String path = "credentials.csv";
 		String line = "";
 		try {
+			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(new FileReader((path)));
 			while((line = br.readLine()) != null) {
 				String[] values = line.split(",");
@@ -227,8 +227,7 @@ public class TestCases {
 		assertEquals("BRA", fetcher.getCountry());
 		assertEquals(2000, fetcher.getStartYear());
 		assertEquals(2011, fetcher.getEndYear());
-		DATAPARSER dp = new DATAPARSER();
-		Vector<String> countryList = dp.getCountryList();
+		Vector<String> countryList = DATAPARSER.getCountryList();
 		boolean condition = false;
 		for(String x : countryList) {
 			if(x.equals(fetcher.getCountry())) {
@@ -248,8 +247,12 @@ public class TestCases {
 		assertEquals("CN", fetcher.getCountry());
 		assertEquals(2000, fetcher.getStartYear());
 		assertEquals(2008, fetcher.getEndYear());
+<<<<<<< Updated upstream
 		DATAPARSER dp = new DATAPARSER();
 		ArrayList<String> x = dp.getAnalysisCodes(7);
+=======
+		ArrayList<String> x = DATAPARSER.getAnalysisCodes(8);
+>>>>>>> Stashed changes
 		boolean condition = false;
 		if(x.get(0).equals("PV.EST") && x.get(1).equals("NY.GDP.MKTP.KD.ZG")) {
 			condition = true;

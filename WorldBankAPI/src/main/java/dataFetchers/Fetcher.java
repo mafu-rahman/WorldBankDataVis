@@ -1,7 +1,7 @@
 package dataFetchers;
 
 import analyser.*;
-import gui.DATAPARSER;
+import dataFetchers.DATAPARSER;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
