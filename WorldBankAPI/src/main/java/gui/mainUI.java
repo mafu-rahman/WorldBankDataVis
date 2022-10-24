@@ -155,67 +155,36 @@ public class mainUI extends JFrame{
 		recalculate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				String country = (String) mainUI.countriesList.getSelectedItem();
-				long fromYear = (long) fromList.getSelectedItem();
-				long toYear = (long) toList.getSelectedItem();
-				String visualType = (String) viewsList.getSelectedItem();
-				int analyseIndex = methodsList.getSelectedIndex();
-				retrievedJsonArray = new ArrayList<>();
-								
-				ArrayList<String> analyseTypeCodes = DATAPARSER.getAnalysisCodes(analyseIndex);
-				ArrayList<String> bannedVisuals = DATAPARSER.getBannedVisuals(analyseIndex);
-				
-				for(String s: analyseTypeCodes) {
-					Fetcher fetcher = new Fetcher(country, (int)fromYear, (int)toYear);
-					retrievedJsonArray.add(fetcher.fetchData(s));
-				}
-				
-				Visualization v = new Visualization(visualType, retrievedJsonArray);
-				// v.drawChart();	
-				addPanel();
-				
-				frame.invalidate();
-				frame.validate();
-				frame.repaint();
-
+				calculateButton();
 			}
 		});
 		frame.add(south, BorderLayout.SOUTH);
-	}
-	
-	/**
-	 * Add a visualization panel to the window
-	 */
-	public void addPanel() {
-		addCharts(west);
 		frame.add(west, BorderLayout.WEST);
+		
 	}
 	
-	private void addCharts(JPanel panel) {
-		createReport(panel);
-	}
-	
-	/**
-	 * Create a report for the window
-	 * @param panel 
-	 */
-	private void createReport(JPanel panel) {
-		JTextArea report = new JTextArea();
-		report.setEditable(false);
-		report.setPreferredSize(new Dimension(400, 300));
-		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-		report.setBackground(Color.WHITE);
-		String reportMessage = "";
+	private void calculateButton() {
+		String country = (String) mainUI.countriesList.getSelectedItem();
+		long fromYear = (long) fromList.getSelectedItem();
+		long toYear = (long) toList.getSelectedItem();
+		String visualType = (String) viewsList.getSelectedItem();
+		int analyseIndex = methodsList.getSelectedIndex();
+		retrievedJsonArray = new ArrayList<>();
+						
+		ArrayList<String> analyseTypeCodes = DATAPARSER.getAnalysisCodes(analyseIndex);
+		ArrayList<String> bannedVisuals = DATAPARSER.getBannedVisuals(analyseIndex);
 		
-		Vector<String> topics = DATAPARSER.getAnalysisList();
-		reportMessage += topics.get(0);
+		for(String s: analyseTypeCodes) {
+			Fetcher fetcher = new Fetcher(country, (int)fromYear, (int)toYear);
+			retrievedJsonArray.add(fetcher.fetchData(s));
+		}
+				
+		Visualization v = new Visualization(visualType, retrievedJsonArray);
+		v.drawChart(west);			
 		
-		reportMessage += "\n" ;
-		
-		report.setText(reportMessage);
-		JScrollPane outputPane = new JScrollPane(report);
-		panel.add(outputPane);
+		frame.invalidate();
+		frame.validate();
+		frame.repaint();	
 	}
 	
 }

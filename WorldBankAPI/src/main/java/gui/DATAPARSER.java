@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonParser;
 
 import dataFetchers.Fetcher;
@@ -34,6 +35,23 @@ import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 public class DATAPARSER {
 	
 	public DATAPARSER() {}
+	
+	/*
+	 * Parses topic
+	 */
+	
+	public static ArrayList<String> getTopic(ArrayList<JsonArray> retrievedJsonArray) {
+		ArrayList<String> output = new ArrayList<>();
+		
+		for(int i=0; i<retrievedJsonArray.size(); i++) {
+			String topic = retrievedJsonArray.get(i).get(1).getAsJsonArray().get(0).getAsJsonObject().get("indicator").getAsJsonObject().get("value").getAsString();
+			
+			output.add(topic);
+		}
+		
+		
+		return output;
+	}
 	
 	/**
 	 * Method used to parse from the retrieved JSON file and extract only the years
@@ -71,7 +89,7 @@ public class DATAPARSER {
 			
 			for(int j=0; j<jsonArray.size(); j++) {
 				double value=0.0;
-				if(jsonArray.get(j).getAsJsonObject().get("value") != null) {
+				if(jsonArray.get(j).getAsJsonObject().get("value") != JsonNull.INSTANCE) {
 					value = jsonArray.get(j).getAsJsonObject().get("value").getAsDouble();
 				}
 				innerArray.add(value);

@@ -145,18 +145,18 @@ public class MainUI extends JFrame {
 	}
 
 	private void createCharts(JPanel west) {
-		createLine(west);
-		createTimeSeries(west);
-		createBar(west);
-		createPie(west);
-		createScatter(west);
+		//createLine(west);
+		//createTimeSeries(west);
+		//createBar(west);
+		//createPie(west);
+		//createScatter(west);
 		createReport(west);
 
 	}
 
 	private void createReport(JPanel west) {
 		JTextArea report = new JTextArea();
-		report.setEditable(false);
+		report.setEditable(true);
 		report.setPreferredSize(new Dimension(400, 300));
 		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		report.setBackground(Color.white);
@@ -168,13 +168,15 @@ public class MainUI extends JFrame {
 				+ "\tHealth Expenditure per Capita => 10209\n" + "\tHospital Beds/1000 people => 2.87\n" + "\n"
 				+ "Year 2016:\n" + "\tMortality/1000 births => 5.8\n" + "\tHealth Expenditure per Capita => 9877\n"
 				+ "\tHospital Beds/1000 people => 2.77\n";
-
-		reportMessage2 = "Unemployment: Mev vs Women\n" + "==========================\n" + "Men=>\n"
+		reportMessage += "Unemployment: Mev vs Women\n" + "==========================\n" + "Men=>\n"
 				+ "\tEmployed: 96.054%\n" + "\tUnemployed: 3.946%\n" + "\n" + "Women=>\n" + "\tEmployed: 96.163%\n"
 				+ "\tUnemployed: 3.837%\n";
+		
 
 		report.setText(reportMessage);
-		JScrollPane outputScrollPane = new JScrollPane(report);
+		report.setAutoscrolls(true);
+		JScrollPane outputScrollPane = new JScrollPane(report, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		outputScrollPane.setAutoscrolls(true);
 		west.add(outputScrollPane);
 	}
 
@@ -257,7 +259,7 @@ public class MainUI extends JFrame {
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		dataset.addValue(3.946, "Unemployed", "Men");
-		dataset.addValue(96.054, "Employed", "Men");
+		dataset.addValue(95.054, "Employed", "Men");
 		dataset.addValue(3.837, "Unemployed", "Women");
 		dataset.addValue(96.163, "Employed", "Women");
 
@@ -326,15 +328,15 @@ public class MainUI extends JFrame {
 				new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
 
 		// Different way to create bar chart
-		/*
-		 * dataset = new DefaultCategoryDataset();
-		 * 
-		 * dataset.addValue(3.946, "Unemployed", "Men"); dataset.addValue(96.054,
-		 * "Employed", "Men"); dataset.addValue(3.837, "Unemployed", "Women");
-		 * dataset.addValue(96.163, "Employed", "Women"); barChart =
-		 * ChartFactory.createBarChart("Unemployment: Men vs Women", "Gender",
-		 * "Percentage", dataset, PlotOrientation.VERTICAL, true, true, false);
-		 */
+		
+		  //dataset = new DefaultCategoryDataset();
+		  
+		  //dataset.addValue(3.946, "Unemployed", "Men"); dataset.addValue(96.054,
+		  //"Employed", "Men"); dataset.addValue(3.837, "Unemployed", "Women");
+		  //dataset.addValue(96.163, "Employed", "Women"); barChart =
+		  //ChartFactory.createBarChart("Unemployment: Men vs Women", "Gender",
+		  //"Percentage", dataset, PlotOrientation.VERTICAL, true, true, false);
+		 
 
 		ChartPanel chartPanel = new ChartPanel(barChart);
 		chartPanel.setPreferredSize(new Dimension(400, 300));
@@ -487,7 +489,6 @@ public class MainUI extends JFrame {
 		frame.setSize(900, 600);
 		frame.pack();
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	// TODO Auto-generated method stub
 
