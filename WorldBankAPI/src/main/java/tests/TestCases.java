@@ -247,12 +247,8 @@ public class TestCases {
 		assertEquals("CN", fetcher.getCountry());
 		assertEquals(2000, fetcher.getStartYear());
 		assertEquals(2008, fetcher.getEndYear());
-<<<<<<< Updated upstream
-		DATAPARSER dp = new DATAPARSER();
-		ArrayList<String> x = dp.getAnalysisCodes(7);
-=======
-		ArrayList<String> x = DATAPARSER.getAnalysisCodes(8);
->>>>>>> Stashed changes
+
+		ArrayList<String> x = DATAPARSER.getAnalysisCodes(7);
 		boolean condition = false;
 		if(x.get(0).equals("PV.EST") && x.get(1).equals("NY.GDP.MKTP.KD.ZG")) {
 			condition = true;

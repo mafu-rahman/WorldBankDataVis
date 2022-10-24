@@ -37,6 +37,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
 import login.loginUI;
@@ -67,7 +69,8 @@ public class mainUI extends JFrame{
 	private ArrayList<JsonArray> retrievedJsonArray;
 	private ArrayList<Visualization> visual;
 	
-	JPanel west;
+	private JPanel west;
+	private int index;
 
 	/**
 	 * Constructor Method
@@ -80,6 +83,7 @@ public class mainUI extends JFrame{
 		
 		topPanel();
 		bottomPanel();
+		index = -1;
 		
 		frame.setSize(1200, 800);
 		frame.setVisible(true);
@@ -160,9 +164,32 @@ public class mainUI extends JFrame{
 		frame.add(south, BorderLayout.SOUTH);
 		frame.add(west, BorderLayout.WEST);
 		
+		addView.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				calculateButton();	
+			}
+		});
+		
+		
+		removeView.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				west.remove(index);
+				index--;
+				
+				frame.invalidate();
+				frame.validate();
+				frame.repaint();
+					
+			}
+		});
+		
 	}
 	
 	private void calculateButton() {
+		west.setVisible(true);
 		String country = (String) mainUI.countriesList.getSelectedItem();
 		long fromYear = (long) fromList.getSelectedItem();
 		long toYear = (long) toList.getSelectedItem();
@@ -181,6 +208,7 @@ public class mainUI extends JFrame{
 		Visualization v = new Visualization(visualType, retrievedJsonArray);
 		v.drawChart(west);			
 		
+		index++;
 		frame.invalidate();
 		frame.validate();
 		frame.repaint();	
