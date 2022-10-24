@@ -1,5 +1,6 @@
 package tests;
 import login.*;
+import gui.Visualization;
 import dataFetchers.*;
 import analyser.*;
 import gui.DATAPARSER;
@@ -13,7 +14,11 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.JPanel;
+
 import org.junit.Test;
+
+import com.google.gson.JsonArray;
 
 public class TestCases {
 
@@ -145,8 +150,10 @@ public class TestCases {
 	 */
 	@Test
 	public void test_visualizer_01() {
-		fail("Umimplemented");
-		
+		Fetcher fetcher = new Fetcher("CAN", 0, 2000, 2001);
+		ArrayList<JsonArray> jsonarr = new ArrayList<JsonArray>();
+		jsonarr.add(fetcher.fetchData("SP.POP.TOTL"));
+		Visualization vis = new Visualization("Line Chart", jsonarr);
 	}
 	
 	/**
@@ -154,8 +161,10 @@ public class TestCases {
 	 */
 	@Test
 	public void test_visualizer_02() {
-		fail("Umimplemented");
-		
+		Fetcher fetcher = new Fetcher("CAN", 0, 2000, 2001);
+		ArrayList<JsonArray> jsonarr = new ArrayList<JsonArray>();
+		jsonarr.add(fetcher.fetchData("SP.POP.TOTL"));
+		Visualization vis = new Visualization("Bar Chart", jsonarr);
 	}
 	
 	/**
@@ -163,7 +172,11 @@ public class TestCases {
 	 */
 	@Test
 	public void test_visualizer_03() {
-		fail("Umimplemented");
+		Fetcher fetcher = new Fetcher("CAN", 0, 2000, 2001);
+		ArrayList<JsonArray> jsonarr = new ArrayList<JsonArray>();
+		jsonarr.add(fetcher.fetchData("SP.POP.TOTL"));
+		Visualization vis = new Visualization("Report", jsonarr);
+		
 		
 	}
 	
@@ -172,8 +185,10 @@ public class TestCases {
 	 */
 	@Test
 	public void test_visualizer_04() {
-		fail("Umimplemented");
-		
+		Fetcher fetcher = new Fetcher("CAN", 0, 2000, 2001);
+		ArrayList<JsonArray> jsonarr = new ArrayList<JsonArray>();
+		jsonarr.add(fetcher.fetchData("SP.POP.TOTL"));
+		Visualization vis = new Visualization("Pie Chart", jsonarr);
 	}
 	
 	/**
@@ -234,7 +249,7 @@ public class TestCases {
 		assertEquals(2000, fetcher.getStartYear());
 		assertEquals(2008, fetcher.getEndYear());
 		DATAPARSER dp = new DATAPARSER();
-		ArrayList<String> x = dp.getAnalysisCodes(8);
+		ArrayList<String> x = dp.getAnalysisCodes(7);
 		boolean condition = false;
 		if(x.get(0).equals("PV.EST") && x.get(1).equals("NY.GDP.MKTP.KD.ZG")) {
 			condition = true;
