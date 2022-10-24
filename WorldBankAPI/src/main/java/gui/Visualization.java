@@ -63,8 +63,9 @@ public class Visualization {
 	 */
 	public Visualization(String visualType, ArrayList<JsonArray> retrievedJsonArray) {
 		this.visualType = visualType;
-		this.retrievedJsonArray = retrievedJsonArray;
 		
+		this.retrievedJsonArray = retrievedJsonArray;
+		topic = DATAPARSER.getTopic(retrievedJsonArray);
 		this.years = DATAPARSER.parseRetrievedJSONDataYears(retrievedJsonArray);
 		this.values = DATAPARSER.parseRetrievedJSONDataValues(retrievedJsonArray);
 	}

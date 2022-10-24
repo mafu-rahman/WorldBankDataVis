@@ -80,7 +80,6 @@ public class mainUI extends JFrame{
 		
 		topPanel();
 		bottomPanel();
-		addPanel();
 		
 		frame.setSize(1200, 800);
 		frame.setVisible(true);
