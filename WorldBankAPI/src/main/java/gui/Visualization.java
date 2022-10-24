@@ -176,6 +176,8 @@ public class Visualization {
 		TimeSeries s1;
 	}
 	
-	
+	public static void main(String[] args) {
+		
+	}
 
 }
