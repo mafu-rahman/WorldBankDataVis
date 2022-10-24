@@ -37,6 +37,23 @@ public class DATAPARSER {
 	public DATAPARSER() {}
 	
 	/*
+	 * Parses topic
+	 */
+	
+	public static ArrayList<String> getTopic(ArrayList<JsonArray> retrievedJsonArray) {
+		ArrayList<String> output = new ArrayList<>();
+		
+		for(int i=0; i<retrievedJsonArray.size(); i++) {
+			String topic = retrievedJsonArray.get(i).get(1).getAsJsonArray().get(0).getAsJsonObject().get("indicator").getAsJsonObject().get("value").getAsString();
+			
+			output.add(topic);
+		}
+		
+		
+		return output;
+	}
+	
+	/*
 	 * Parses froj the retrievd json file and extracts only the years
 	 */
 	public static ArrayList<ArrayList<Integer>> parseRetrievedJSONDataYears(ArrayList<JsonArray> retrievedJsonArray){

@@ -32,6 +32,7 @@ import org.jfree.chart.renderer.xy.XYSplineRenderer;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.chart.util.TableOrder;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.Year;
@@ -46,7 +47,7 @@ public class Visualization {
 	private ArrayList<JsonArray> retrievedJsonArray;
 	private ArrayList<ArrayList<Integer>> years;
 	private ArrayList<ArrayList<Double>> values;
-	private String topic;
+	private ArrayList<String> topic;
 	
 
 	public static void main(String[] args) {
@@ -58,6 +59,7 @@ public class Visualization {
 		this.visualType = visualType;
 		this.retrievedJsonArray = retrievedJsonArray;
 		
+		topic = DATAPARSER.getTopic(retrievedJsonArray);
 		years = DATAPARSER.parseRetrievedJSONDataYears(retrievedJsonArray);
 		values = DATAPARSER.parseRetrievedJSONDataValues(retrievedJsonArray);
 	}
@@ -89,8 +91,7 @@ public class Visualization {
 		for(int i=0; i<years.size(); i++) {
 			ArrayList<Integer> y = years.get(i);
 			ArrayList<Double>  v = values.get(i);
-			//String topic = DATAPARSER.getTopic();
-			String topic = "" + i;
+			String topic = this.topic.get(i);
 			XYSeries series = new XYSeries(topic);
 			for(int j=0; j<y.size(); j++) {
 				series.add(y.get(j), v.get(j));
@@ -129,8 +130,6 @@ public class Visualization {
 
 	}
 
-	
-
 	private void createScatter(JPanel west) {
 		
 		XYPlot plot = new XYPlot();
@@ -139,8 +138,7 @@ public class Visualization {
 			
 			ArrayList<Integer> y = years.get(i);
 			ArrayList<Double>  v = values.get(i);
-			//String topic = DATAPARSER.getTopic();
-			String topic = "" + i;
+			String topic = this.topic.get(i);
 			TimeSeriesCollection dataset = new TimeSeriesCollection();
 			TimeSeries series = new TimeSeries(topic);
 			XYItemRenderer itemrenderer = new XYLineAndShapeRenderer(false, true);
@@ -172,24 +170,79 @@ public class Visualization {
 		west.add(chartPanel);
 	}
 
-	private void createPie(JPanel west) {
-		// Different way to create pie chart
-		/*
-		 * var dataset = new DefaultPieDataset(); dataset.setValue("Unemployed", 3.837);
-		 * dataset.setValue("Employed", 96.163);
-		 * 
-		 * JFreeChart pieChart = ChartFactory.createPieChart("Women's Unemployment",
-		 * dataset, true, true, false);
-		 */
+	private void createBar(JPanel west) {
+		CategoryPlot plot = new CategoryPlot();
+		CategoryAxis domainAxis = new CategoryAxis("Year");
+		plot.setDomainAxis(domainAxis);
 
+		JFreeChart barChart = null;
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		dataset.addValue(3.946, "Unemployed", "Men");
-		dataset.addValue(96.054, "Employed", "Men");
-		dataset.addValue(3.837, "Unemployed", "Women");
-		dataset.addValue(96.163, "Employed", "Women");
 
+		for(int i=0; i<years.size(); i++) {
+			
+			ArrayList<Integer> y = years.get(i);
+			ArrayList<Double>  v = values.get(i);
+			String topic = this.topic.get(i);
+			
+			BarRenderer barrenderer = new BarRenderer();
+			//dataset = new DefaultCategoryDataset();
+			
+			for(int j=0; j<y.size(); j++) {
+				dataset.addValue(v.get(j), topic , y.get(j));
+			}
+			
+			plot.setDataset(i, dataset);
+			plot.setRenderer(i, barrenderer);
+			//plot.setRangeAxis(new NumberAxis(""));
+			plot.setRangeAxis(i, new NumberAxis("value"));
+
+			plot.mapDatasetToRangeAxis(i, i);
+
+		}
+
+		//barChart =
+		//		  ChartFactory.createBarChart("Unemployment: Men vs Women", "Gender",
+		//		  "Percentage", dataset, PlotOrientation.VERTICAL, true, true, false);
+		
+		
+		
+		barChart = new JFreeChart(visualType,
+				new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
+		
+
+
+		ChartPanel chartPanel = new ChartPanel(barChart);
+		
+		chartPanel.setPreferredSize(new Dimension(400, 300));
+		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		chartPanel.setBackground(Color.white);
+		west.add(chartPanel);
+
+		
+	}
+
+	private void createPie(JPanel west) {
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+		String topic1 = this.topic.get(0);
+		String topic2 = this.topic.get(1);
+		
+		ArrayList<Integer> y1 = years.get(0);
+		ArrayList<Integer> y2 = years.get(1);
+		
+		ArrayList<Double> v1 = values.get(0);
+		ArrayList<Double> v2 = values.get(1);
+		
+		for(int j=0; j<y1.size(); j++) {
+			dataset.addValue(v1.get(j), topic1, y1.get(j));
+			dataset.addValue(v2.get(j), topic2, y1.get(j));
+		}
+		
+		
 		JFreeChart pieChart = ChartFactory.createMultiplePieChart("Unemployment: Men vs Women", dataset,
 				TableOrder.BY_COLUMN, true, true, false);
+		 
+		
 
 		ChartPanel chartPanel = new ChartPanel(pieChart);
 		chartPanel.setPreferredSize(new Dimension(400, 300));
@@ -197,80 +250,6 @@ public class Visualization {
 		chartPanel.setBackground(Color.white);
 		west.add(chartPanel);
 	}
-
-	private void createBar(JPanel west) {
-		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		dataset.setValue(5.6, "Mortality/1000 births", "2018");
-		dataset.setValue(5.7, "Mortality/1000 births", "2017");
-		dataset.setValue(5.8, "Mortality/1000 births", "2016");
-		dataset.setValue(5.8, "Mortality/1000 births", "2015");
-		dataset.setValue(5.9, "Mortality/1000 births", "2014");
-		dataset.setValue(6, "Mortality/1000 births", "2013");
-		dataset.setValue(6.1, "Mortality/1000 births", "2012");
-		dataset.setValue(6.2, "Mortality/1000 births", "2011");
-		dataset.setValue(6.4, "Mortality/1000 births", "2010");
-
-		dataset.setValue(2.92, "Hospital beds/1000 people", "2018");
-		dataset.setValue(2.87, "Hospital beds/1000 people", "2017");
-		dataset.setValue(2.77, "Hospital beds/1000 people", "2016");
-		dataset.setValue(2.8, "Hospital beds/1000 people", "2015");
-		dataset.setValue(2.83, "Hospital beds/1000 people", "2014");
-		dataset.setValue(2.89, "Hospital beds/1000 people", "2013");
-		dataset.setValue(2.93, "Hospital beds/1000 people", "2012");
-		dataset.setValue(2.97, "Hospital beds/1000 people", "2011");
-		dataset.setValue(3.05, "Hospital beds/1000 people", "2010");
-
-		DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
-
-		dataset2.setValue(10623, "Health Expenditure per Capita", "2018");
-		dataset2.setValue(10209, "Health Expenditure per Capita", "2017");
-		dataset2.setValue(9877, "Health Expenditure per Capita", "2016");
-		dataset2.setValue(9491, "Health Expenditure per Capita", "2015");
-		dataset2.setValue(9023, "Health Expenditure per Capita", "2014");
-		dataset2.setValue(8599, "Health Expenditure per Capita", "2013");
-		dataset2.setValue(8399, "Health Expenditure per Capita", "2012");
-		dataset2.setValue(8130, "Health Expenditure per Capita", "2011");
-		dataset2.setValue(7930, "Health Expenditure per Capita", "2010");
-
-		CategoryPlot plot = new CategoryPlot();
-		BarRenderer barrenderer1 = new BarRenderer();
-		BarRenderer barrenderer2 = new BarRenderer();
-
-		plot.setDataset(0, dataset);
-		plot.setRenderer(0, barrenderer1);
-		CategoryAxis domainAxis = new CategoryAxis("Year");
-		plot.setDomainAxis(domainAxis);
-		plot.setRangeAxis(new NumberAxis(""));
-
-		plot.setDataset(1, dataset2);
-		plot.setRenderer(1, barrenderer2);
-		plot.setRangeAxis(1, new NumberAxis("US$"));
-
-		plot.mapDatasetToRangeAxis(0, 0);// 1st dataset to 1st y-axis
-		plot.mapDatasetToRangeAxis(1, 1); // 2nd dataset to 2nd y-axis
-
-		JFreeChart barChart = new JFreeChart("Mortality vs Expenses & Hospital Beds",
-				new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-
-		// Different way to create bar chart
-		/*
-		 * dataset = new DefaultCategoryDataset();
-		 * 
-		 * dataset.addValue(3.946, "Unemployed", "Men"); dataset.addValue(96.054,
-		 * "Employed", "Men"); dataset.addValue(3.837, "Unemployed", "Women");
-		 * dataset.addValue(96.163, "Employed", "Women"); barChart =
-		 * ChartFactory.createBarChart("Unemployment: Men vs Women", "Gender",
-		 * "Percentage", dataset, PlotOrientation.VERTICAL, true, true, false);
-		 */
-
-		ChartPanel chartPanel = new ChartPanel(barChart);
-		chartPanel.setPreferredSize(new Dimension(400, 300));
-		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-		chartPanel.setBackground(Color.white);
-		west.add(chartPanel);
-	}
-
-	
 
 	private void createTimeSeries(JPanel west) {
 		TimeSeries series1 = new TimeSeries("Mortality/1000 births");
