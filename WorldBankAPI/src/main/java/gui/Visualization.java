@@ -325,22 +325,26 @@ public class Visualization {
 		report.setPreferredSize(new Dimension(400, 300));
 		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		report.setBackground(Color.white);
-		String reportMessage, reportMessage2;
+		String reportMessage = "";
+		
+		reportMessage = visualType + "\n" + "==========\n";
+		
+		
+		for(int i=0; i<values.size(); i++) {
+			ArrayList<Integer> y = years.get(i);
+			ArrayList<Double>  v = values.get(i);
+			
+			String topic = this.topic.get(i);
+			XYSeries series = new XYSeries(topic);
+			reportMessage += topic + ":\n";
 
-		reportMessage = "Mortality vs Expenses & Hospital Beds\n" + "==============================\n" + "Year 2018:\n"
-				+ "\tMortality/1000 births => 5.6\n" + "\tHealth Expenditure per Capita => 10624\n"
-				+ "\tHospital Beds/1000 people => 2.92\n" + "\n" + "Year 2017:\n" + "\tMortality/1000 births => 5.7\n"
-				+ "\tHealth Expenditure per Capita => 10209\n" + "\tHospital Beds/1000 people => 2.87\n" + "\n"
-				+ "Year 2016:\n" + "\tMortality/1000 births => 5.8\n" + "\tHealth Expenditure per Capita => 9877\n"
-				+ "\tHospital Beds/1000 people => 2.77\n";
-
-		reportMessage += "Unemployment: Mev vs Women\n" + "==========================\n" + "Men=>\n"
-				+ "\tEmployed: 96.054%\n" + "\tUnemployed: 3.946%\n" + "\n" + "Women=>\n" + "\tEmployed: 96.163%\n"
-				+ "\tUnemployed: 3.837%\n";
-
+			for(int j=0; j<y.size(); j++) {
+				reportMessage += "\tYear: " + y.get(j) + ": " + v.get(j) + "\n";
+			}
+		}
+		
 		report.setText(reportMessage);
 		JScrollPane outputScrollPane = new JScrollPane(report);
 		west.add(outputScrollPane);
 	}
-
 }
