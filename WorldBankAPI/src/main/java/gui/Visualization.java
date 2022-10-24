@@ -133,15 +133,15 @@ public class Visualization {
 	private void createScatter(JPanel west) {
 		
 		XYPlot plot = new XYPlot();
-		
+		TimeSeriesCollection dataset = new TimeSeriesCollection();
+
 		for(int i=0; i<years.size(); i++) {
 			
 			ArrayList<Integer> y = years.get(i);
 			ArrayList<Double>  v = values.get(i);
 			String topic = this.topic.get(i);
-			TimeSeriesCollection dataset = new TimeSeriesCollection();
 			TimeSeries series = new TimeSeries(topic);
-			XYItemRenderer itemrenderer = new XYLineAndShapeRenderer(false, true);
+			XYSplineRenderer itemrenderer = new XYSplineRenderer();
 
 			for(int j=0; j<y.size(); j++) {
 				series.add(new Year(y.get(j)), v.get(j));
@@ -334,7 +334,7 @@ public class Visualization {
 				+ "Year 2016:\n" + "\tMortality/1000 births => 5.8\n" + "\tHealth Expenditure per Capita => 9877\n"
 				+ "\tHospital Beds/1000 people => 2.77\n";
 
-		reportMessage2 = "Unemployment: Mev vs Women\n" + "==========================\n" + "Men=>\n"
+		reportMessage += "Unemployment: Mev vs Women\n" + "==========================\n" + "Men=>\n"
 				+ "\tEmployed: 96.054%\n" + "\tUnemployed: 3.946%\n" + "\n" + "Women=>\n" + "\tEmployed: 96.163%\n"
 				+ "\tUnemployed: 3.837%\n";
 

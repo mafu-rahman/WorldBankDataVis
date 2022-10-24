@@ -148,9 +148,9 @@ public class MainUI extends JFrame {
 		//createLine(west);
 		//createTimeSeries(west);
 		//createBar(west);
-		createPie(west);
+		//createPie(west);
 		//createScatter(west);
-		//createReport(west);
+		createReport(west);
 
 	}
 
@@ -169,7 +169,7 @@ public class MainUI extends JFrame {
 				+ "Year 2016:\n" + "\tMortality/1000 births => 5.8\n" + "\tHealth Expenditure per Capita => 9877\n"
 				+ "\tHospital Beds/1000 people => 2.77\n";
 
-		reportMessage2 = "Unemployment: Mev vs Women\n" + "==========================\n" + "Men=>\n"
+		reportMessage += "Unemployment: Mev vs Women\n" + "==========================\n" + "Men=>\n"
 				+ "\tEmployed: 96.054%\n" + "\tUnemployed: 3.946%\n" + "\n" + "Women=>\n" + "\tEmployed: 96.163%\n"
 				+ "\tUnemployed: 3.837%\n";
 
