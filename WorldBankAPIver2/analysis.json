@@ -1,0 +1,58 @@
+[
+	{ 
+		"index":0,
+		"type":"Agricultral land vs Forest Land vs Total population",
+		"codes":["AG.LND.AGRI.ZS", "AG.LND.FRST.ZS", "SP.POP.TOTL"],
+		"bannedVisualizations":["Pie Chart"]
+	},
+	
+	{ 
+		"index":1,
+		"type":"Electricity from coal vs Renewable energy output",
+		"codes":["EG.ELC.COAL.ZS", "EG.ELC.RNEW.ZS"],
+		"bannedVisualizations":["Pie Chart"]
+	},
+	
+	{ 
+		"index":2,
+		"type":"Renewable energy output vs Renewable energy consumption",
+		"codes":["EG.ELC.RNEW.ZS", "EG.FEC.RNEW.ZS"],
+		"bannedVisualizations":["Pie Chart"]
+	},
+	
+	{ 
+		"index":3,
+		"type":"Fossil fuel consumption vs Renewable energy consumption",
+		"codes":["EG.USE.COMM.FO.ZS", "EG.FEC.RNEW.ZS"],
+		"bannedVisualizations":["Pie Chart"]
+	},
+	
+	{ 
+		"index":4,
+		"type":"Total Population vs GDP Growth",
+		"codes":["SP.POP.TOTL", "NY.GDP.MKTP.KD.ZG"],
+		"bannedVisualizations":["Pie Chart"]
+	},
+
+    {
+        "index":5,
+        "type":"Heat Index vs CO2 Emission",
+        "codes":["EN.CLC.HEAT.XD", "EN.ATM.CO2E.PC"],
+        "bannedVisualizations":["Pie Chart"]
+    },
+
+    {
+        "index":6,
+        "type":"Forest land vs Heat Index vs CO2 Emission",
+        "codes":["AG.LND.FRST.ZS", "EN.CLC.HEAT.XD", "EN.ATM.CO2E.PC"],
+        "bannedVisualizations":["Pie Chart"]
+    },
+
+    {
+        "index":7,
+        "type":"Political Stability vs GDP Growth",
+        "codes":["PV.EST", "NY.GDP.MKTP.KD.ZG"],
+        "bannedVisualizations":["Pie Chart"]
+    }
+
+]
