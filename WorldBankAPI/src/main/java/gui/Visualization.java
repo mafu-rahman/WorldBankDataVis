@@ -181,6 +181,7 @@ public class Visualization {
 		chartPanel.setBackground(Color.white);
 		west.add(chartPanel);
 	}
+	
 	/**
 	 * Method used to draw a bar chart
 	 */

@@ -3,16 +3,21 @@ package client;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JPanel;
+
 import analysers.IAnalyser;
 import viewers.IViewer;
 
 public class UserSelection {
 	
 	private List<IViewer> viewers;
+	private IAnalyser analyser;
+	private JPanel viewPanel;
+	
 	private String countryCode;
 	private long fromYear;
 	private long toYear;
-	private IAnalyser analyser;
+	
 	
 	public UserSelection() {
 		this.viewers = new ArrayList<>();
@@ -44,16 +49,21 @@ public class UserSelection {
 		}
 		System.out.println("Viewer selected");
 		this.viewers.add(v);
-		v.draw();
+		v.draw(this.viewPanel);
 	}
 	
 	public void removeViewer(IViewer v) {
 		if(this.viewers.contains(v)) {
-			this.viewers.remove(v);
 			System.out.println("Viewer removed");
+			v.remove(viewPanel);
+			this.viewers.remove(v);
 			return;
 		}
 		System.out.println("Viewer not selected");
+	}
+	
+	public void addViewPanel(JPanel viewPanel) {
+		this.viewPanel = viewPanel;
 	}
 	
 	public void setAnalysis(IAnalyser a) {

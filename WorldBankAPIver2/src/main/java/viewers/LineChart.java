@@ -30,18 +30,62 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 public class LineChart implements IViewer{
 	
+	ChartPanel chartPanel;
 	
 	public LineChart() {
 	}
 
 	@Override
-	public void draw() {
+	public void draw(JPanel viewPanel) {
 		System.out.println("Drawing using LineChart Viewer");
+		
+		XYSeriesCollection dataset = new XYSeriesCollection();;
+		
+		
+		XYSeries series = new XYSeries("topic");
+			
+		//series.add(y.get(j), v.get(j));
+		dataset.addSeries(series);
+		
+		JFreeChart chart = ChartFactory.createXYLineChart("visual type", "Year", "", dataset,
+				PlotOrientation.VERTICAL, true, true, false);
+
+		XYPlot plot = chart.getXYPlot();
+
+		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+		renderer.setSeriesPaint(0, Color.RED);
+		renderer.setSeriesStroke(0, new BasicStroke(2.0f));
+
+		plot.setRenderer(renderer);
+		plot.setBackgroundPaint(Color.white);
+
+		plot.setRangeGridlinesVisible(true);
+		plot.setRangeGridlinePaint(Color.BLACK);
+
+		plot.setDomainGridlinesVisible(true);
+		plot.setDomainGridlinePaint(Color.BLACK);
+
+		chart.getLegend().setFrame(BlockBorder.NONE);
+
+		chart.setTitle(
+				new TextTitle("visual type", new Font("Serif", java.awt.Font.BOLD, 18)));
+
+		chartPanel = new ChartPanel(chart);
+		chartPanel.setPreferredSize(new Dimension(400, 300));
+		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		chartPanel.setBackground(Color.white);
+		viewPanel.add(chartPanel);
+	}
+	
+	@Override
+	public void remove(JPanel viewPanel) {
+		viewPanel.remove(chartPanel);
 		
 	}
 	
 	public String toString() {
 		return "Line Chart";
 	}
+
 }
 	

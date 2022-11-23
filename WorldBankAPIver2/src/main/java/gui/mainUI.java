@@ -82,9 +82,9 @@ public class mainUI extends JFrame{
 	private JButton removeViewButton;
 	private JButton recalculateButton;
 	
-	JComboBox<String> countriesList;
-	JComboBox<Integer> fromYear;
-	JComboBox<Integer> toYear;
+	private JComboBox<String> countriesList;
+	private JComboBox<Integer> fromYear;
+	private JComboBox<Integer> toYear;
 	private JComboBox<IViewer> viewerList;
 	private JComboBox<IAnalyser> analysisList;
 
@@ -103,15 +103,18 @@ public class mainUI extends JFrame{
 		frame.setTitle("Country Statistics");
 		frame.setSize(1200, 800);
 		
+		this.topPanel = new JPanel();
+		this.bottomPanel = new JPanel();
+		this.viewPanel = new JPanel();
+		
 		this.jsonParser = new JsonParser();
 		this.userSelection = new UserSelection();
+		this.userSelection.addViewPanel(viewPanel);
 		 
 		this.viewers = v;
 		this.analysers = a;
 		
-		this.topPanel = new JPanel();
-		this.bottomPanel = new JPanel();
-		this.viewPanel = new JPanel();
+		
 		
 		this.setupPanel();
 		
@@ -203,6 +206,11 @@ public class mainUI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				userSelection.addViewer((IViewer) viewerList.getSelectedItem());
+				
+				
+				frame.invalidate();
+				frame.validate();
+				frame.repaint();	
 			}
 		});
 	}
@@ -218,6 +226,10 @@ public class mainUI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				userSelection.removeViewer((IViewer) viewerList.getSelectedItem());
+				
+				frame.invalidate();
+				frame.validate();
+				frame.repaint();
 			}
 		});
 	}
