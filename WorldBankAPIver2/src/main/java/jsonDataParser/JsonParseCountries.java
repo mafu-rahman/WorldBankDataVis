@@ -1,4 +1,4 @@
-package dataParser;
+package jsonDataParser;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,18 +10,22 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class JsonParseYears implements IJsonParser{
+public class JsonParseCountries implements IJsonParser{
 
+	/**
+	 * Parses from countries.json file to get available countries
+	 * @return countries List of all available countries 
+	 */
 	public Object parse() {
 		JSONParser jsonParser = new JSONParser();
-		ArrayList<Integer> tempYears = new ArrayList<>();
-		Vector<Integer> years = null;
+		ArrayList<String> tempCountries = new ArrayList<>();
+		Vector<String> countries = null;
         try{
-        	FileReader reader = new FileReader("years.json");
-        	JSONObject yearsJSON = (JSONObject) jsonParser.parse(reader);
+        	FileReader reader = new FileReader("countries.json");
+        	JSONObject countriesJSON = (JSONObject) jsonParser.parse(reader);
         	
-        	tempYears = (ArrayList<Integer>) yearsJSON.get("years");
-        	years = new Vector<Integer>(tempYears);
+        	tempCountries = (ArrayList<String>) countriesJSON.get("countries");
+        	countries = new Vector<>(tempCountries);
      		
  
         } catch (FileNotFoundException e) {
@@ -32,7 +36,7 @@ public class JsonParseYears implements IJsonParser{
             e.printStackTrace();
         }
         
-        return years;
+        return countries;
 	}
 
 }

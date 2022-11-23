@@ -53,7 +53,7 @@ public class mainUI extends JFrame{
 	 * Class Attributes
 	 */
 	private static JFrame frame;
-	private static JPanel panel;
+	//private static JPanel panel;
 	
 	private static JComboBox<String> countriesList;
 	private static JComboBox<Integer> fromList;
@@ -77,8 +77,8 @@ public class mainUI extends JFrame{
 	 */
 	public mainUI() {
 		frame = new JFrame();
-		panel = new JPanel();
-		panel.setLayout(null);
+		//panel = new JPanel();
+		//panel.setLayout(null);
 		frame.setTitle("Country Statistics");
 		
 		topPanel();
@@ -185,7 +185,6 @@ public class mainUI extends JFrame{
 					
 			}
 		});
-		
 	}
 	
 	private void calculateButton() {
@@ -212,6 +211,5 @@ public class mainUI extends JFrame{
 		frame.invalidate();
 		frame.validate();
 		frame.repaint();	
-	}
-	
+	}	
 }

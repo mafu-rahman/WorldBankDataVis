@@ -5,3 +5,10 @@
 /dataFetchers/
 /tests/
 /Viewers/
+/viewers/
+/analysers/
+/adapters/
+/client/
+/login/
+/jsonDataParser/
+/results/

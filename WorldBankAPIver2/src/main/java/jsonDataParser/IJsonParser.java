@@ -1,4 +1,4 @@
-package dataParser;
+package jsonDataParser;
 
 public interface IJsonParser {
 	

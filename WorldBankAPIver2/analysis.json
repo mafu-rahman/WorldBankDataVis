@@ -1,8 +1,8 @@
 [
 	{ 
 		"index":0,
-		"type":"Agricultral land vs Forest Land vs Total population",
-		"codes":["AG.LND.AGRI.ZS", "AG.LND.FRST.ZS", "SP.POP.TOTL"],
+		"type":"Agricultral land vs Forest Land",
+		"codes":["AG.LND.AGRI.ZS", "AG.LND.FRST.ZS"],
 		"bannedVisualizations":["Pie Chart"]
 	},
 	

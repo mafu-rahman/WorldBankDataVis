@@ -1,6 +1,4 @@
-package gui;
-
-import dataFetchers.DATAPARSER;
+package viewers;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -36,6 +34,8 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import com.google.gson.JsonArray;
+
+import jsonDataParser.DATAPARSER;
 
 public class Visualization {
 	

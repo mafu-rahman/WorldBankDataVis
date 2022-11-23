@@ -1,4 +1,4 @@
-package login;
+package gui;
 
 
 import java.awt.event.ActionEvent;
@@ -13,8 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-import gui.mainUI;
 
 public class loginUI extends JFrame implements ActionListener{
 	

@@ -1,4 +1,4 @@
-package dataParser;
+package jsonDataParser;
 
 public class JsonParser {
 	public IJsonParser JsonParser;

@@ -1,4 +1,4 @@
-package dataFetchers;
+package jsonDataParser;
 
 import java.awt.BorderLayout;
 import org.json.simple.JSONObject;
