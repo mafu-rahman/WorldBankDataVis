@@ -38,4 +38,8 @@ public class AnalysisCoalvsRenewable implements IAnalyser{
 		System.out.println("Calculated using Coal vs Renewable Analyser");
 		return null;
 	}
+	
+	public String toString() {
+		return "Coal Energy vs Renewable Energy";
+	}
 }

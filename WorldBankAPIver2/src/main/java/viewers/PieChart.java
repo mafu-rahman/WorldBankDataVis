@@ -6,4 +6,8 @@ public class PieChart implements IViewer{
 		System.out.println("Drawing using PieChart Viewer");
 		
 	}
+	
+	public String toString() {
+		return "Pie Chart";
+	}
 }

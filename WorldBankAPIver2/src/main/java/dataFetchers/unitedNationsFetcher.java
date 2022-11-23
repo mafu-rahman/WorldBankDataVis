@@ -13,8 +13,8 @@ import client.UserSelection;
 public class unitedNationsFetcher implements Fetcher{
 	public JsonArray fetchData(UserSelection selection, String analysisTypeCode) {
 		String country = selection.getCountryCode();
-		int fromYear = selection.getFromYear();
-		int toYear = selection.getToYear();
+		long fromYear = selection.getFromYear();
+		long toYear = selection.getToYear();
 		
 		String urlString = String.format(""
 				+ "\nhttp://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json"

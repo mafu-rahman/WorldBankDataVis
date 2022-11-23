@@ -54,7 +54,7 @@ import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
-public class mainUI extends JFrame implements IuiPanel{
+public class mainUI extends JFrame{
 
 	public static void main(String[] args) {
 		Viewer v = new Viewer();

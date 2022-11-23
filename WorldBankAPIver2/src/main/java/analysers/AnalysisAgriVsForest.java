@@ -38,4 +38,8 @@ public class AnalysisAgriVsForest implements IAnalyser{
 		System.out.println("Calculated using Agriculture vs Forest Analyser");
 		return null;
 	}
+	
+	public String toString() {
+		return "Agriculture vs Forest";
+	}
 }

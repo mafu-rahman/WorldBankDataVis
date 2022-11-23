@@ -39,5 +39,9 @@ public class LineChart implements IViewer{
 		System.out.println("Drawing using LineChart Viewer");
 		
 	}
+	
+	public String toString() {
+		return "Line Chart";
+	}
 }
 	

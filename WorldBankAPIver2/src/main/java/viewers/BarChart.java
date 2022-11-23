@@ -8,5 +8,9 @@ public class BarChart implements IViewer{
 
 		
 	}
+	
+	public String toString() {
+		return "Bar Chart";
+	}
 
 }
