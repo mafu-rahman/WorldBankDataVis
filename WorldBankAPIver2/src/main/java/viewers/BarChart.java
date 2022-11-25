@@ -16,44 +16,75 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import results.OneSeriesResult;
+import results.Result;
+import results.ThreeSeriesResult;
+import results.TwoSeriesResult;
+
 public class BarChart implements IViewer{
+	private JPanel viewerPanel;
 	private ChartPanel chartPanel;
+	private JFreeChart barChart;
+	private DefaultCategoryDataset dataset;
 	
 	@Override
-	public void draw(JPanel viewPanel) {
-		System.out.println("Drawing using BarChart Viewer");
+	public void initialize(JPanel viewPanel) {
+		System.out.println("Initializing using BarChart Viewer");
 		
-		CategoryPlot plot = new CategoryPlot();
-		CategoryAxis domainAxis = new CategoryAxis("Year");
-		plot.setDomainAxis(domainAxis);
+		this.viewerPanel = viewPanel;
+		this.dataset = new DefaultCategoryDataset();
 
-		JFreeChart barChart = null;
-		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		//dataset.addValue(v.get(j), topic , y.get(j));
-		
+		CategoryPlot plot = new CategoryPlot();
+		plot.setDomainAxis(new CategoryAxis("Year"));
+		plot.setRangeAxis(new NumberAxis("Value"));
+			
 		BarRenderer barrenderer = new BarRenderer();
 			
 		plot.setDataset(dataset);
 		plot.setRenderer(barrenderer);
 			
-		plot.setRangeAxis(new NumberAxis("value"));
-
-		//plot.mapDatasetToRangeAxis(i, i);
-		
-		barChart = new JFreeChart("visual type",
-				new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-
-
-		chartPanel = new ChartPanel(barChart);
-		
+		barChart = new JFreeChart("Bar Chart Title", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);		
+	
+		chartPanel = new ChartPanel(barChart);	
 		chartPanel.setPreferredSize(new Dimension(400, 300));
 		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		chartPanel.setBackground(Color.white);
-		viewPanel.add(chartPanel);
+		this.viewerPanel.add(chartPanel);
+	}
+	
+	public void draw(Result result) {
+		System.out.println("Drawing using BarChart Viewer");
+
+		if(result instanceof OneSeriesResult) {
+			this.drawOneSeries();
+		}
+		
+		else if(result instanceof TwoSeriesResult) {
+			this.drawTwoSeries();
+		}
+		
+		else if(result instanceof ThreeSeriesResult) {
+			this.drawThreeSeries();
+		}
+		
+		else {
+			System.out.println("View not supported");
+		}
+	}
+	
+	private void drawOneSeries() {
 		
 	}
 	
-	@Override
+	private void drawTwoSeries() {
+		
+	}
+	
+	private void drawThreeSeries() {
+		
+	}
+	
+	
 	public void remove(JPanel viewPanel) {
 		viewPanel.remove(chartPanel);		
 	}
@@ -61,6 +92,5 @@ public class BarChart implements IViewer{
 	public String toString() {
 		return "Bar Chart";
 	}
-
 
 }

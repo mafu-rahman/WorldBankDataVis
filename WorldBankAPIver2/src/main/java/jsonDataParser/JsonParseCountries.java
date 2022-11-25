@@ -12,6 +12,12 @@ import org.json.simple.parser.ParseException;
 
 public class JsonParseCountries implements IJsonParser{
 
+	
+	private String file;
+	public JsonParseCountries(String file) {
+		this.file = file;
+	}
+	
 	/**
 	 * Parses from countries.json file to get available countries
 	 * @return countries List of all available countries 
@@ -21,7 +27,7 @@ public class JsonParseCountries implements IJsonParser{
 		ArrayList<String> tempCountries = new ArrayList<>();
 		Vector<String> countries = null;
         try{
-        	FileReader reader = new FileReader("countries.json");
+        	FileReader reader = new FileReader(file);
         	JSONObject countriesJSON = (JSONObject) jsonParser.parse(reader);
         	
         	tempCountries = (ArrayList<String>) countriesJSON.get("countries");
@@ -38,5 +44,6 @@ public class JsonParseCountries implements IJsonParser{
         
         return countries;
 	}
+	
 
 }

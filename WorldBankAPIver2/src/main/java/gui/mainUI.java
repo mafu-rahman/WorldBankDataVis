@@ -10,6 +10,7 @@ import org.json.simple.parser.ParseException;
 
 import com.google.gson.JsonArray;
 
+import adapters.WorldBankAdapter;
 import analysers.Analyser;
 import analysers.AnalysisAgriVsForest;
 import analysers.AnalysisCoalvsRenewable;
@@ -63,7 +64,7 @@ public class mainUI extends JFrame{
 		v.addViewer(new LineChart());
 		
 		Analyser a = new Analyser();
-		a.addAnalyser(new AnalysisAgriVsForest(null, null));
+		a.addAnalyser(new AnalysisAgriVsForest(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisCoalvsRenewable(null, null));
 		
 		new mainUI(v, a);	
@@ -107,6 +108,8 @@ public class mainUI extends JFrame{
 		this.bottomPanel = new JPanel();
 		this.viewPanel = new JPanel();
 		
+		this.viewPanel.setLayout(new GridLayout(2, 0));
+		
 		this.jsonParser = new JsonParser();
 		this.userSelection = new UserSelection();
 		this.userSelection.addViewPanel(viewPanel);
@@ -142,7 +145,7 @@ public class mainUI extends JFrame{
 	 */
 	@SuppressWarnings("unchecked")
 	private void setupCountryMenu() {
-		jsonParser.setParser(new JsonParseCountries());
+		jsonParser.setParser(new JsonParseCountries("countries.json"));
 		Vector<String> countriesNames = (Vector<String>) jsonParser.parse();
 		
 		JLabel chooseCountryLabel = new JLabel("Choose a country: ");
@@ -157,7 +160,7 @@ public class mainUI extends JFrame{
 	 */
 	@SuppressWarnings("unchecked")
 	private void setupFromYears() {
-		jsonParser.setParser(new JsonParseYears());
+		jsonParser.setParser(new JsonParseYears("years.json"));
 		Vector<Integer> years = (Vector<Integer>) jsonParser.parse();
 		
 		JLabel from = new JLabel("From");
@@ -172,7 +175,7 @@ public class mainUI extends JFrame{
 	 */
 	@SuppressWarnings("unchecked")
 	private void setupToYears() {
-		jsonParser.setParser(new JsonParseYears());
+		jsonParser.setParser(new JsonParseYears("years.json"));
 		Vector<Integer> years = (Vector<Integer>) jsonParser.parse();
 		
 		JLabel to = new JLabel("To");
@@ -207,12 +210,10 @@ public class mainUI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				userSelection.addViewer((IViewer) viewerList.getSelectedItem());
 				
-				
-				frame.invalidate();
-				frame.validate();
-				frame.repaint();	
+				refreshFrame();	
 			}
 		});
+
 	}
 	
 	/**
@@ -225,13 +226,12 @@ public class mainUI extends JFrame{
 		removeViewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				userSelection.removeViewer((IViewer) viewerList.getSelectedItem());
+				userSelection.removeViewer((IViewer) viewerList.getSelectedItem());				
 				
-				frame.invalidate();
-				frame.validate();
-				frame.repaint();
+				refreshFrame();	
 			}
 		});
+		
 	}
 	
 	/**
@@ -262,13 +262,20 @@ public class mainUI extends JFrame{
 			userSelection.setToYear((long) toYear.getSelectedItem());
 			userSelection.setAnalysis((IAnalyser) analysisList.getSelectedItem());
 			userSelection.analyse();
+			userSelection.draw();
+			refreshFrame();	
+
 			}
 		});
-		
-
+	}
+	
+	/*
+	 * Helper method
+	 */
+	private void refreshFrame() {
 		frame.invalidate();
 		frame.validate();
-		frame.repaint();	
+		frame.repaint();
 	}
 	
 }

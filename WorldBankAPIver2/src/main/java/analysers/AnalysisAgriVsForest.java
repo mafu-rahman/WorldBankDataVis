@@ -1,42 +1,72 @@
 package analysers;
 
+import java.util.HashMap;
+
 import com.google.gson.JsonArray;
+import com.google.gson.JsonNull;
 
 import adapters.TargetAdapter;
 import client.UserSelection;
+import jsonDataParser.JsonParseRetrivedData;
+import jsonDataParser.JsonParser;
 import results.Result;
+import results.*;
 
 public class AnalysisAgriVsForest implements IAnalyser{
 	
-	private String agriCode;
-	private String forestCode;
+	private final String agriCode = "AG.LND.AGRI.ZS";
+	private final String forestCode = "AG.LND.FRST.ZS";
 	
-	private JsonArray agricultureData;
-	private JsonArray forestData;
+	private JsonArray agricultureDataJson;
+	private JsonArray forestDataJson;
+	
+	private JsonParser jsonParser;
 	
 	private TargetAdapter fetcherAdapter;
 	private UserSelection userSelection;
 	
-	private int fromYear;
-	private int toYear;
 	
-	public AnalysisAgriVsForest(UserSelection selection, TargetAdapter adapter) {
+	public AnalysisAgriVsForest(TargetAdapter adapter) {
+		jsonParser = new JsonParser();
 		this.fetcherAdapter = adapter;
-		this.userSelection = selection;
 	}
 	
 	private void fetchDataAgri() {
-		agricultureData = (JsonArray) fetcherAdapter.fetchData(userSelection, agriCode);
+		this.agricultureDataJson = (JsonArray) fetcherAdapter.fetchData(userSelection, agriCode);
 	}
 	
 	private void fetchDataForest() {
-		forestData = (JsonArray) fetcherAdapter.fetchData(userSelection, forestCode);
+		this.forestDataJson = (JsonArray) fetcherAdapter.fetchData(userSelection, forestCode);
 	}
 
 	@Override
-	public Result calculate() {
-		System.out.println("Calculated using Agriculture vs Forest Analyser");
-		return null;
+	public Result calculate(UserSelection selection) {
+		System.out.println("Calculating using Agriculture vs Forest Analyser");
+		
+		this.userSelection = selection;
+		
+		this.fetchDataAgri();
+		this.fetchDataForest();
+		
+		
+		Result result = this.processData();	
+		
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Result processData() {
+		jsonParser.setParser(new JsonParseRetrivedData(agricultureDataJson));
+		HashMap<String, Double> agricultureData = (HashMap<String, Double>) jsonParser.parse();
+		
+		jsonParser.setParser(new JsonParseRetrivedData(forestDataJson));
+		HashMap<String, Double> forestData = (HashMap<String, Double>) jsonParser.parse();
+		
+		TwoSeriesResult result = new TwoSeriesResult();
+		result.addData1(agricultureData);
+		result.addData2(forestData);
+		
+		return result;
 	}
 	
 	public String toString() {

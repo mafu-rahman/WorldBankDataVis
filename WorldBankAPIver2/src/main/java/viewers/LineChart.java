@@ -28,6 +28,11 @@ import org.jfree.data.time.Year;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import results.OneSeriesResult;
+import results.Result;
+import results.ThreeSeriesResult;
+import results.TwoSeriesResult;
+
 public class LineChart implements IViewer{
 	
 	ChartPanel chartPanel;
@@ -36,8 +41,8 @@ public class LineChart implements IViewer{
 	}
 
 	@Override
-	public void draw(JPanel viewPanel) {
-		System.out.println("Drawing using LineChart Viewer");
+	public void initialize(JPanel viewPanel) {
+		System.out.println("Initializing using LineChart Viewer");
 		
 		XYSeriesCollection dataset = new XYSeriesCollection();;
 		
@@ -75,6 +80,26 @@ public class LineChart implements IViewer{
 		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		chartPanel.setBackground(Color.white);
 		viewPanel.add(chartPanel);
+	}
+	
+	public void draw(Result result) {
+		System.out.println("Drawing using Line Chart Viewer");
+
+		if(result instanceof OneSeriesResult) {
+			
+		}
+		
+		else if(result instanceof TwoSeriesResult) {
+			
+		}
+		
+		else if(result instanceof ThreeSeriesResult) {
+			
+		}
+		
+		else {
+			System.out.println("View not supported");
+		}
 	}
 	
 	@Override

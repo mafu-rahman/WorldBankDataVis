@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import analysers.IAnalyser;
+import results.Result;
 import viewers.IViewer;
 
 public class UserSelection {
@@ -13,6 +14,7 @@ public class UserSelection {
 	private List<IViewer> viewers;
 	private IAnalyser analyser;
 	private JPanel viewPanel;
+	private Result result;
 	
 	private String countryCode;
 	private long fromYear;
@@ -24,7 +26,13 @@ public class UserSelection {
 	}
 	
 	public void analyse() {
-		analyser.calculate();
+		this.result = analyser.calculate(this);
+	}
+	
+	public void draw() {
+		for(IViewer v : viewers) {
+			v.draw(result);
+		}
 	}
 	
 	/*
@@ -49,7 +57,7 @@ public class UserSelection {
 		}
 		System.out.println("Viewer selected");
 		this.viewers.add(v);
-		v.draw(this.viewPanel);
+		v.initialize(this.viewPanel);
 	}
 	
 	public void removeViewer(IViewer v) {
