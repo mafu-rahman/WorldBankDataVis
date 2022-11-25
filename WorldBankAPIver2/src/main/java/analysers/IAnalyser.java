@@ -7,6 +7,8 @@ public interface IAnalyser {
 	
 	public Result calculate(UserSelection selection);
 	
+	public void processData();
+	
 	public String toString();
 	
 }

@@ -3,13 +3,10 @@ package analysers;
 import java.util.HashMap;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonNull;
-
 import adapters.TargetAdapter;
 import client.UserSelection;
 import jsonDataParser.JsonParseRetrivedData;
 import jsonDataParser.JsonParser;
-import results.Result;
 import results.*;
 
 public class AnalysisAgriVsForest implements IAnalyser{
@@ -17,18 +14,26 @@ public class AnalysisAgriVsForest implements IAnalyser{
 	private final String agriCode = "AG.LND.AGRI.ZS";
 	private final String forestCode = "AG.LND.FRST.ZS";
 	
+	private final String title = "Agricultral land vs Forest Land";
+	private final String agriToipic = "Agricultural land (% of land area)";
+	private final String forestTopic = "Forest land (% of land area)";
+
 	private JsonArray agricultureDataJson;
 	private JsonArray forestDataJson;
 	
 	private JsonParser jsonParser;
+	
+	private TwoSeriesResult result;
 	
 	private TargetAdapter fetcherAdapter;
 	private UserSelection userSelection;
 	
 	
 	public AnalysisAgriVsForest(TargetAdapter adapter) {
-		jsonParser = new JsonParser();
 		this.fetcherAdapter = adapter;
+
+		this.jsonParser = new JsonParser();
+		this.result = new TwoSeriesResult();
 	}
 	
 	private void fetchDataAgri() {
@@ -47,26 +52,24 @@ public class AnalysisAgriVsForest implements IAnalyser{
 		
 		this.fetchDataAgri();
 		this.fetchDataForest();
-		
-		
-		Result result = this.processData();	
+		this.processData();	
 		
 		return result;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Result processData() {
+	public void processData() {
 		jsonParser.setParser(new JsonParseRetrivedData(agricultureDataJson));
 		HashMap<String, Double> agricultureData = (HashMap<String, Double>) jsonParser.parse();
 		
 		jsonParser.setParser(new JsonParseRetrivedData(forestDataJson));
 		HashMap<String, Double> forestData = (HashMap<String, Double>) jsonParser.parse();
 		
-		TwoSeriesResult result = new TwoSeriesResult();
-		result.addData1(agricultureData);
-		result.addData2(forestData);
-		
-		return result;
+		this.result.addTitle(title);
+		this.result.addTopic1(agriToipic);
+		this.result.addTopic2(forestTopic);
+		this.result.addData1(agricultureData);
+		this.result.addData2(forestData);	
 	}
 	
 	public String toString() {

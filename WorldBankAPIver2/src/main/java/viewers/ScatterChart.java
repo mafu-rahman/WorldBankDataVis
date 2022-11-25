@@ -11,57 +11,73 @@ import javax.swing.JPanel;
 
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYSplineRenderer;
+import org.jfree.chart.title.TextTitle;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.time.Year;
 
 import results.OneSeriesResult;
 import results.Result;
 import results.ThreeSeriesResult;
 import results.TwoSeriesResult;
 
-public class BarChart implements IViewer{
+public class ScatterChart implements IViewer{
+
 	private JPanel viewPanel;
+	
+	private XYPlot plot;
+	private TimeSeriesCollection dataset;
 	private ChartPanel chartPanel;
-	private JFreeChart barChart;
-	private DefaultCategoryDataset dataset;
-	private CategoryPlot plot;
-	private BarRenderer barrenderer;
+	private JFreeChart scatterChart;
+
 	private Result result;
+
 	
 	@Override
 	public void initialize(JPanel viewPanel) {
-		System.out.println("Initializing using BarChart Viewer");
+		System.out.println("Initializing using Scatter Chart Viewer");
 		
 		this.viewPanel = viewPanel;
-		this.dataset = new DefaultCategoryDataset();
-
-		plot = new CategoryPlot();
-		plot.setDomainAxis(new CategoryAxis("Year"));
-		plot.setRangeAxis(new NumberAxis("Value"));
 		
-		barrenderer = new BarRenderer();
+		plot = new XYPlot();
+		dataset = new TimeSeriesCollection();
+					
+		XYSplineRenderer itemrenderer = new XYSplineRenderer();
+
 		plot.setDataset(dataset);
-		plot.setRenderer(barrenderer);
+		plot.setRenderer(itemrenderer);
 			
-		barChart = new JFreeChart("Bar Chart Title", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);		
-	
-		chartPanel = new ChartPanel(barChart);	
+		//plot.mapDatasetToRangeAxis(i, i);// 1st dataset to 1st y-axis
+			
+		DateAxis domainAxis = new DateAxis("Year");
+		plot.setDomainAxis(domainAxis);
+		
+		plot.setRangeAxis(new NumberAxis("Values"));
+
+		scatterChart = new JFreeChart("Scatter Chart",
+				new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
+
+		chartPanel = new ChartPanel(scatterChart);
 		chartPanel.setPreferredSize(new Dimension(400, 300));
 		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		chartPanel.setBackground(Color.white);
-		
 		this.viewPanel.add(chartPanel);
 	}
-	
+
+	@Override
 	public void draw(Result result) {
+		dataset.removeAllSeries();
 		
-		System.out.println("Drawing using BarChart Viewer");
+		System.out.println("Drawing using Line Chart Viewer");
 		this.result = result;
+		
 		String title = result.getTitle();
-		barChart.setTitle(title);
+		scatterChart.setTitle(
+				new TextTitle(title, new Font("Serif", java.awt.Font.BOLD, 18)));
 		
 		if(result instanceof OneSeriesResult) {
 			this.drawOneSeries();
@@ -77,21 +93,23 @@ public class BarChart implements IViewer{
 		
 		else {
 			System.out.println("View not supported");
-		}
+		}		
 	}
-	
+
 	private void drawOneSeries() {
 		OneSeriesResult result = (OneSeriesResult) this.result;
-		
 		HashMap<String, Double> data1 = result.getData1();
 		
 		String topic1 = result.getTopic1();
-		
+		TimeSeries series1 = new TimeSeries(topic1);
 		for(Map.Entry<String, Double> set: data1.entrySet()) {
-			dataset.addValue(set.getValue(), topic1, set.getKey());
-		}	
+			Integer key = Integer.valueOf(set.getKey());
+			series1.add(new Year(key), set.getValue());
+		}
+		dataset.addSeries(series1);
+
 	}
-	
+
 	private void drawTwoSeries() {
 		TwoSeriesResult result = (TwoSeriesResult) this.result;
 		
@@ -99,17 +117,23 @@ public class BarChart implements IViewer{
 		HashMap<String, Double> data2 = result.getData2();
 		
 		String topic1 = result.getTopic1();
-		String topic2 = result.getTopic2();
+		String topic2 = result.getTopic2();		
 		
+		TimeSeries series1 = new TimeSeries(topic1);
 		for(Map.Entry<String, Double> set: data1.entrySet()) {
-			dataset.addValue(set.getValue(), topic1, set.getKey());
+			Integer key = Integer.valueOf(set.getKey());
+			series1.add(new Year(key), set.getValue());
 		}
+		dataset.addSeries(series1);
 		
+		TimeSeries series2 = new TimeSeries(topic2);
 		for(Map.Entry<String, Double> set: data2.entrySet()) {
-			dataset.addValue(set.getValue(), topic2, set.getKey());
-		}		
+			Integer key = Integer.valueOf(set.getKey());
+			series2.add(new Year(key), set.getValue());
+		}
+		dataset.addSeries(series2);
 	}
-	
+
 	private void drawThreeSeries() {
 		ThreeSeriesResult result = (ThreeSeriesResult) this.result;
 		
@@ -119,26 +143,37 @@ public class BarChart implements IViewer{
 
 		String topic1 = result.getTopic1();
 		String topic2 = result.getTopic2();
-		String topic3 = result.getTopic3();
+		String topic3 = result.getTopic3();		
 		
+		TimeSeries series1 = new TimeSeries(topic1);
 		for(Map.Entry<String, Double> set: data1.entrySet()) {
-			dataset.addValue(set.getValue(), topic1, set.getKey());
+			Integer key = Integer.valueOf(set.getKey());
+			series1.add(new Year(key), set.getValue());
 		}
+		dataset.addSeries(series1);
 		
+		TimeSeries series2 = new TimeSeries(topic2);
 		for(Map.Entry<String, Double> set: data2.entrySet()) {
-			dataset.addValue(set.getValue(), topic2, set.getKey());
+			Integer key = Integer.valueOf(set.getKey());
+			series2.add(new Year(key), set.getValue());
 		}
+		dataset.addSeries(series2);
 		
+		TimeSeries series3 = new TimeSeries(topic3);
 		for(Map.Entry<String, Double> set: data3.entrySet()) {
-			dataset.addValue(set.getValue(), topic3, set.getKey());
-		}	
+			Integer key = Integer.valueOf(set.getKey());
+			series3.add(new Year(key), set.getValue());
+		}
+		dataset.addSeries(series3);
 	}
-	
+
+	@Override
 	public void remove(JPanel viewPanel) {
-		viewPanel.remove(chartPanel);		
+		viewPanel.remove(chartPanel);
 	}
 	
 	public String toString() {
-		return "Bar Chart";
+		return "Scatter Chart";
 	}
+
 }

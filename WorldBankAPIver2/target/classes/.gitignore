@@ -5,3 +5,5 @@
 /META-INF/
 /results/
 /jsonDataParser/
+/dataFetchers/
+/adapters/

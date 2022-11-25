@@ -1,6 +1,5 @@
 package jsonDataParser;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.google.gson.JsonArray;

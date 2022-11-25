@@ -22,6 +22,7 @@ public class JsonParseCountries implements IJsonParser{
 	 * Parses from countries.json file to get available countries
 	 * @return countries List of all available countries 
 	 */
+	@SuppressWarnings("unchecked")
 	public Object parse() {
 		JSONParser jsonParser = new JSONParser();
 		ArrayList<String> tempCountries = new ArrayList<>();

@@ -2,11 +2,10 @@ package results;
 
 import java.util.HashMap;
 
-import com.google.gson.JsonArray;
-
 public class OneSeriesResult extends Result{
 	
 	private HashMap<String, Double> data1;
+	private String topic1;
 	
 	public OneSeriesResult() {
 		this.data1 = new HashMap<>();
@@ -19,6 +18,14 @@ public class OneSeriesResult extends Result{
 	public HashMap<String, Double> getData1(){
 		return this.data1;
 		
+	}
+	
+	public void addTopic1(String s) {
+		topic1 = s;
+	}
+	
+	public String getTopic1() {
+		return this.topic1;
 	}
 
 }

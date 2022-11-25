@@ -1,6 +1,5 @@
 package analysers;
 
-import java.util.HashMap;
 import java.util.Vector;
 
 public class Analyser {

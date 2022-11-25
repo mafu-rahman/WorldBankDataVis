@@ -4,7 +4,6 @@ package gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import javax.swing.JButton;
@@ -14,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class loginUI extends JFrame implements ActionListener{
+public class loginUI extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	/*
@@ -32,14 +31,10 @@ public class loginUI extends JFrame implements ActionListener{
 	private String username;
 	private String password;
 	
-
 	/**
-	 * Main method 
-	 * @param args
-	 * @throws FileNotFoundException
+	 * Constructor Method
 	 */
-	public static void main(String[] args) throws FileNotFoundException{
-		
+	public loginUI() {
 		frame = new JFrame();
 		panel = new JPanel();
 		panel.setLayout(null);
@@ -72,7 +67,6 @@ public class loginUI extends JFrame implements ActionListener{
 		loginButton = new JButton("Login");
 		loginButton.setBounds(10, 80, 80, 25);
 		panel.add(loginButton);
-		loginButton.addActionListener(new loginUI());
 		
 		statusLabel = new JLabel();
 		statusLabel.setBounds(100, 110, 200, 25);
@@ -80,12 +74,15 @@ public class loginUI extends JFrame implements ActionListener{
 		
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	}
-	
-	/**
-	 * Constructor Method
-	 */
-	public loginUI() {
+		
+		loginButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loginButtonClicked();
+				
+			}
+		});
 	}
 
 	/**
@@ -94,11 +91,9 @@ public class loginUI extends JFrame implements ActionListener{
 	 * @param e Event that triggers activation 
 	 */
 	@SuppressWarnings("deprecation")
-	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void loginButtonClicked() {
 		//getting the username and password from the UI text field
-		String user = usernameText.getText();
-		String password = passwordText.getText();
+		
 		this.username = usernameText.getText();
 		this.password = passwordText.getText();
 		
@@ -118,10 +113,10 @@ public class loginUI extends JFrame implements ActionListener{
 		
 			while((line = br.readLine()) != null) {
 				String[] values = line.split(",");
-				if(user.equals(values[0]) && password.equals(values[1])){
+				if(username.equals(values[0]) && password.equals(values[1])){
 					statusLabel.setText("Success!");
 					frame.dispose(); //login window closes when login is successful
-					new mainUI();
+					new MainUI();
 					return;
 				}
 			}

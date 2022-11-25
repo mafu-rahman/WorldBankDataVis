@@ -2,15 +2,24 @@ package results;
 
 import java.util.HashMap;
 
-import com.google.gson.JsonArray;
-
 public class TwoSeriesResult extends Result{
 	private HashMap<String, Double> data1;
 	private HashMap<String, Double> data2;
 	
+	private String topic1;
+	private String topic2;
+	
 	public TwoSeriesResult() {
 		data1 = new HashMap<>();
 		data2 = new HashMap<>();
+	}
+	
+	public void addTopic1(String s) {
+		topic1 = s;
+	}
+	
+	public void addTopic2(String s) {
+		topic2 = s;
 	}
 	
 	public void addData1(HashMap<String, Double> data1) {
@@ -30,6 +39,12 @@ public class TwoSeriesResult extends Result{
 		return this.data2;
 		
 	}
-
-
+	
+	public String getTopic1() {
+		return this.topic1;
+	}
+	
+	public String getTopic2() {
+		return this.topic2;
+	}
 }
