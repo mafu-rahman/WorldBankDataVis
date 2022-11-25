@@ -1,12 +1,10 @@
 package adapters;
 
-import com.google.gson.JsonArray;
 
-import analysers.IAnalyser;
+import com.google.gson.JsonArray;
 import client.UserSelection;
 import dataFetchers.Fetcher;
 import dataFetchers.unitedNationsFetcher;
-import dataFetchers.worldBankFetcher;
 
 public class UnitedNationsAdapter implements TargetAdapter{
 	
@@ -16,8 +14,12 @@ public class UnitedNationsAdapter implements TargetAdapter{
 		fetcher = new unitedNationsFetcher();
 	}
 
+	/**
+	 * Implement fetching and converting XML tgo JSON format
+	 */
 	public Object fetchData(UserSelection selection, String analysisTypeCode) {
-		return null;
+		JsonArray j = (JsonArray) fetcher.fetchData(selection, analysisTypeCode);
+		return j;
 		
 		
 	}

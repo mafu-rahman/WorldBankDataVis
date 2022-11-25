@@ -2,67 +2,58 @@ package viewers;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.data.category.DefaultCategoryDataset;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import results.OneSeriesResult;
 import results.Result;
 import results.ThreeSeriesResult;
 import results.TwoSeriesResult;
 
-public class BarChart implements IViewer{
+public class Report implements IViewer{
 	private JPanel viewPanel;
-	private ChartPanel chartPanel;
-	private JFreeChart barChart;
-	private DefaultCategoryDataset dataset;
-	private CategoryPlot plot;
-	private BarRenderer barrenderer;
+	private JScrollPane outputScrollPane;
+	private JTextArea report;
+	private String reportMessage;
 	private Result result;
-	
+
 	@Override
 	public void initialize(JPanel viewPanel) {
-		System.out.println("Initializing using BarChart Viewer");
-		
-		this.viewPanel = viewPanel;
-		this.dataset = new DefaultCategoryDataset();
+		System.out.println("Initializing using Report Viewer");
 
-		plot = new CategoryPlot();
-		plot.setDomainAxis(new CategoryAxis("Year"));
-		plot.setRangeAxis(new NumberAxis("Value"));
+		this.viewPanel = viewPanel;
+
+		report = new JTextArea();
+		report.setEditable(false);
+		report.setPreferredSize(new Dimension(400, 300));
+		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		report.setBackground(Color.white);
 		
-		barrenderer = new BarRenderer();
-		plot.setDataset(dataset);
-		plot.setRenderer(barrenderer);
-			
-		barChart = new JFreeChart("Bar Chart Title", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);		
-	
-		chartPanel = new ChartPanel(barChart);	
-		chartPanel.setPreferredSize(new Dimension(400, 300));
-		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-		chartPanel.setBackground(Color.white);
+		reportMessage = "";
 		
-		this.viewPanel.add(chartPanel);
+		reportMessage = "Report Title" + "\n" + "==========\n";
+		
+		report.setText(reportMessage);
+		outputScrollPane = new JScrollPane(report);
+		this.viewPanel.add(outputScrollPane);		
 	}
-	
+
+	@Override
 	public void draw(Result result) {
 		
-		System.out.println("Drawing using BarChart Viewer");
+		System.out.println("Drawing using Report Viewer");
 		this.result = result;
-		String title = result.getTitle();
-		barChart.setTitle(title);
 		
+		String title = result.getTitle();
+		
+		reportMessage = title + "\n" + "==========\n";
+
 		if(result instanceof OneSeriesResult) {
 			this.drawOneSeries();
 		}
@@ -79,19 +70,22 @@ public class BarChart implements IViewer{
 			System.out.println("View not supported");
 		}
 	}
-	
+
 	private void drawOneSeries() {
-		OneSeriesResult result = (OneSeriesResult) this.result;
 		
+		OneSeriesResult result = (OneSeriesResult) this.result;
 		HashMap<String, Double> data1 = result.getData1();
 		
 		String topic1 = result.getTopic1();
-		
+		reportMessage += topic1 + ":\n";
+
 		for(Map.Entry<String, Double> set: data1.entrySet()) {
-			dataset.addValue(set.getValue(), topic1, set.getKey());
-		}	
+			reportMessage += "\tYear: " + set.getKey() + ": " + set.getValue() + "\n";
+		}
+		report.setText(reportMessage);
+
 	}
-	
+
 	private void drawTwoSeries() {
 		TwoSeriesResult result = (TwoSeriesResult) this.result;
 		
@@ -101,15 +95,20 @@ public class BarChart implements IViewer{
 		String topic1 = result.getTopic1();
 		String topic2 = result.getTopic2();
 		
+		reportMessage += topic1 + ":\n";
 		for(Map.Entry<String, Double> set: data1.entrySet()) {
-			dataset.addValue(set.getValue(), topic1, set.getKey());
+			reportMessage += "\tYear: " + set.getKey() + ": " + set.getValue() + "\n";
 		}
 		
+		reportMessage += topic2 + ":\n";
 		for(Map.Entry<String, Double> set: data2.entrySet()) {
-			dataset.addValue(set.getValue(), topic2, set.getKey());
-		}		
+			reportMessage += "\tYear: " + set.getKey() + ": " + set.getValue() + "\n";
+		}
+		
+		report.setText(reportMessage);
+
 	}
-	
+
 	private void drawThreeSeries() {
 		ThreeSeriesResult result = (ThreeSeriesResult) this.result;
 		
@@ -120,25 +119,33 @@ public class BarChart implements IViewer{
 		String topic1 = result.getTopic1();
 		String topic2 = result.getTopic2();
 		String topic3 = result.getTopic3();
-		
+
+		reportMessage += topic1 + ":\n";
 		for(Map.Entry<String, Double> set: data1.entrySet()) {
-			dataset.addValue(set.getValue(), topic1, set.getKey());
+			reportMessage += "\tYear: " + set.getKey() + ": " + set.getValue() + "\n";
 		}
 		
+		reportMessage += topic2 + ":\n";
 		for(Map.Entry<String, Double> set: data2.entrySet()) {
-			dataset.addValue(set.getValue(), topic2, set.getKey());
+			reportMessage += "\tYear: " + set.getKey() + ": " + set.getValue() + "\n";
 		}
 		
+		reportMessage += topic3 + ":\n";
+
 		for(Map.Entry<String, Double> set: data3.entrySet()) {
-			dataset.addValue(set.getValue(), topic3, set.getKey());
-		}	
+			reportMessage += "\tYear: " + set.getKey() + ": " + set.getValue() + "\n";
+		}
+		
+		report.setText(reportMessage);
+
 	}
-	
+
+	@Override
 	public void remove(JPanel viewPanel) {
-		viewPanel.remove(chartPanel);		
+		viewPanel.remove(outputScrollPane);
 	}
 	
 	public String toString() {
-		return "Bar Chart";
+		return "Report";
 	}
 }

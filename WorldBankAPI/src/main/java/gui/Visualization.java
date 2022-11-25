@@ -76,21 +76,22 @@ public class Visualization {
 	 */
 	public void drawChart(JPanel west) {
 		if(visualType.equals("Line Chart")) {
-			createLine(west);
+			//createLine(west);
+			createTimeSeries(west);
 		}
 		else if(visualType.equals("Bar Chart")) {
-			createBar(west);
+			//createBar(west);
 		}
 		else if(visualType.equals("Scatter Chart")) {
 			createScatter(west);
 		}
 		
 		else if(visualType.equals("Pie Chart")) {
-			createPie(west);
+			//createPie(west);
 		}
 		
 		else if(visualType.equals("Report")) {
-			createReport(west);
+			//createReport(west);
 		}
 	}
 	/**
@@ -355,7 +356,6 @@ public class Visualization {
 			ArrayList<Double>  v = values.get(i);
 			
 			String topic = this.topic.get(i);
-			XYSeries series = new XYSeries(topic);
 			reportMessage += topic + ":\n";
 
 			for(int j=0; j<y.size(); j++) {

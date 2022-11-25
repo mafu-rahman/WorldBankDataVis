@@ -12,12 +12,18 @@ import org.json.simple.parser.ParseException;
 
 public class JsonParseYears implements IJsonParser{
 
+	private String file;
+	public JsonParseYears(String file) {
+		this.file = file;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public Object parse() {
 		JSONParser jsonParser = new JSONParser();
 		ArrayList<Integer> tempYears = new ArrayList<>();
 		Vector<Integer> years = null;
         try{
-        	FileReader reader = new FileReader("years.json");
+        	FileReader reader = new FileReader(file);
         	JSONObject yearsJSON = (JSONObject) jsonParser.parse(reader);
         	
         	tempYears = (ArrayList<Integer>) yearsJSON.get("years");

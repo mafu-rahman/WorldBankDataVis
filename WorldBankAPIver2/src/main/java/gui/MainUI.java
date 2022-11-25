@@ -1,22 +1,12 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import com.google.gson.JsonArray;
-
+import adapters.WorldBankAdapter;
 import analysers.Analyser;
 import analysers.AnalysisAgriVsForest;
 import analysers.AnalysisCoalvsRenewable;
 import analysers.IAnalyser;
 import client.UserSelection;
-import dataFetchers.Fetcher;
-import jsonDataParser.DATAPARSER;
 import jsonDataParser.JsonParseCountries;
 import jsonDataParser.JsonParseYears;
 import jsonDataParser.JsonParser;
@@ -24,49 +14,39 @@ import viewers.BarChart;
 import viewers.IViewer;
 import viewers.LineChart;
 import viewers.PieChart;
+import viewers.Report;
+import viewers.ScatterChart;
 import viewers.Viewer;
 
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Vector;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
-import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
-public class mainUI extends JFrame{
+public class MainUI extends JFrame{
+
+	private static final long serialVersionUID = 1L;
+
 
 	public static void main(String[] args) {
 		Viewer v = new Viewer();
 		v.addViewer(new BarChart());
 		v.addViewer(new PieChart());
 		v.addViewer(new LineChart());
+		v.addViewer(new ScatterChart());
+		v.addViewer(new Report());
 		
 		Analyser a = new Analyser();
-		a.addAnalyser(new AnalysisAgriVsForest(null, null));
-		a.addAnalyser(new AnalysisCoalvsRenewable(null, null));
+		a.addAnalyser(new AnalysisAgriVsForest(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisCoalvsRenewable(new WorldBankAdapter()));
 		
-		new mainUI(v, a);	
+		new MainUI(v, a);	
 	}
 
 	/*
@@ -95,10 +75,24 @@ public class mainUI extends JFrame{
 	private UserSelection userSelection;
 
 	
+	public MainUI() {
+		Viewer v = new Viewer();
+		v.addViewer(new BarChart());
+		v.addViewer(new PieChart());
+		v.addViewer(new LineChart());
+		v.addViewer(new ScatterChart());
+		v.addViewer(new Report());
+		
+		Analyser a = new Analyser();
+		a.addAnalyser(new AnalysisAgriVsForest(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisCoalvsRenewable(new WorldBankAdapter()));
+		
+		new MainUI(v, a);
+	}
 	/**
 	 * Constructor Method
 	 */
-	public mainUI(Viewer v, Analyser a) {
+	public MainUI(Viewer v, Analyser a) {
 		frame = new JFrame();
 		frame.setTitle("Country Statistics");
 		frame.setSize(1200, 800);
@@ -106,6 +100,8 @@ public class mainUI extends JFrame{
 		this.topPanel = new JPanel();
 		this.bottomPanel = new JPanel();
 		this.viewPanel = new JPanel();
+		
+		this.viewPanel.setLayout(new GridLayout(2, 0));
 		
 		this.jsonParser = new JsonParser();
 		this.userSelection = new UserSelection();
@@ -142,7 +138,7 @@ public class mainUI extends JFrame{
 	 */
 	@SuppressWarnings("unchecked")
 	private void setupCountryMenu() {
-		jsonParser.setParser(new JsonParseCountries());
+		jsonParser.setParser(new JsonParseCountries("countries.json"));
 		Vector<String> countriesNames = (Vector<String>) jsonParser.parse();
 		
 		JLabel chooseCountryLabel = new JLabel("Choose a country: ");
@@ -157,7 +153,7 @@ public class mainUI extends JFrame{
 	 */
 	@SuppressWarnings("unchecked")
 	private void setupFromYears() {
-		jsonParser.setParser(new JsonParseYears());
+		jsonParser.setParser(new JsonParseYears("years.json"));
 		Vector<Integer> years = (Vector<Integer>) jsonParser.parse();
 		
 		JLabel from = new JLabel("From");
@@ -172,7 +168,7 @@ public class mainUI extends JFrame{
 	 */
 	@SuppressWarnings("unchecked")
 	private void setupToYears() {
-		jsonParser.setParser(new JsonParseYears());
+		jsonParser.setParser(new JsonParseYears("years.json"));
 		Vector<Integer> years = (Vector<Integer>) jsonParser.parse();
 		
 		JLabel to = new JLabel("To");
@@ -207,12 +203,10 @@ public class mainUI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				userSelection.addViewer((IViewer) viewerList.getSelectedItem());
 				
-				
-				frame.invalidate();
-				frame.validate();
-				frame.repaint();	
+				refreshFrame();	
 			}
 		});
+
 	}
 	
 	/**
@@ -225,13 +219,12 @@ public class mainUI extends JFrame{
 		removeViewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				userSelection.removeViewer((IViewer) viewerList.getSelectedItem());
+				userSelection.removeViewer((IViewer) viewerList.getSelectedItem());				
 				
-				frame.invalidate();
-				frame.validate();
-				frame.repaint();
+				refreshFrame();	
 			}
 		});
+		
 	}
 	
 	/**
@@ -262,13 +255,18 @@ public class mainUI extends JFrame{
 			userSelection.setToYear((long) toYear.getSelectedItem());
 			userSelection.setAnalysis((IAnalyser) analysisList.getSelectedItem());
 			userSelection.analyse();
+			userSelection.draw();
+			refreshFrame();	
 			}
 		});
-		
-
-		frame.invalidate();
-		frame.validate();
-		frame.repaint();	
 	}
 	
+	/*
+	 * Helper method
+	 */
+	private void refreshFrame() {
+		frame.invalidate();
+		frame.validate();
+		frame.repaint();
+	}
 }

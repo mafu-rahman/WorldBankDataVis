@@ -1,42 +1,75 @@
 package analysers;
 
-import com.google.gson.JsonArray;
+import java.util.HashMap;
 
+import com.google.gson.JsonArray;
 import adapters.TargetAdapter;
 import client.UserSelection;
-import results.Result;
+import jsonDataParser.JsonParseRetrivedData;
+import jsonDataParser.JsonParser;
+import results.*;
 
 public class AnalysisAgriVsForest implements IAnalyser{
 	
-	private String agriCode;
-	private String forestCode;
+	private final String agriCode = "AG.LND.AGRI.ZS";
+	private final String forestCode = "AG.LND.FRST.ZS";
 	
-	private JsonArray agricultureData;
-	private JsonArray forestData;
+	private final String title = "Agricultral land vs Forest Land";
+	private final String agriToipic = "Agricultural land (% of land area)";
+	private final String forestTopic = "Forest land (% of land area)";
+
+	private JsonArray agricultureDataJson;
+	private JsonArray forestDataJson;
+	
+	private JsonParser jsonParser;
+	
+	private TwoSeriesResult result;
 	
 	private TargetAdapter fetcherAdapter;
 	private UserSelection userSelection;
 	
-	private int fromYear;
-	private int toYear;
 	
-	public AnalysisAgriVsForest(UserSelection selection, TargetAdapter adapter) {
+	public AnalysisAgriVsForest(TargetAdapter adapter) {
 		this.fetcherAdapter = adapter;
-		this.userSelection = selection;
+
+		this.jsonParser = new JsonParser();
+		this.result = new TwoSeriesResult();
 	}
 	
 	private void fetchDataAgri() {
-		agricultureData = (JsonArray) fetcherAdapter.fetchData(userSelection, agriCode);
+		this.agricultureDataJson = (JsonArray) fetcherAdapter.fetchData(userSelection, agriCode);
 	}
 	
 	private void fetchDataForest() {
-		forestData = (JsonArray) fetcherAdapter.fetchData(userSelection, forestCode);
+		this.forestDataJson = (JsonArray) fetcherAdapter.fetchData(userSelection, forestCode);
 	}
 
 	@Override
-	public Result calculate() {
-		System.out.println("Calculated using Agriculture vs Forest Analyser");
-		return null;
+	public Result calculate(UserSelection selection) {
+		System.out.println("Calculating using Agriculture vs Forest Analyser");
+		
+		this.userSelection = selection;
+		
+		this.fetchDataAgri();
+		this.fetchDataForest();
+		this.processData();	
+		
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void processData() {
+		jsonParser.setParser(new JsonParseRetrivedData(agricultureDataJson));
+		HashMap<String, Double> agricultureData = (HashMap<String, Double>) jsonParser.parse();
+		
+		jsonParser.setParser(new JsonParseRetrivedData(forestDataJson));
+		HashMap<String, Double> forestData = (HashMap<String, Double>) jsonParser.parse();
+		
+		this.result.addTitle(title);
+		this.result.addTopic1(agriToipic);
+		this.result.addTopic2(forestTopic);
+		this.result.addData1(agricultureData);
+		this.result.addData2(forestData);	
 	}
 	
 	public String toString() {
