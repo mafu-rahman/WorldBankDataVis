@@ -4,6 +4,7 @@ import adapters.WorldBankAdapter;
 import analysers.Analyser;
 import analysers.AnalysisAgriVsForest;
 import analysers.AnalysisCoalvsRenewable;
+import analysers.AnalysisRenewableOutputvsRenewableConsumption;
 import gui.loginUI;
 import viewers.BarChart;
 import viewers.LineChart;
@@ -29,6 +30,7 @@ public class CountryStatistics {
 		Analyser a = new Analyser();
 		a.addAnalyser(new AnalysisAgriVsForest(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisCoalvsRenewable(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisRenewableOutputvsRenewableConsumption(new WorldBankAdapter()));
 		
 		new loginUI();
 	}

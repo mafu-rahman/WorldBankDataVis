@@ -5,6 +5,7 @@ import adapters.WorldBankAdapter;
 import analysers.Analyser;
 import analysers.AnalysisAgriVsForest;
 import analysers.AnalysisCoalvsRenewable;
+import analysers.AnalysisRenewableOutputvsRenewableConsumption;
 import analysers.IAnalyser;
 import client.UserSelection;
 import jsonDataParser.JsonParseCountries;
@@ -45,6 +46,7 @@ public class MainUI extends JFrame{
 		Analyser a = new Analyser();
 		a.addAnalyser(new AnalysisAgriVsForest(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisCoalvsRenewable(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisRenewableOutputvsRenewableConsumption(new WorldBankAdapter()));
 		
 		new MainUI(v, a);	
 	}
