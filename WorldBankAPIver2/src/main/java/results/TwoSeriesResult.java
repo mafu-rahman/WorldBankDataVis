@@ -9,11 +9,17 @@ public class TwoSeriesResult extends Result{
 	private String topic1;
 	private String topic2;
 	
+	/**
+	 * Constructor Method
+	 */
 	public TwoSeriesResult() {
 		data1 = new HashMap<>();
 		data2 = new HashMap<>();
 	}
 	
+	/*
+	 * Setters and Getters
+	 */
 	public void addTopic1(String s) {
 		topic1 = s;
 	}

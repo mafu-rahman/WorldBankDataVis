@@ -12,12 +12,18 @@ public class ThreeSeriesResult extends Result{
 	private String topic3;
 
 	
+	/**
+	 * Constructor Method
+	 */
 	public ThreeSeriesResult() {
 		data1 = new HashMap<>();
 		data2 = new HashMap<>();
 		data3 = new HashMap<>();
 	}
 	
+	/*
+	 * Setters and Getters
+	 */
 	public void addTopic1(String s) {
 		topic1 = s;
 	}
