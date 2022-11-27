@@ -31,6 +31,7 @@ public class CountryStatistics {
 		a.addAnalyser(new AnalysisFossilFuelvsRenewableConsum(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisTotalPopvsGDPGrowth(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisHeatIndexvsCO2Emission(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisForestvsHeatIndexvsCO2Emissions(new WorldBankAdapter()));
 		
 		new loginUI();
 	}
