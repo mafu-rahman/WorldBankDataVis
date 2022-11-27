@@ -47,6 +47,7 @@ public class MainUI extends JFrame{
 		a.addAnalyser(new AnalysisTotalPopvsGDPGrowth(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisHeatIndexvsCO2Emission(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisForestvsHeatIndexvsCO2Emissions(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisPolStabilityvsGDPGrowth(new WorldBankAdapter()));
 		
 		new MainUI(v, a);	
 	}
@@ -96,6 +97,7 @@ public class MainUI extends JFrame{
 		a.addAnalyser(new AnalysisTotalPopvsGDPGrowth(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisHeatIndexvsCO2Emission(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisForestvsHeatIndexvsCO2Emissions(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisPolStabilityvsGDPGrowth(new WorldBankAdapter()));
 		
 		new MainUI(v, a);
 	}
