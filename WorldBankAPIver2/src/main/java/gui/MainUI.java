@@ -75,6 +75,9 @@ public class MainUI extends JFrame{
 	private UserSelection userSelection;
 
 	
+	/**
+	 * Constructor Method I 
+	 */
 	public MainUI() {
 		Viewer v = new Viewer();
 		v.addViewer(new BarChart());
@@ -89,8 +92,9 @@ public class MainUI extends JFrame{
 		
 		new MainUI(v, a);
 	}
+	
 	/**
-	 * Constructor Method
+	 * Constructor Method II 
 	 */
 	public MainUI(Viewer v, Analyser a) {
 		frame = new JFrame();
@@ -122,6 +126,9 @@ public class MainUI extends JFrame{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	/**
+	 * Sets up the top and bottom panel
+	 */
 	public void setupPanel() {
 		this.setupCountryMenu();
 		this.setupFromYears();
