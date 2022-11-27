@@ -29,6 +29,10 @@ public class AnalysisAgriVsForest implements IAnalyser{
 	private UserSelection userSelection;
 	
 	
+	/**
+	 * Constructor Method
+	 * @param adapter
+	 */
 	public AnalysisAgriVsForest(TargetAdapter adapter) {
 		this.fetcherAdapter = adapter;
 
@@ -44,6 +48,10 @@ public class AnalysisAgriVsForest implements IAnalyser{
 		this.forestDataJson = (JsonArray) fetcherAdapter.fetchData(userSelection, forestCode);
 	}
 
+	/**
+	 * Calculates Agriculture vs Forest Analyser
+	 * @return result calculated data
+	 */
 	@Override
 	public Result calculate(UserSelection selection) {
 		System.out.println("Calculating using Agriculture vs Forest Analyser");
@@ -57,6 +65,9 @@ public class AnalysisAgriVsForest implements IAnalyser{
 		return result;
 	}
 	
+	/**
+	 * Process the data via parsing
+	 */
 	@SuppressWarnings("unchecked")
 	public void processData() {
 		jsonParser.setParser(new JsonParseRetrivedData(agricultureDataJson));
@@ -72,6 +83,9 @@ public class AnalysisAgriVsForest implements IAnalyser{
 		this.result.addData2(forestData);	
 	}
 	
+	/**
+	 * toString() method
+	 */
 	public String toString() {
 		return "Agriculture vs Forest";
 	}

@@ -30,6 +30,10 @@ public class AnalysisCoalvsRenewable implements IAnalyser{
 	
 	private TwoSeriesResult result;
 	
+	/**
+	 * Constructor method
+	 * @param adapter
+	 */
 	public AnalysisCoalvsRenewable(TargetAdapter adapter) {
 		this.fetcherAdapter = adapter;
 		
@@ -45,6 +49,10 @@ public class AnalysisCoalvsRenewable implements IAnalyser{
 		renewableEnergyDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, renewableCode);
 	}
 
+	/**
+	 * Calculate Coal vs Renewable Analyser
+	 * @return result calculated result
+	 */
 	@Override
 	public Result calculate(UserSelection selection) {
 		System.out.println("Calculated using Coal vs Renewable Analyser");
@@ -58,6 +66,9 @@ public class AnalysisCoalvsRenewable implements IAnalyser{
 		return result;
 	}
 
+	/**
+	 * Process the data
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void processData() {
@@ -75,6 +86,9 @@ public class AnalysisCoalvsRenewable implements IAnalyser{
 		
 	}
 	
+	/**
+	 * toString() method
+	 */
 	public String toString() {
 		return "Coal Energy vs Renewable Energy";
 	}
