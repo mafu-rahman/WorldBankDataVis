@@ -77,30 +77,6 @@ public class MainUI extends JFrame{
 	private UserSelection userSelection;
 	
 	/**
-	 * Constructor Method I 
-	 */
-	public MainUI() {
-		Viewer v = new Viewer();
-		v.addViewer(new BarChart());
-		v.addViewer(new PieChart());
-		v.addViewer(new LineChart());
-		v.addViewer(new ScatterChart());
-		v.addViewer(new Report());
-		
-		Analyser a = new Analyser();
-		a.addAnalyser(new AnalysisAgriVsForest(new WorldBankAdapter()));
-		a.addAnalyser(new AnalysisCoalvsRenewable(new WorldBankAdapter()));
-		a.addAnalyser(new AnalysisRenewableOutputvsRenewableConsumption(new WorldBankAdapter()));
-		a.addAnalyser(new AnalysisFossilFuelvsRenewableConsum(new WorldBankAdapter()));
-		a.addAnalyser(new AnalysisTotalPopvsGDPGrowth(new WorldBankAdapter()));
-		a.addAnalyser(new AnalysisHeatIndexvsCO2Emission(new WorldBankAdapter()));
-		a.addAnalyser(new AnalysisForestvsHeatIndexvsCO2Emissions(new WorldBankAdapter()));
-		// a.addAnalyser(new AnalysisPolStabilityvsGDPGrowth(new WorldBankAdapter()));
-		
-		new MainUI(v, a);
-	}
-	
-	/**
 	 * Constructor Method
 	 * @param v : This parameter contains all the Viewer objects inside the Viewer class
 	 * @param a : This parameter contains all the analyser objects inside the Analyser class
@@ -220,7 +196,6 @@ public class MainUI extends JFrame{
 				refreshFrame();	
 			}
 		});
-
 	}
 	
 	/**

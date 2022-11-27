@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import com.google.gson.JsonArray;
 
-import adapters.TargetAdapter;
+import adapters.IAdapter;
 import client.UserSelection;
 import jsonDataParser.JsonParseRetrivedData;
 import jsonDataParser.JsonParser;
@@ -23,7 +23,7 @@ public class AnalysisHeatIndexvsCO2Emission implements IAnalyser{
 	private JsonArray heatIndexDataJSON;
 	private JsonArray co2EmissionDataJSON;
 	
-	private TargetAdapter fetcherAdapter;
+	private IAdapter fetcherAdapter;
 	private UserSelection userSelection;
 		
 	private JsonParser jsonParser;
@@ -34,7 +34,7 @@ public class AnalysisHeatIndexvsCO2Emission implements IAnalyser{
 	 * Constructor method
 	 * @param adapter
 	 */
-	public AnalysisHeatIndexvsCO2Emission(TargetAdapter adapter) {
+	public AnalysisHeatIndexvsCO2Emission(IAdapter adapter) {
 		this.fetcherAdapter = adapter;
 		
 		this.jsonParser = new JsonParser();

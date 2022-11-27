@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import com.google.gson.JsonArray;
 
-import adapters.TargetAdapter;
+import adapters.IAdapter;
 import client.UserSelection;
 import jsonDataParser.JsonParseRetrivedData;
 import jsonDataParser.JsonParser;
@@ -23,7 +23,7 @@ public class AnalysisPolStabilityvsGDPGrowth implements IAnalyser{
 	private JsonArray polStabilityDataJSON;
 	private JsonArray gdpDataJSON;
 	
-	private TargetAdapter fetcherAdapter;
+	private IAdapter fetcherAdapter;
 	private UserSelection userSelection;
 		
 	private JsonParser jsonParser;
@@ -34,7 +34,7 @@ public class AnalysisPolStabilityvsGDPGrowth implements IAnalyser{
 	 * Constructor method
 	 * @param adapter
 	 */
-	public AnalysisPolStabilityvsGDPGrowth(TargetAdapter adapter) {
+	public AnalysisPolStabilityvsGDPGrowth(IAdapter adapter) {
 		this.fetcherAdapter = adapter;
 		
 		this.jsonParser = new JsonParser();
