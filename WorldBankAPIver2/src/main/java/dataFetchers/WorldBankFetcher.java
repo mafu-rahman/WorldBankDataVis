@@ -10,7 +10,12 @@ import com.google.gson.JsonParser;
 
 import client.UserSelection;
 
-public class worldBankFetcher implements Fetcher{
+/**
+ * The fetcher class for connecting to world bank API
+ * @author mafu
+ *
+ */
+public class WorldBankFetcher implements Fetcher{
 	
 	
 	public JsonArray fetchData(UserSelection selection, String analysisTypeCode) {
@@ -21,7 +26,9 @@ public class worldBankFetcher implements Fetcher{
 		String urlString = String.format(""
 				+ "\nhttp://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json"
 				, country, analysisTypeCode, fromYear, toYear);
+		
 		System.out.println("Connecting to URL: " + urlString);
+		
 		JsonArray retrievedJsonArray = new JsonArray();
 		
 		try {
@@ -47,8 +54,7 @@ public class worldBankFetcher implements Fetcher{
 			e.printStackTrace();
 		}
 		
-		return retrievedJsonArray;
-		
+		return retrievedJsonArray;	
 	}
 
 }

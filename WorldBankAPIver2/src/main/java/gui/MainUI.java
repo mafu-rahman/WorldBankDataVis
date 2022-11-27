@@ -89,8 +89,11 @@ public class MainUI extends JFrame{
 		
 		new MainUI(v, a);
 	}
+	
 	/**
 	 * Constructor Method
+	 * @param v : This parameter contains all the Viewer objects inside the Viewer class
+	 * @param a : This parameter contains all the analyser objects inside the Analyser class
 	 */
 	public MainUI(Viewer v, Analyser a) {
 		frame = new JFrame();
@@ -105,12 +108,10 @@ public class MainUI extends JFrame{
 		
 		this.jsonParser = new JsonParser();
 		this.userSelection = new UserSelection();
-		this.userSelection.addViewPanel(viewPanel);
+		this.userSelection.setViewPanel(viewPanel);
 		 
 		this.viewers = v;
 		this.analysers = a;
-		
-		
 		
 		this.setupPanel();
 		
@@ -149,37 +150,37 @@ public class MainUI extends JFrame{
 	}
 	
 	/**
-	 * Sets up the from years menu in the top panel
+	 * Sets up the 'from' years menu in the top panel
 	 */
 	@SuppressWarnings("unchecked")
 	private void setupFromYears() {
 		jsonParser.setParser(new JsonParseYears("years.json"));
 		Vector<Integer> years = (Vector<Integer>) jsonParser.parse();
 		
-		JLabel from = new JLabel("From");
+		JLabel fromLabel = new JLabel("From");
 		this.fromYear = new JComboBox<Integer>(years);
 		
-		topPanel.add(from);
+		topPanel.add(fromLabel);
 		topPanel.add(fromYear);
 	}
 	
 	/**
-	 * Sets up the to years menu in the top panel
+	 * Sets up the 'to' years menu in the top panel
 	 */
 	@SuppressWarnings("unchecked")
 	private void setupToYears() {
 		jsonParser.setParser(new JsonParseYears("years.json"));
 		Vector<Integer> years = (Vector<Integer>) jsonParser.parse();
 		
-		JLabel to = new JLabel("To");
+		JLabel toLabel = new JLabel("To");
 		toYear = new JComboBox<Integer>(years);
 		
-		topPanel.add(to);
+		topPanel.add(toLabel);
 		topPanel.add(toYear);
 	}
 	
 	/**
-	 * Sets up the viewers in the bottom panel
+	 * Sets up the 'viewers' in the bottom panel
 	 */
 	private void setupAvailableViews() {
 		JLabel viewsLabel = new JLabel("Available Views: ");
@@ -192,7 +193,7 @@ public class MainUI extends JFrame{
 	}
 	
 	/**
-	 * Add button for viewers
+	 * 'Add' button (+) for viewers
 	 */
 	private void setupAddViewButton() {
 		this.addViewButton = new JButton("+");
@@ -210,7 +211,7 @@ public class MainUI extends JFrame{
 	}
 	
 	/**
-	 * Remove button for Viewers
+	 * 'Remove' button (-) for Viewers
 	 */
 	private void setupRemoveViewButton() {
 		this.removeViewButton = new JButton("-");
@@ -262,7 +263,7 @@ public class MainUI extends JFrame{
 	}
 	
 	/*
-	 * Helper method
+	 * Helper methods
 	 */
 	private void refreshFrame() {
 		frame.invalidate();

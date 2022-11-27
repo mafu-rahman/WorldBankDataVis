@@ -10,7 +10,13 @@ import com.google.gson.JsonParser;
 
 import client.UserSelection;
 
-public class unitedNationsFetcher implements Fetcher{
+/**
+ * The fetcher class for connecting to the United Nations API
+ * @author mafu
+ *
+ */
+public class UnitedNationsFetcher implements Fetcher{
+	
 	public JsonArray fetchData(UserSelection selection, String analysisTypeCode) {
 		String country = selection.getCountryCode();
 		long fromYear = selection.getFromYear();
@@ -45,7 +51,6 @@ public class unitedNationsFetcher implements Fetcher{
 			e.printStackTrace();
 		}
 		
-		return retrievedJsonArray;
-		
+		return retrievedJsonArray;	
 	}
 }

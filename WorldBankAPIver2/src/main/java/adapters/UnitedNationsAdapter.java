@@ -4,19 +4,21 @@ package adapters;
 import com.google.gson.JsonArray;
 import client.UserSelection;
 import dataFetchers.Fetcher;
-import dataFetchers.unitedNationsFetcher;
+import dataFetchers.UnitedNationsFetcher;
 
 public class UnitedNationsAdapter implements TargetAdapter{
 	
 	private Fetcher fetcher;
 	
 	public UnitedNationsAdapter() {
-		fetcher = new unitedNationsFetcher();
+		fetcher = new UnitedNationsFetcher();
 	}
 
 	/**
-	 * Implement fetching and converting XML tgo JSON format
+	 * Calls the appropriate fetcher and converts/processes the data if required.
+	 * Implement fetching and converting XML to JSON format
 	 */
+	
 	public Object fetchData(UserSelection selection, String analysisTypeCode) {
 		JsonArray j = (JsonArray) fetcher.fetchData(selection, analysisTypeCode);
 		return j;

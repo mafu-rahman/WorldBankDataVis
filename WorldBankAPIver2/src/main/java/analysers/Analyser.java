@@ -2,6 +2,12 @@ package analysers;
 
 import java.util.Vector;
 
+/**
+ * @author mafu
+ *
+ * This class stores a list of Analyser objects
+ * 
+ */
 public class Analyser {
 	
 	private Vector<IAnalyser> analysers;

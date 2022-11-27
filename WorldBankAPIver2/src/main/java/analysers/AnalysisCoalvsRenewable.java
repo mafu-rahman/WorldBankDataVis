@@ -37,14 +37,11 @@ public class AnalysisCoalvsRenewable implements IAnalyser{
 		this.result = new TwoSeriesResult();
 	}
 	
-	private void fetchDataCoal() {
-		coalEnergyDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, coalCode);
-	}
-	
-	private void fetchDataRenewable() {
-		renewableEnergyDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, renewableCode);
-	}
-
+	/**
+	 * This method gets the userselection as a parameter and calls the appropriate method
+	 * to fetch the data for this analyser
+	 * @return result : it stores the processed data in a result object
+	 */
 	@Override
 	public Result calculate(UserSelection selection) {
 		System.out.println("Calculated using Coal vs Renewable Analyser");
@@ -58,8 +55,11 @@ public class AnalysisCoalvsRenewable implements IAnalyser{
 		return result;
 	}
 
+	/**
+	 * This method processes the retrived data if required for it to be viewed to the users.
+	 * It parses the JSON data and converts into a HashMap object of key value pairs. 
+	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void processData() {
 		jsonParser.setParser(new JsonParseRetrivedData(coalEnergyDataJSON));
 		HashMap<String, Double> coalEnergyData = (HashMap<String, Double>) jsonParser.parse();
@@ -73,6 +73,20 @@ public class AnalysisCoalvsRenewable implements IAnalyser{
 		this.result.addData1(coalEnergyData);
 		this.result.addData2(renewableEnergyData);
 		
+	}
+	
+	/**
+	 * Fetching data, calling the appropriate adapter
+	 */
+	private void fetchDataCoal() {
+		coalEnergyDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, coalCode);
+	}
+	
+	/**
+	 * Fetching data, calling the appropriate adapter
+	 */
+	private void fetchDataRenewable() {
+		renewableEnergyDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, renewableCode);
 	}
 	
 	public String toString() {

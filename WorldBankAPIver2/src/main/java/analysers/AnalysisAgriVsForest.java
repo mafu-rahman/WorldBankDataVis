@@ -18,16 +18,15 @@ public class AnalysisAgriVsForest implements IAnalyser{
 	private final String agriToipic = "Agricultural land (% of land area)";
 	private final String forestTopic = "Forest land (% of land area)";
 
-	private JsonArray agricultureDataJson;
-	private JsonArray forestDataJson;
-	
-	private JsonParser jsonParser;
-	
-	private TwoSeriesResult result;
+	private JsonArray agricultureDataJSON;
+	private JsonArray forestDataJSON;
 	
 	private TargetAdapter fetcherAdapter;
 	private UserSelection userSelection;
 	
+	private JsonParser jsonParser;
+	
+	private TwoSeriesResult result;
 	
 	public AnalysisAgriVsForest(TargetAdapter adapter) {
 		this.fetcherAdapter = adapter;
@@ -36,14 +35,11 @@ public class AnalysisAgriVsForest implements IAnalyser{
 		this.result = new TwoSeriesResult();
 	}
 	
-	private void fetchDataAgri() {
-		this.agricultureDataJson = (JsonArray) fetcherAdapter.fetchData(userSelection, agriCode);
-	}
-	
-	private void fetchDataForest() {
-		this.forestDataJson = (JsonArray) fetcherAdapter.fetchData(userSelection, forestCode);
-	}
-
+	/**
+	 * This method gets the userselection as a parameter and calls the appropriate method
+	 * to fetch the data for this analyser
+	 * @return result : it stores the processed data in a result object
+	 */
 	@Override
 	public Result calculate(UserSelection selection) {
 		System.out.println("Calculating using Agriculture vs Forest Analyser");
@@ -57,12 +53,16 @@ public class AnalysisAgriVsForest implements IAnalyser{
 		return result;
 	}
 	
+	/**
+	 * This method processes the retrived data if required for it to be viewed to the users.
+	 * It parses the JSON data and converts into a HashMap object of key value pairs. 
+	 */
 	@SuppressWarnings("unchecked")
 	public void processData() {
-		jsonParser.setParser(new JsonParseRetrivedData(agricultureDataJson));
+		this.jsonParser.setParser(new JsonParseRetrivedData(agricultureDataJSON));
 		HashMap<String, Double> agricultureData = (HashMap<String, Double>) jsonParser.parse();
 		
-		jsonParser.setParser(new JsonParseRetrivedData(forestDataJson));
+		this.jsonParser.setParser(new JsonParseRetrivedData(forestDataJSON));
 		HashMap<String, Double> forestData = (HashMap<String, Double>) jsonParser.parse();
 		
 		this.result.addTitle(title);
@@ -70,6 +70,20 @@ public class AnalysisAgriVsForest implements IAnalyser{
 		this.result.addTopic2(forestTopic);
 		this.result.addData1(agricultureData);
 		this.result.addData2(forestData);	
+	}
+	
+	/**
+	 * Fetching data, calling the appropriate adapter
+	 */
+	private void fetchDataAgri() {
+		this.agricultureDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, agriCode);
+	}
+	
+	/**
+	 * Fetching data, calling the appropriate adapter
+	 */
+	private void fetchDataForest() {
+		this.forestDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, forestCode);
 	}
 	
 	public String toString() {

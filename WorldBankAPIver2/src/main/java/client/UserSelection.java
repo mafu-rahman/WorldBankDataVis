@@ -9,6 +9,12 @@ import analysers.IAnalyser;
 import results.Result;
 import viewers.IViewer;
 
+/**
+ * This class contains various sets of data that is selected by the user.
+ * 
+ * @author mafu
+ *
+ */
 public class UserSelection {
 	
 	private List<IViewer> viewers;
@@ -29,6 +35,39 @@ public class UserSelection {
 		this.result = analyser.calculate(this);
 	}
 	
+	/**
+	 * This method adds the selected viewer by the user and stores into a List
+	 * @param v : the viewer object selected by the user
+	 */
+	public void addViewer(IViewer v) {
+		if(this.viewers.contains(v)) {
+			System.out.println("Viewer already selected");
+			return;
+		}
+		
+		System.out.println("Viewer selected");
+		this.viewers.add(v);
+		v.initialize(this.viewPanel);
+	}
+	
+	/**
+	 * This method removes the selected viewer by the user and stores into a List
+	 * @param v : the viewer object selected by the user
+	 */
+	public void removeViewer(IViewer v) {
+		if(this.viewers.contains(v)) {
+			System.out.println("Viewer removed");
+			v.remove(viewPanel);
+			this.viewers.remove(v);
+			return;
+		}
+		System.out.println("Viewer not selected");
+	}
+	
+	/**
+	 * The method iterates through all the viewers selected by the user and added to
+	 * the IViewr class attribute
+	 */
 	public void draw() {
 		for(IViewer v : viewers) {
 			v.draw(result);
@@ -38,6 +77,7 @@ public class UserSelection {
 	/*
 	 * Setters
 	 */
+	
 	public void setCountryCode(String s) {
 		this.countryCode = s;
 	}
@@ -50,27 +90,7 @@ public class UserSelection {
 		this.toYear = year;
 	}
 	
-	public void addViewer(IViewer v) {
-		if(this.viewers.contains(v)) {
-			System.out.println("Viewer already selected");
-			return;
-		}
-		System.out.println("Viewer selected");
-		this.viewers.add(v);
-		v.initialize(this.viewPanel);
-	}
-	
-	public void removeViewer(IViewer v) {
-		if(this.viewers.contains(v)) {
-			System.out.println("Viewer removed");
-			v.remove(viewPanel);
-			this.viewers.remove(v);
-			return;
-		}
-		System.out.println("Viewer not selected");
-	}
-	
-	public void addViewPanel(JPanel viewPanel) {
+	public void setViewPanel(JPanel viewPanel) {
 		this.viewPanel = viewPanel;
 	}
 	
@@ -81,6 +101,7 @@ public class UserSelection {
 	/*
 	 * Getters
 	 */
+	
 	public long getFromYear() {
 		return this.fromYear;
 	}
