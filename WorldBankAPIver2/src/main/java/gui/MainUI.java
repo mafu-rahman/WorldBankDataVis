@@ -2,11 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import adapters.WorldBankAdapter;
-import analysers.Analyser;
-import analysers.AnalysisAgriVsForest;
-import analysers.AnalysisCoalvsRenewable;
-import analysers.AnalysisRenewableOutputvsRenewableConsumption;
-import analysers.IAnalyser;
+import analysers.*;
 import client.UserSelection;
 import jsonDataParser.JsonParseCountries;
 import jsonDataParser.JsonParseYears;
@@ -47,6 +43,7 @@ public class MainUI extends JFrame{
 		a.addAnalyser(new AnalysisAgriVsForest(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisCoalvsRenewable(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisRenewableOutputvsRenewableConsumption(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisFossilFuelvsRenewableConsum(new WorldBankAdapter()));
 		
 		new MainUI(v, a);	
 	}
@@ -92,6 +89,7 @@ public class MainUI extends JFrame{
 		a.addAnalyser(new AnalysisAgriVsForest(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisCoalvsRenewable(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisRenewableOutputvsRenewableConsumption(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisFossilFuelvsRenewableConsum(new WorldBankAdapter()));
 		
 		new MainUI(v, a);
 	}
