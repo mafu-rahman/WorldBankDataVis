@@ -1,3 +1,6 @@
 /.metadata/
 WorldBankAPI/target/classes/META-INF/MANIFEST.MF
 WorldBankAPI/target/classes/META-INF/maven/httpTest/httpTest/pom.propertie
+WorldBankAPIver2/target/classes/META-INF/maven/httpTest/httpTest/pom.properties
+.DS_Store
+WorldBankAPIver2/target/classes/META-INF/MANIFEST.MF
