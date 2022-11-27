@@ -28,6 +28,10 @@ public class AnalysisAgriVsForest implements IAnalyser{
 	
 	private TwoSeriesResult result;
 	
+	/**
+	 * Constructor Method
+	 * @param adapter
+	 */
 	public AnalysisAgriVsForest(IAdapter adapter) {
 		this.fetcherAdapter = adapter;
 
@@ -39,6 +43,10 @@ public class AnalysisAgriVsForest implements IAnalyser{
 	 * This method gets the userselection as a parameter and calls the appropriate method
 	 * to fetch the data for this analyser
 	 * @return result : it stores the processed data in a result object
+	 */
+	/**
+	 * Calculates Agriculture vs Forest Analyser
+	 * @return result calculated data
 	 */
 	@Override
 	public Result calculate(UserSelection selection) {
@@ -86,6 +94,9 @@ public class AnalysisAgriVsForest implements IAnalyser{
 		this.forestDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, forestCode);
 	}
 	
+	/**
+	 * toString() method
+	 */
 	public String toString() {
 		return "Agriculture vs Forest";
 	}

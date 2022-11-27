@@ -2,10 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import adapters.WorldBankAdapter;
-import analysers.Analyser;
-import analysers.AnalysisAgriVsForest;
-import analysers.AnalysisCoalvsRenewable;
-import analysers.IAnalyser;
+import analysers.*;
 import client.UserSelection;
 import jsonDataParser.JsonParseCountries;
 import jsonDataParser.JsonParseYears;
@@ -44,6 +41,12 @@ public class MainUI extends JFrame{
 		Analyser a = new Analyser();
 		a.addAnalyser(new AnalysisAgriVsForest(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisCoalvsRenewable(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisRenewableOutputvsRenewableConsumption(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisFossilFuelvsRenewableConsum(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisTotalPopvsGDPGrowth(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisHeatIndexvsCO2Emission(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisForestvsHeatIndexvsCO2Emissions(new WorldBankAdapter()));
+		// a.addAnalyser(new AnalysisPolStabilityvsGDPGrowth(new WorldBankAdapter()));
 		
 		new MainUI(v, a);	
 	}
@@ -72,6 +75,30 @@ public class MainUI extends JFrame{
 	private Viewer viewers;
 	private Analyser analysers;
 	private UserSelection userSelection;
+	
+	/**
+	 * Constructor Method I 
+	 */
+	public MainUI() {
+		Viewer v = new Viewer();
+		v.addViewer(new BarChart());
+		v.addViewer(new PieChart());
+		v.addViewer(new LineChart());
+		v.addViewer(new ScatterChart());
+		v.addViewer(new Report());
+		
+		Analyser a = new Analyser();
+		a.addAnalyser(new AnalysisAgriVsForest(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisCoalvsRenewable(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisRenewableOutputvsRenewableConsumption(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisFossilFuelvsRenewableConsum(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisTotalPopvsGDPGrowth(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisHeatIndexvsCO2Emission(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisForestvsHeatIndexvsCO2Emissions(new WorldBankAdapter()));
+		// a.addAnalyser(new AnalysisPolStabilityvsGDPGrowth(new WorldBankAdapter()));
+		
+		new MainUI(v, a);
+	}
 	
 	/**
 	 * Constructor Method
@@ -106,6 +133,9 @@ public class MainUI extends JFrame{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	/**
+	 * Sets up the top and bottom panel
+	 */
 	public void setupPanel() {
 		this.setupCountryMenu();
 		this.setupFromYears();

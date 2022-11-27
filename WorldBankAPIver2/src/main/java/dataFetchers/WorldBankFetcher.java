@@ -18,6 +18,10 @@ import client.UserSelection;
 public class WorldBankFetcher implements Fetcher{
 	
 	
+	/**
+	 * Used to fetch data from World Bank API
+	 * @return retrievedJsonArray return the JsonArray containing data from World Bank API 
+	 */
 	public JsonArray fetchData(UserSelection selection, String analysisTypeCode) {
 		String country = selection.getCountryCode();
 		long fromYear = selection.getFromYear();

@@ -1,9 +1,7 @@
 package client;
 
 import adapters.WorldBankAdapter;
-import analysers.Analyser;
-import analysers.AnalysisAgriVsForest;
-import analysers.AnalysisCoalvsRenewable;
+import analysers.*;
 import gui.LoginUI;
 import viewers.BarChart;
 import viewers.LineChart;
@@ -21,6 +19,10 @@ import viewers.Viewer;
  */
 public class CountryStatistics {
 	
+	/**
+	 * Main method for client access
+	 * @param args
+	 */
 	public static void main(String args[]) {
 		
 		Viewer v = new Viewer();
@@ -33,6 +35,12 @@ public class CountryStatistics {
 		Analyser a = new Analyser();
 		a.addAnalyser(new AnalysisAgriVsForest(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisCoalvsRenewable(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisRenewableOutputvsRenewableConsumption(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisFossilFuelvsRenewableConsum(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisTotalPopvsGDPGrowth(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisHeatIndexvsCO2Emission(new WorldBankAdapter()));
+		a.addAnalyser(new AnalysisForestvsHeatIndexvsCO2Emissions(new WorldBankAdapter()));
+		// a.addAnalyser(new AnalysisPolStabilityvsGDPGrowth(new WorldBankAdapter()));
 		
 		new LoginUI(v, a);
 	}

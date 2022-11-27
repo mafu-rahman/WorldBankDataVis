@@ -17,6 +17,10 @@ public class JsonParseYears implements IJsonParser{
 		this.file = file;
 	}
 	
+	/**
+	 * Parse Data
+	 * @return years
+	 */
 	@SuppressWarnings("unchecked")
 	public Object parse() {
 		JSONParser jsonParser = new JSONParser();

@@ -15,15 +15,16 @@ public class UnitedNationsAdapter implements IAdapter{
 	}
 
 	/**
-	 * Calls the appropriate fetcher and converts/processes the data if required.
-	 * Implement fetching and converting XML to JSON format
+	 * Fetch data based on user provided data selection and analysis type
+	 * and Implement fetching and converting XML to JSON format
+	 * @param selection data composed of country code, start year and end year 
+	 * @param analysisTypeCode type of analysis
+	 * @return Object data object returned using the fetchData method
 	 */
 	
 	public Object fetchData(UserSelection selection, String analysisTypeCode) {
 		JsonArray j = (JsonArray) fetcher.fetchData(selection, analysisTypeCode);
 		return j;
-		
-		
 	}
 
 }

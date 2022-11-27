@@ -17,6 +17,11 @@ import client.UserSelection;
  */
 public class UnitedNationsFetcher implements Fetcher{
 	
+	
+	/**
+	 * Used to fetch data from the UN API
+	 * @return retrievedJsonArray return the JsonArray containing data from UN API
+	 */
 	public JsonArray fetchData(UserSelection selection, String analysisTypeCode) {
 		String country = selection.getCountryCode();
 		long fromYear = selection.getFromYear();

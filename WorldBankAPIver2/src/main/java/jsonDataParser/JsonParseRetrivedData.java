@@ -13,6 +13,10 @@ public class JsonParseRetrivedData implements IJsonParser{
 		this.data = data;
 	}
 	
+	/**
+	 * Parse data 
+	 * @return result parsed object
+	 */
 	@Override
 	public Object parse() {
 		

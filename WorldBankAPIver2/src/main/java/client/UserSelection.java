@@ -17,6 +17,9 @@ import viewers.IViewer;
  */
 public class UserSelection {
 	
+	/*
+	 * Class Attributes
+	 */
 	private List<IViewer> viewers;
 	private IAnalyser analyser;
 	private JPanel viewPanel;
@@ -27,15 +30,22 @@ public class UserSelection {
 	private long toYear;
 	
 	
+	/**
+	 * Constructor Method
+	 */
 	public UserSelection() {
 		this.viewers = new ArrayList<>();
 	}
 	
+	/**
+	 * Analyse Method
+	 */
 	public void analyse() {
 		this.result = analyser.calculate(this);
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * This method adds the selected viewer by the user and stores into a List
 	 * @param v : the viewer object selected by the user
 	 */
@@ -67,6 +77,9 @@ public class UserSelection {
 	/**
 	 * The method iterates through all the viewers selected by the user and added to
 	 * the IViewr class attribute
+=======
+	 * Draws Viewers
+>>>>>>> hasan-arham
 	 */
 	public void draw() {
 		for(IViewer v : viewers) {
@@ -90,10 +103,50 @@ public class UserSelection {
 		this.toYear = year;
 	}
 	
+<<<<<<< HEAD
 	public void setViewPanel(JPanel viewPanel) {
+=======
+	/**
+	 * Add a viewer (visualizer)
+	 * @param v Visualizer to delete
+	 */
+	public void addViewer(IViewer v) {
+		if(this.viewers.contains(v)) {
+			System.out.println("Viewer already selected");
+			return;
+		}
+		System.out.println("Viewer selected");
+		this.viewers.add(v);
+		v.initialize(this.viewPanel);
+	}
+	
+	/**
+	 * Remove a viewer (visualizer)
+	 * @param v Visualizer to delete
+	 */
+	public void removeViewer(IViewer v) {
+		if(this.viewers.contains(v)) {
+			System.out.println("Viewer removed");
+			v.remove(viewPanel);
+			this.viewers.remove(v);
+			return;
+		}
+		System.out.println("Viewer not selected");
+	}
+	
+	/**
+	 * Add a viewer panel
+	 * @param viewPanel panel to add 
+	 */
+	public void addViewPanel(JPanel viewPanel) {
+>>>>>>> hasan-arham
 		this.viewPanel = viewPanel;
 	}
 	
+	/**
+	 * Set an analysis type
+	 * @param a analysis type to add
+	 */
 	public void setAnalysis(IAnalyser a) {
 		this.analyser = a;
 	}
@@ -117,7 +170,7 @@ public class UserSelection {
 	public IAnalyser getAnalyser() {
 		return this.analyser;
 	}
-
+	
 	public String getCountryCode() {
 		return this.countryCode;
 	}

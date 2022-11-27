@@ -18,10 +18,8 @@ import viewers.Viewer;
 
 public class LoginUI{
 	
-	/*
-	 * Class attributes
-	 */
 	
+	// Class attributes
 	private static JFrame frame;
 	private static JPanel panel;
 	private static JLabel usernameLabel;
@@ -50,29 +48,29 @@ public class LoginUI{
 		
 		frame.setSize(900, 600);
 		
-		//username label
+		// username label
 		usernameLabel = new JLabel("Username:");
 		usernameLabel.setBounds(10, 20, 80, 25);
 		panel.add(usernameLabel);
 
-		//password label
-		passwordLabel = new JLabel("Enter Password:");
+		// password label
+		passwordLabel = new JLabel("Password:");
 		passwordLabel.setBounds(10,  50,  120,  25);
 		panel.add(passwordLabel);
 
-		//username text
+		// username text
 		usernameText = new JTextField(20); 
-		usernameText.setBounds(160, 20, 165, 25);
+		usernameText.setBounds(80, 20, 165, 25);
 		panel.add(usernameText);
 
-		//password text
+		// password text
 		passwordText = new JPasswordField(20); 
-		passwordText.setBounds(160, 50, 165, 25);
+		passwordText.setBounds(80, 50, 165, 25);
 		panel.add(passwordText);
 
-		//login button
+		// login button
 		loginButton = new JButton("Login");
-		loginButton.setBounds(10, 80, 80, 25);
+		loginButton.setBounds(80, 80, 80, 25);
 		panel.add(loginButton);
 		
 		statusLabel = new JLabel();
@@ -99,19 +97,15 @@ public class LoginUI{
 	 */
 	@SuppressWarnings("deprecation")
 	public void loginButtonClicked() {
-		//getting the username and password from the UI text field
+		// Getting the username and password from the UI text field
 		
 		this.username = usernameText.getText();
 		this.password = passwordText.getText();
 		
-		/*
-		 * Theres a .csv file where username and passwords are stored as comma separated values (.csv)
-		 */
+		// .csv file contains credentials 
 		String line = "";
 		
-		/*
-		 * Using buffered reader to read the .csv file line by line and match credentials
-		 */
+		// Using buffered reader to read the .csv file line by line and match credentials
 		try {
 			
 			@SuppressWarnings("resource")

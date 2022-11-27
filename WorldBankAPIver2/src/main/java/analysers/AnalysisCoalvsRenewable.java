@@ -30,6 +30,10 @@ public class AnalysisCoalvsRenewable implements IAnalyser{
 	
 	private TwoSeriesResult result;
 	
+	/**
+	 * Constructor method
+	 * @param adapter
+	 */
 	public AnalysisCoalvsRenewable(IAdapter adapter) {
 		this.fetcherAdapter = adapter;
 		
@@ -41,6 +45,10 @@ public class AnalysisCoalvsRenewable implements IAnalyser{
 	 * This method gets the userselection as a parameter and calls the appropriate method
 	 * to fetch the data for this analyser
 	 * @return result : it stores the processed data in a result object
+	 */
+	/**
+	 * Calculate Coal vs Renewable Analyser
+	 * @return result calculated result
 	 */
 	@Override
 	public Result calculate(UserSelection selection) {

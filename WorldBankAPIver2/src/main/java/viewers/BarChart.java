@@ -31,6 +31,9 @@ public class BarChart implements IViewer{
 	private BarRenderer barrenderer;
 	private Result result;
 	
+	/**
+	 * Initializes the panel for the bar chart
+	 */
 	@Override
 	public void initialize(JPanel viewPanel) {
 		System.out.println("Initializing using BarChart Viewer");
@@ -56,6 +59,9 @@ public class BarChart implements IViewer{
 
 	}
 	
+	/**
+	 * Draws the bar chart
+	 */
 	public void draw(Result result) {
 		this.dataset.clear();
 		
@@ -136,10 +142,16 @@ public class BarChart implements IViewer{
 		}	
 	}
 	
+	/**
+	 * Remove panel from frame
+	 */
 	public void remove(JPanel viewPanel) {
 		viewPanel.remove(chartPanel);		
 	}
 	
+	/**
+	 * toString method
+	 */
 	public String toString() {
 		return "Bar Chart";
 	}
