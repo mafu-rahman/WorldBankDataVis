@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import com.google.gson.JsonArray;
 
-import adapters.TargetAdapter;
+import adapters.IAdapter;
 import client.UserSelection;
 import jsonDataParser.JsonParseRetrivedData;
 import jsonDataParser.JsonParser;
@@ -23,14 +23,14 @@ public class AnalysisCoalvsRenewable implements IAnalyser{
 	private JsonArray coalEnergyDataJSON;
 	private JsonArray renewableEnergyDataJSON;
 	
-	private TargetAdapter fetcherAdapter;
+	private IAdapter fetcherAdapter;
 	private UserSelection userSelection;
 		
 	private JsonParser jsonParser;
 	
 	private TwoSeriesResult result;
 	
-	public AnalysisCoalvsRenewable(TargetAdapter adapter) {
+	public AnalysisCoalvsRenewable(IAdapter adapter) {
 		this.fetcherAdapter = adapter;
 		
 		this.jsonParser = new JsonParser();

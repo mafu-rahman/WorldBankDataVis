@@ -70,7 +70,8 @@ public class ScatterChart implements IViewer{
 
 	@Override
 	public void draw(Result result) {
-		dataset.removeAllSeries();
+		//resetting the data so that it does not show up in a new analyser
+		this.dataset.removeAllSeries();
 		
 		System.out.println("Drawing using Line Chart Viewer");
 		this.result = result;

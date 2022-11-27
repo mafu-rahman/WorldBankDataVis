@@ -47,16 +47,17 @@ public class BarChart implements IViewer{
 		plot.setRenderer(barrenderer);
 			
 		barChart = new JFreeChart("Bar Chart Title", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);		
-	
+		
 		chartPanel = new ChartPanel(barChart);	
 		chartPanel.setPreferredSize(new Dimension(400, 300));
 		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		chartPanel.setBackground(Color.white);
-		
 		this.viewPanel.add(chartPanel);
+
 	}
 	
 	public void draw(Result result) {
+		this.dataset.clear();
 		
 		System.out.println("Drawing using BarChart Viewer");
 		this.result = result;
@@ -78,6 +79,7 @@ public class BarChart implements IViewer{
 		else {
 			System.out.println("View not supported");
 		}
+		
 	}
 	
 	private void drawOneSeries() {

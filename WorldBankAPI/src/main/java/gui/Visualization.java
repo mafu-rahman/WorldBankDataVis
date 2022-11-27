@@ -76,22 +76,21 @@ public class Visualization {
 	 */
 	public void drawChart(JPanel west) {
 		if(visualType.equals("Line Chart")) {
-			//createLine(west);
-			createTimeSeries(west);
+			createLine(west);
 		}
 		else if(visualType.equals("Bar Chart")) {
-			//createBar(west);
+			createBar(west);
 		}
 		else if(visualType.equals("Scatter Chart")) {
 			createScatter(west);
 		}
 		
 		else if(visualType.equals("Pie Chart")) {
-			//createPie(west);
+			createPie(west);
 		}
 		
 		else if(visualType.equals("Report")) {
-			//createReport(west);
+			createReport(west);
 		}
 	}
 	/**

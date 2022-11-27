@@ -51,7 +51,7 @@ public class LineChart implements IViewer{
 		
 		this.viewPanel = viewPanel;
 		
-		dataset = new XYSeriesCollection();;
+		dataset = new XYSeriesCollection();
 		
 		chart = ChartFactory.createXYLineChart("Title", "Year", "Values", dataset,
 				PlotOrientation.VERTICAL, true, true, false);

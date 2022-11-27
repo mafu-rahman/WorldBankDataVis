@@ -55,7 +55,8 @@ public class PieChart implements IViewer{
 	}
 
 	public void draw(Result result) {
-
+		dataset.clear();
+		
 		System.out.println("Drawing using Pie Chart Viewer");
 		this.result = result;
 		

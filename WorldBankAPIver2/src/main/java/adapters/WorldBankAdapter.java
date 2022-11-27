@@ -6,7 +6,7 @@ import client.UserSelection;
 import dataFetchers.Fetcher;
 import dataFetchers.WorldBankFetcher;
 
-public class WorldBankAdapter implements TargetAdapter{
+public class WorldBankAdapter implements IAdapter{
 	
 	private Fetcher fetcher;
 	

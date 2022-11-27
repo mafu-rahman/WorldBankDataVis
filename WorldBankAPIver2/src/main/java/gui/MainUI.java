@@ -33,7 +33,6 @@ public class MainUI extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 
-
 	public static void main(String[] args) {
 		Viewer v = new Viewer();
 		v.addViewer(new BarChart());
@@ -73,22 +72,6 @@ public class MainUI extends JFrame{
 	private Viewer viewers;
 	private Analyser analysers;
 	private UserSelection userSelection;
-
-	
-	public MainUI() {
-		Viewer v = new Viewer();
-		v.addViewer(new BarChart());
-		v.addViewer(new PieChart());
-		v.addViewer(new LineChart());
-		v.addViewer(new ScatterChart());
-		v.addViewer(new Report());
-		
-		Analyser a = new Analyser();
-		a.addAnalyser(new AnalysisAgriVsForest(new WorldBankAdapter()));
-		a.addAnalyser(new AnalysisCoalvsRenewable(new WorldBankAdapter()));
-		
-		new MainUI(v, a);
-	}
 	
 	/**
 	 * Constructor Method

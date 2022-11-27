@@ -7,7 +7,7 @@ import client.UserSelection;
  * @author mafu
  *
  */
-public interface TargetAdapter {
+public interface IAdapter {
 	
 	/**
 	 * This method fetches the data according to user selection.

@@ -6,7 +6,7 @@ import client.UserSelection;
 import dataFetchers.Fetcher;
 import dataFetchers.UnitedNationsFetcher;
 
-public class UnitedNationsAdapter implements TargetAdapter{
+public class UnitedNationsAdapter implements IAdapter{
 	
 	private Fetcher fetcher;
 	

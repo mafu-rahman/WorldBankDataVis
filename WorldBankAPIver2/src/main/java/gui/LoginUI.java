@@ -13,9 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class loginUI extends JFrame{
+import analysers.Analyser;
+import viewers.Viewer;
+
+public class LoginUI{
 	
-	private static final long serialVersionUID = 1L;
 	/*
 	 * Class attributes
 	 */
@@ -30,11 +32,16 @@ public class loginUI extends JFrame{
 	private static JButton loginButton;
 	private String username;
 	private String password;
+	private Viewer viewer;
+	private Analyser analyser;
 	
 	/**
 	 * Constructor Method
 	 */
-	public loginUI() {
+	public LoginUI(Viewer v, Analyser a) {
+		this.viewer = v;
+		this.analyser = a;
+		
 		frame = new JFrame();
 		panel = new JPanel();
 		panel.setLayout(null);
@@ -73,7 +80,7 @@ public class loginUI extends JFrame{
 		panel.add(statusLabel);
 		
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		loginButton.addActionListener(new ActionListener() {
 			
@@ -100,7 +107,6 @@ public class loginUI extends JFrame{
 		/*
 		 * Theres a .csv file where username and passwords are stored as comma separated values (.csv)
 		 */
-		String path = "credentials.csv";
 		String line = "";
 		
 		/*
@@ -109,14 +115,14 @@ public class loginUI extends JFrame{
 		try {
 			
 			@SuppressWarnings("resource")
-			BufferedReader br = new BufferedReader(new FileReader((path)));
+			BufferedReader br = new BufferedReader(new FileReader(("credentials.csv")));
 		
 			while((line = br.readLine()) != null) {
 				String[] values = line.split(",");
 				if(username.equals(values[0]) && password.equals(values[1])){
 					statusLabel.setText("Success!");
 					frame.dispose(); //login window closes when login is successful
-					new MainUI();
+					new MainUI(viewer,analyser);
 					return;
 				}
 			}

@@ -3,7 +3,7 @@ package analysers;
 import java.util.HashMap;
 
 import com.google.gson.JsonArray;
-import adapters.TargetAdapter;
+import adapters.IAdapter;
 import client.UserSelection;
 import jsonDataParser.JsonParseRetrivedData;
 import jsonDataParser.JsonParser;
@@ -21,14 +21,14 @@ public class AnalysisAgriVsForest implements IAnalyser{
 	private JsonArray agricultureDataJSON;
 	private JsonArray forestDataJSON;
 	
-	private TargetAdapter fetcherAdapter;
+	private IAdapter fetcherAdapter;
 	private UserSelection userSelection;
 	
 	private JsonParser jsonParser;
 	
 	private TwoSeriesResult result;
 	
-	public AnalysisAgriVsForest(TargetAdapter adapter) {
+	public AnalysisAgriVsForest(IAdapter adapter) {
 		this.fetcherAdapter = adapter;
 
 		this.jsonParser = new JsonParser();

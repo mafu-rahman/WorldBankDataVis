@@ -4,7 +4,7 @@ import adapters.WorldBankAdapter;
 import analysers.Analyser;
 import analysers.AnalysisAgriVsForest;
 import analysers.AnalysisCoalvsRenewable;
-import gui.loginUI;
+import gui.LoginUI;
 import viewers.BarChart;
 import viewers.LineChart;
 import viewers.PieChart;
@@ -22,6 +22,7 @@ import viewers.Viewer;
 public class CountryStatistics {
 	
 	public static void main(String args[]) {
+		
 		Viewer v = new Viewer();
 		v.addViewer(new BarChart());
 		v.addViewer(new PieChart());
@@ -33,7 +34,7 @@ public class CountryStatistics {
 		a.addAnalyser(new AnalysisAgriVsForest(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisCoalvsRenewable(new WorldBankAdapter()));
 		
-		new loginUI();
+		new LoginUI(v, a);
 	}
 
 }
