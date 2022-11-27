@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="analysers.AnalysisPolStabilityvsGDPGrowth" project="WorldBankAPIver2" 
+    file="/WorldBankAPIver2/src/main/java/analysers/AnalysisPolStabilityvsGDPGrowth.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="371" width="291" x="516" y="2"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="2" language="java" name="analysers.IAnalyser" project="WorldBankAPIver2" 
+    file="/WorldBankAPIver2/src/main/java/analysers/IAnalyser.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="119" width="194" x="1789" y="485"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="3" language="java" name="analysers.Analyser" project="WorldBankAPIver2" 
+    file="/WorldBankAPIver2/src/main/java/analysers/Analyser.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="137" width="205" x="847" y="2"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="analysers.AnalysisRenewableOutputvsRenewableConsumption" 
+    project="WorldBankAPIver2" 
+    file="/WorldBankAPIver2/src/main/java/analysers/AnalysisRenewableOutputvsRenewableConsumption.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="371" width="393" x="1092" y="2"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="analysers.AnalysisAgriVsForest" project="WorldBankAPIver2" 
+    file="/WorldBankAPIver2/src/main/java/analysers/AnalysisAgriVsForest.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="371" width="224" x="1525" y="2"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="analysers.AnalysisCoalvsRenewable" project="WorldBankAPIver2" 
+    file="/WorldBankAPIver2/src/main/java/analysers/AnalysisCoalvsRenewable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="371" width="251" x="1789" y="2"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="analysers.AnalysisForestvsHeatIndexvsCO2Emissions" project="WorldBankAPIver2" 
+    file="/WorldBankAPIver2/src/main/java/analysers/AnalysisForestvsHeatIndexvsCO2Emissions.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="443" width="347" x="2080" y="2"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="analysers.AnalysisHeatIndexvsCO2Emission" project="WorldBankAPIver2" 
+    file="/WorldBankAPIver2/src/main/java/analysers/AnalysisHeatIndexvsCO2Emission.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="371" width="295" x="2467" y="2"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="analysers.AnalysisTotalPopvsGDPGrowth" project="WorldBankAPIver2" 
+    file="/WorldBankAPIver2/src/main/java/analysers/AnalysisTotalPopvsGDPGrowth.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="371" width="278" x="2802" y="2"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="analysers.AnalysisFossilFuelvsRenewableConsum" project="WorldBankAPIver2" 
+    file="/WorldBankAPIver2/src/main/java/analysers/AnalysisFossilFuelvsRenewableConsum.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="371" width="326" x="3120" y="2"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <realization id="11">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="12">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <association id="13">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="14" name="analysers"/>      
+      <multiplicity id="15" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="16">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="17">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="18">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="19">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="20">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="21">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
