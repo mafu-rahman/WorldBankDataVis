@@ -14,6 +14,10 @@ import viewers.Viewer;
 
 public class CountryStatistics {
 	
+	/**
+	 * Main method for client access
+	 * @param args
+	 */
 	public static void main(String args[]) {
 		Viewer v = new Viewer();
 		v.addViewer(new BarChart());

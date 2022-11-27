@@ -11,6 +11,9 @@ import viewers.IViewer;
 
 public class UserSelection {
 	
+	/*
+	 * Class Attributes
+	 */
 	private List<IViewer> viewers;
 	private IAnalyser analyser;
 	private JPanel viewPanel;
@@ -21,14 +24,23 @@ public class UserSelection {
 	private long toYear;
 	
 	
+	/**
+	 * Constructor Method
+	 */
 	public UserSelection() {
 		this.viewers = new ArrayList<>();
 	}
 	
+	/**
+	 * Analyse Method
+	 */
 	public void analyse() {
 		this.result = analyser.calculate(this);
 	}
 	
+	/**
+	 * Draws Viewers
+	 */
 	public void draw() {
 		for(IViewer v : viewers) {
 			v.draw(result);
@@ -50,6 +62,10 @@ public class UserSelection {
 		this.toYear = year;
 	}
 	
+	/**
+	 * Add a viewer (visualizer)
+	 * @param v Visualizer to delete
+	 */
 	public void addViewer(IViewer v) {
 		if(this.viewers.contains(v)) {
 			System.out.println("Viewer already selected");
@@ -60,6 +76,10 @@ public class UserSelection {
 		v.initialize(this.viewPanel);
 	}
 	
+	/**
+	 * Remove a viewer (visualizer)
+	 * @param v Visualizer to delete
+	 */
 	public void removeViewer(IViewer v) {
 		if(this.viewers.contains(v)) {
 			System.out.println("Viewer removed");
@@ -70,10 +90,18 @@ public class UserSelection {
 		System.out.println("Viewer not selected");
 	}
 	
+	/**
+	 * Add a viewer panel
+	 * @param viewPanel panel to add 
+	 */
 	public void addViewPanel(JPanel viewPanel) {
 		this.viewPanel = viewPanel;
 	}
 	
+	/**
+	 * Set an analysis type
+	 * @param a analysis type to add
+	 */
 	public void setAnalysis(IAnalyser a) {
 		this.analyser = a;
 	}
@@ -96,7 +124,7 @@ public class UserSelection {
 	public IAnalyser getAnalyser() {
 		return this.analyser;
 	}
-
+	
 	public String getCountryCode() {
 		return this.countryCode;
 	}
