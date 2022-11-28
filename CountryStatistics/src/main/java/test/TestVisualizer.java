@@ -6,7 +6,19 @@ import org.junit.Test;
 
 import com.google.gson.JsonArray;
 
+import adapters.IAdapter;
+import adapters.WorldBankAdapter;
+import analysers.AnalysisAgriVsForest;
+import analysers.IAnalyser;
+import client.UserSelection;
 import dataFetchers.Fetcher;
+import dataFetchers.WorldBankFetcher;
+import results.Result;
+import viewers.BarChart;
+import viewers.IViewer;
+import viewers.LineChart;
+import viewers.PieChart;
+import viewers.Report;
 
 public class TestVisualizer {
 
@@ -15,10 +27,18 @@ public class TestVisualizer {
 	 */
 	@Test
 	public void test_visualizer_01() {
-		Fetcher fetcher = new Fetcher("CAN", 0, 2000, 2001);
-		ArrayList<JsonArray> jsonarr = new ArrayList<JsonArray>();
-		jsonarr.add(fetcher.fetchData("SP.POP.TOTL"));
-		Visualization vis = new Visualization("Line Chart", jsonarr);
+		
+		UserSelection selection = new UserSelection();
+		selection.setCountryCode("CAN");
+		selection.setFromYear(2000);
+		selection.setToYear(2001);
+		
+		IAdapter adapter = new WorldBankAdapter();
+		IAnalyser analyser = new AnalysisAgriVsForest(adapter);
+		Result result = analyser.calculate(selection);
+		 
+		IViewer linechart = new LineChart();
+		linechart.draw(result);
 	}
 	
 	/**
@@ -26,10 +46,18 @@ public class TestVisualizer {
 	 */
 	@Test
 	public void test_visualizer_02() {
-		Fetcher fetcher = new Fetcher("CAN", 0, 2000, 2001);
-		ArrayList<JsonArray> jsonarr = new ArrayList<JsonArray>();
-		jsonarr.add(fetcher.fetchData("SP.POP.TOTL"));
-		Visualization vis = new Visualization("Bar Chart", jsonarr);
+		
+		UserSelection selection = new UserSelection();
+		selection.setCountryCode("CAN");
+		selection.setFromYear(2000);
+		selection.setToYear(2001);
+		
+		IAdapter adapter = new WorldBankAdapter();
+		IAnalyser analyser = new AnalysisAgriVsForest(adapter);
+		Result result = analyser.calculate(selection);
+		 
+		IViewer barchart = new BarChart();
+		barchart.draw(result);
 	}
 	
 	/**
@@ -37,10 +65,17 @@ public class TestVisualizer {
 	 */
 	@Test
 	public void test_visualizer_03() {
-		Fetcher fetcher = new Fetcher("CAN", 0, 2000, 2001);
-		ArrayList<JsonArray> jsonarr = new ArrayList<JsonArray>();
-		jsonarr.add(fetcher.fetchData("SP.POP.TOTL"));
-		Visualization vis = new Visualization("Report", jsonarr);
+		UserSelection selection = new UserSelection();
+		selection.setCountryCode("CAN");
+		selection.setFromYear(2000);
+		selection.setToYear(2001);
+		
+		IAdapter adapter = new WorldBankAdapter();
+		IAnalyser analyser = new AnalysisAgriVsForest(adapter);
+		Result result = analyser.calculate(selection);
+		 
+		IViewer report = new Report();
+		report.draw(result);
 		
 		
 	}
@@ -50,10 +85,17 @@ public class TestVisualizer {
 	 */
 	@Test
 	public void test_visualizer_04() {
-		Fetcher fetcher = new Fetcher("CAN", 0, 2000, 2001);
-		ArrayList<JsonArray> jsonarr = new ArrayList<JsonArray>();
-		jsonarr.add(fetcher.fetchData("SP.POP.TOTL"));
-		Visualization vis = new Visualization("Pie Chart", jsonarr);
+		UserSelection selection = new UserSelection();
+		selection.setCountryCode("CAN");
+		selection.setFromYear(2000);
+		selection.setToYear(2001);
+		
+		IAdapter adapter = new WorldBankAdapter();
+		IAnalyser analyser = new AnalysisAgriVsForest(adapter);
+		Result result = analyser.calculate(selection);
+		 
+		IViewer piechart = new PieChart();
+		piechart.draw(result);
 	}
 	
 }
