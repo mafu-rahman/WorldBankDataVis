@@ -34,9 +34,7 @@ public class TestFetcher {
 		JsonArray checkArray = null;
 		
 		assertEquals(retrievedJsonArray, checkArray);
-		
 	}
-	
 	
 	/**
 	 * Test Fetching for BRA 

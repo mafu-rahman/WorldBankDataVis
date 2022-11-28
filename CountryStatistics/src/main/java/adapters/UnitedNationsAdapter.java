@@ -26,5 +26,4 @@ public class UnitedNationsAdapter implements IAdapter{
 		JsonArray j = (JsonArray) fetcher.fetchData(selection, analysisTypeCode);
 		return j;
 	}
-
 }
