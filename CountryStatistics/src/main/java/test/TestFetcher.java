@@ -1,25 +1,40 @@
 package test;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 
 import org.junit.Test;
 
+import com.google.gson.JsonArray;
+
+import adapters.IAdapter;
+import adapters.WorldBankAdapter;
+import analysers.AnalysisAgriVsForest;
+import analysers.IAnalyser;
+import client.UserSelection;
 import dataFetchers.Fetcher;
+import dataFetchers.WorldBankFetcher;
 
 public class TestFetcher {
 
 	
 	/**
-	 * Test Fetching for USA and then check if a valid country code was set
+	 * Test Fetching for USA
 	 */
 	@Test
 	public void test_fetcher_02() {
-		Fetcher fetcher = new Fetcher("USA", 2000, 2011);
-		assertEquals("USA", fetcher.getCountry());
-		assertEquals(2000, fetcher.getStartYear());
-		assertEquals(2011, fetcher.getEndYear());
-		fetcher.setCountry("BRA");
-		assertEquals("BRA", fetcher.getCountry());
+		Fetcher fetcher = new WorldBankFetcher();
+		UserSelection selection = new UserSelection();
+		selection.setCountryCode("USA");
+		selection.setFromYear(2001);
+		selection.setToYear(2010);
+	
+		JsonArray retrievedJsonArray = (JsonArray) fetcher.fetchData(selection, "SP.POP.TOTL");
+		JsonArray checkArray = null;
+		
+		assertEquals(retrievedJsonArray, checkArray);
+		
 	}
 	
 	
@@ -28,8 +43,12 @@ public class TestFetcher {
 	 */
 	@Test
 	public void test_fetcher_03() {
-		Fetcher fetcher = new Fetcher("BRA", 2000, 2011);
-		fetcher.setAnalysisType(2);
+		Fetcher fetcher = new WorldBankFetcher();
+		UserSelection selection = new UserSelection();
+		selection.setCountryCode("BRA");
+		selection.setFromYear(2000);
+		selection.setToYear(2011);
+		
 		assertEquals("BRA", fetcher.getCountry());
 		assertEquals(2000, fetcher.getStartYear());
 		assertEquals(2011, fetcher.getEndYear());
@@ -48,7 +67,11 @@ public class TestFetcher {
 	 */
 	@Test
 	public void test_fetcher_04() {
-		Fetcher fetcher = new Fetcher("CN", 2000, 2008);
+		Fetcher fetcher = new WorldBankFetcher();
+		UserSelection selection = new UserSelection();
+		selection.setCountryCode("CN");
+		selection.setFromYear(2000);
+		selection.setToYear(2008);
 		fetcher.setAnalysisType(8);
 		assertEquals("CN", fetcher.getCountry());
 		assertEquals(2000, fetcher.getStartYear());

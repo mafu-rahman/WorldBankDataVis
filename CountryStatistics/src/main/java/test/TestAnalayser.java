@@ -4,7 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import adapters.IAdapter;
+import adapters.UnitedNationsAdapter;
 import analysers.Analyser;
+import analysers.AnalysisAgriVsForest;
+import analysers.IAnalyser;
 
 public class TestAnalayser {
 	
@@ -12,30 +16,27 @@ public class TestAnalayser {
 	@Test 
 	public void test_analyser_01() {
 		Analyser analyser = new Analyser();
-		double avg = analyser.calcMean(10, 2);
-		assertEquals(5, avg, 0);
+		IAdapter UN = new UnitedNationsAdapter();
+		IAnalyser agrivsforest = new AnalysisAgriVsForest(UN);
+		analyser.addAnalyser(agrivsforest);
 	}
 	
 	@Test 
 	public void test_analyser_02() {
 		Analyser analyser = new Analyser();
-		double avg = analyser.calcMean(100, 2);
-		assertEquals(50, avg, 0);
-		assertEquals(50, analyser.getMean(), 0);
+		
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void test_analyser_03() {
 		Analyser analyser = new Analyser();
-		double avg = analyser.calcMean(0, 2);
+		
 	}
 
 	@Test
 	public void test_analyser_04() {
 		Analyser analyser = new Analyser();
-		double avg = analyser.calcMean(50, 2);
-		assertEquals(25, avg, 0);
-		assertEquals(25, analyser.getMean(), 0);
+		
 	}
 
 }
