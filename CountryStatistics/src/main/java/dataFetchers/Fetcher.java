@@ -10,4 +10,5 @@ public interface Fetcher {
 	 * @return it returns an object of appropriate type depending on the implemented class, exampl, JsonArray
 	 */
 	public Object fetchData(UserSelection selection, String analysisTypeCode);	
+	
 }
