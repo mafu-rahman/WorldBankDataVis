@@ -34,7 +34,55 @@ public class TestFetcher {
 		JsonArray checkArray = null;
 		
 		assertEquals(retrievedJsonArray, checkArray);
-		
 	}
 	
+<<<<<<< HEAD
+=======
+	/**
+	 * Test Fetching for BRA 
+	 */
+	@Test
+	public void test_fetcher_03() {
+		Fetcher fetcher = new WorldBankFetcher();
+		UserSelection selection = new UserSelection();
+		selection.setCountryCode("BRA");
+		selection.setFromYear(2000);
+		selection.setToYear(2011);
+		
+		assertEquals("BRA", fetcher.getCountry());
+		assertEquals(2000, fetcher.getStartYear());
+		assertEquals(2011, fetcher.getEndYear());
+		Vector<String> countryList = DATAPARSER.getCountryList();
+		boolean condition = false;
+		for(String x : countryList) {
+			if(x.equals(fetcher.getCountry())) {
+				condition = true;
+			}
+		}
+		assertTrue(condition);
+	}
+	
+	/**
+	 * Test Fetching for CN
+	 */
+	@Test
+	public void test_fetcher_04() {
+		Fetcher fetcher = new WorldBankFetcher();
+		UserSelection selection = new UserSelection();
+		selection.setCountryCode("CN");
+		selection.setFromYear(2000);
+		selection.setToYear(2008);
+		fetcher.setAnalysisType(8);
+		assertEquals("CN", fetcher.getCountry());
+		assertEquals(2000, fetcher.getStartYear());
+		assertEquals(2008, fetcher.getEndYear());
+
+		ArrayList<String> x = DATAPARSER.getAnalysisCodes(7);
+		boolean condition = false;
+		if(x.get(0).equals("PV.EST") && x.get(1).equals("NY.GDP.MKTP.KD.ZG")) {
+			condition = true;
+		}
+		assertTrue(condition);
+	}
+>>>>>>> 2e33fff8215940d6c711dc08cebd76d7fbd7411f
 }
