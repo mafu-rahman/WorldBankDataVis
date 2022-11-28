@@ -59,8 +59,8 @@ public class TestLoginUI {
 		Analyser a  = null;
 		LoginUI l = new LoginUI(v, a);
 		
-		l.setUsername("Atiq");
-		l.setPassword("incorrectpassword");
+		l.setUsername("mafu");
+		l.setPassword("password");
 		String path = "credentials.csv";
 		String line = "";
 		boolean condition = false;
@@ -102,8 +102,8 @@ public class TestLoginUI {
 		Analyser a  = null;
 		LoginUI l = new LoginUI(v, a);
 		
-		l.setUsername("Atiq");
-		l.setPassword("incorrectpassword");
+		l.setUsername("mafu ");
+		l.setPassword("password");
 		String path = "credentials.csv";
 		String line = "";
 		try {
