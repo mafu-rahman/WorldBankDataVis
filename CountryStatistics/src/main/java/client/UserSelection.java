@@ -45,6 +45,16 @@ public class UserSelection {
 	}
 	
 	/**
+	 * The method iterates through all the viewers selected by the user and added to
+	 * the IViewr class attribute
+	 */
+	public void draw() {
+		for(IViewer v : viewers) {
+			v.draw(result);
+		}
+	}
+	
+	/**
 	 * This method adds the selected viewer by the user and stores into a List
 	 * @param v : the viewer object selected by the user
 	 */
@@ -71,16 +81,6 @@ public class UserSelection {
 			return;
 		}
 		System.out.println("Viewer not selected");
-	}
-	
-	/**
-	 * The method iterates through all the viewers selected by the user and added to
-	 * the IViewr class attribute
-	 */
-	public void draw() {
-		for(IViewer v : viewers) {
-			v.draw(result);
-		}
 	}
 	
 	/*
