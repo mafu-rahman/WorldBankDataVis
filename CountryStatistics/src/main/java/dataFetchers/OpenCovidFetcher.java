@@ -18,7 +18,7 @@ public class OpenCovidFetcher implements Fetcher {
 	 */
 	@Override
 	public Object fetchData(UserSelection selection, String analysisTypeCode) {
-		String country = selection.getCountryCode();
+		String country = "can";
 		long fromYear = selection.getFromYear();
 		long toYear = selection.getToYear();
 		
