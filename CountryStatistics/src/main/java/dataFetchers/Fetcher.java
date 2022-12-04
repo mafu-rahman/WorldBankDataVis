@@ -11,4 +11,6 @@ public interface Fetcher {
 	 */
 	public Object fetchData(UserSelection selection, String analysisTypeCode);	
 	
+	public Object fetchData(UserSelection selection);
+	
 }
