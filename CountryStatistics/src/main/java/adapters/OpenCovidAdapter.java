@@ -4,14 +4,14 @@ import com.google.gson.JsonArray;
 
 import client.UserSelection;
 import dataFetchers.Fetcher;
-import dataFetchers.WorldBankFetcher;
+import dataFetchers.OpenCovidFetcher;;
 
-public class WorldBankAdapter implements IAdapter{
+public class OpenCovidAdapter implements IAdapter {
 	
 	private Fetcher fetcher;
 	
-	public WorldBankAdapter() {
-		fetcher = new WorldBankFetcher();
+	public OpenCovidAdapter() {
+		fetcher = new OpenCovidFetcher();
 	}
 
 	/**
@@ -21,13 +21,10 @@ public class WorldBankAdapter implements IAdapter{
 	 * @param analysisTypeCode type of analysis
 	 * @return Object data object returned using the fetchData method
 	 */
-	public JsonArray fetchData(UserSelection selection, String analysisTypeCode) {
-		
+	@Override
+	public Object fetchData(UserSelection selection, String analysisTypeCode) {
 		JsonArray j = (JsonArray) fetcher.fetchData(selection, analysisTypeCode);
-		
 		return j;
-		
-		
 	}
 
 }

@@ -21,7 +21,6 @@ public class UnitedNationsAdapter implements IAdapter{
 	 * @param analysisTypeCode type of analysis
 	 * @return Object data object returned using the fetchData method
 	 */
-	
 	public Object fetchData(UserSelection selection, String analysisTypeCode) {
 		JsonArray j = (JsonArray) fetcher.fetchData(selection, analysisTypeCode);
 		return j;
