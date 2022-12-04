@@ -46,10 +46,6 @@ public class AnalysisCoalvsRenewable implements IAnalyser{
 	 * to fetch the data for this analyser
 	 * @return result : it stores the processed data in a result object
 	 */
-	/**
-	 * Calculate Coal vs Renewable Analyser
-	 * @return result calculated result
-	 */
 	@Override
 	public Result calculate(UserSelection selection) {
 		System.out.println("Calculated using Coal vs Renewable Analyser");
