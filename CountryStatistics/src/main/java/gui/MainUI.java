@@ -6,6 +6,7 @@ import analysers.*;
 import client.UserSelection;
 import jsonDataParser.JsonParseCountries;
 import jsonDataParser.JsonParseYears;
+import jsonDataParser.JsonParseSources;
 import jsonDataParser.JsonParser;
 import viewers.BarChart;
 import viewers.IViewer;
@@ -146,7 +147,7 @@ public class MainUI extends JFrame{
 	 */
 	@SuppressWarnings("unchecked")
 	private void setupSourceButton() {
-		jsonParser.setParser(new JsonParseCountries("sources.json"));
+		jsonParser.setParser(new JsonParseSources("sources.json"));
 		Vector<String> sourcesNames = (Vector<String>) jsonParser.parse();
 		
 		JLabel chooseSourceLabel = new JLabel("Choose a source: ");

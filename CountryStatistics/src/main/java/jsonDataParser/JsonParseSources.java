@@ -17,6 +17,11 @@ public class JsonParseSources implements IJsonParser {
 		this.file = file;
 	}
 
+	/**
+	 * Parses from sources.json file to get available sources including 
+	 * World Bank and OpenCovid API. 
+	 * @return list of all available sources
+	 */
 	@SuppressWarnings("unchecked")
 	public Object parse() {
 		JSONParser jsonParser = new JSONParser();
