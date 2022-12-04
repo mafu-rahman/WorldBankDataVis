@@ -63,6 +63,7 @@ public class MainUI extends JFrame{
 	private JButton addViewButton;
 	private JButton removeViewButton;
 	private JButton recalculateButton;
+	private JButton sourceButton;
 	
 	private JComboBox<String> countriesList;
 	private JComboBox<Integer> fromYear;
@@ -119,6 +120,7 @@ public class MainUI extends JFrame{
 		this.setupAvailableViews();
 		this.setupAddViewButton();
 		this.setupRemoveViewButton();
+		this.setupSourceButton();
 		this.setupAnalysisMethods();
 		this.setupRecalculateButton();
 	}
@@ -214,6 +216,23 @@ public class MainUI extends JFrame{
 			}
 		});
 		
+	}
+	
+	/**
+	 * 'Source' button for selecting another source
+	 * for data retrieval
+	 */
+	private void setupSourceButton() {
+		this.sourceButton = new JButton("Source");
+		bottomPanel.add(sourceButton);
+		
+		sourceButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				refreshFrame();
+			}
+		});
 	}
 	
 	/**
