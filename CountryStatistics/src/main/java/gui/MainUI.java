@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.BorderLayout;
+
+import adapters.OpenCovidAdapter;
 import adapters.WorldBankAdapter;
 import analysers.*;
 import client.UserSelection;
@@ -47,6 +49,7 @@ public class MainUI extends JFrame{
 		a.addAnalyser(new AnalysisTotalPopvsGDPGrowth(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisHeatIndexvsCO2Emission(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisForestvsHeatIndexvsCO2Emissions(new WorldBankAdapter()));
+		a.addAnalyser(new DisplayCovidCases(new OpenCovidAdapter()));
 		// a.addAnalyser(new AnalysisPolStabilityvsGDPGrowth(new WorldBankAdapter()));
 		
 		new MainUI(v, a);	

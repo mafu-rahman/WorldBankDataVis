@@ -58,4 +58,10 @@ public class UnitedNationsFetcher implements Fetcher{
 		
 		return retrievedJsonArray;	
 	}
+
+	@Override
+	public Object fetchData(UserSelection selection) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

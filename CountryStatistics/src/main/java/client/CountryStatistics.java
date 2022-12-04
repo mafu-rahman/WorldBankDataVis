@@ -1,5 +1,6 @@
 package client;
 
+import adapters.OpenCovidAdapter;
 import adapters.WorldBankAdapter;
 import analysers.*;
 import gui.LoginUI;
@@ -40,6 +41,7 @@ public class CountryStatistics {
 		a.addAnalyser(new AnalysisTotalPopvsGDPGrowth(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisHeatIndexvsCO2Emission(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisForestvsHeatIndexvsCO2Emissions(new WorldBankAdapter()));
+		a.addAnalyser(new DisplayCovidCases(new OpenCovidAdapter()));
 		// a.addAnalyser(new AnalysisPolStabilityvsGDPGrowth(new WorldBankAdapter()));
 		
 		new LoginUI(v, a);
