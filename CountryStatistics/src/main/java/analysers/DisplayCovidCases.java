@@ -13,7 +13,7 @@ import results.Result;
 
 public class DisplayCovidCases implements IAnalyser {
 	
-	private final String title = "Covid Cases";
+	private final String title = "Display Covid Cases";
 	
 	private JsonArray covidDataJSON;
 	private IAdapter fetcherAdapter;

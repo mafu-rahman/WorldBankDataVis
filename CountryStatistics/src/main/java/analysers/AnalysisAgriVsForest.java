@@ -40,13 +40,9 @@ public class AnalysisAgriVsForest implements IAnalyser{
 	}
 	
 	/**
-	 * This method gets the userselection as a parameter and calls the appropriate method
+	 * This method gets the user selection as a parameter and calls the appropriate method
 	 * to fetch the data for this analyser
 	 * @return result : it stores the processed data in a result object
-	 */
-	/**
-	 * Calculates Agriculture vs Forest Analyser
-	 * @return result calculated data
 	 */
 	@Override
 	public Result calculate(UserSelection selection) {
@@ -62,7 +58,7 @@ public class AnalysisAgriVsForest implements IAnalyser{
 	}
 	
 	/**
-	 * This method processes the retrived data if required for it to be viewed to the users.
+	 * This method processes the retrieved data if required for it to be viewed to the users.
 	 * It parses the JSON data and converts into a HashMap object of key value pairs. 
 	 */
 	@SuppressWarnings("unchecked")
