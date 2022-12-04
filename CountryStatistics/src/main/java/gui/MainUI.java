@@ -63,9 +63,9 @@ public class MainUI extends JFrame{
 	private JButton addViewButton;
 	private JButton removeViewButton;
 	private JButton recalculateButton;
-	private JButton sourceButton;
 	
 	private JComboBox<String> countriesList;
+	private JComboBox<String> sourcesList;
 	private JComboBox<Integer> fromYear;
 	private JComboBox<Integer> toYear;
 	private JComboBox<IViewer> viewerList;
@@ -139,6 +139,23 @@ public class MainUI extends JFrame{
 		topPanel.add(chooseCountryLabel);
 		topPanel.add(countriesList);
 	}
+	
+	/**
+	 * 'Source' button for selecting another source
+	 * for data retrieval
+	 */
+	@SuppressWarnings("unchecked")
+	private void setupSourceButton() {
+		jsonParser.setParser(new JsonParseCountries("sources.json"));
+		Vector<String> sourcesNames = (Vector<String>) jsonParser.parse();
+		
+		JLabel chooseSourceLabel = new JLabel("Choose a source: ");
+		sourcesList = new JComboBox<String>(sourcesNames);
+		
+		topPanel.add(chooseSourceLabel);
+		topPanel.add(sourcesList);;
+	}
+	
 	
 	/**
 	 * Sets up the 'from' years menu in the top panel
@@ -216,23 +233,6 @@ public class MainUI extends JFrame{
 			}
 		});
 		
-	}
-	
-	/**
-	 * 'Source' button for selecting another source
-	 * for data retrieval
-	 */
-	private void setupSourceButton() {
-		this.sourceButton = new JButton("Source");
-		bottomPanel.add(sourceButton);
-		
-		sourceButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				refreshFrame();
-			}
-		});
 	}
 	
 	/**
