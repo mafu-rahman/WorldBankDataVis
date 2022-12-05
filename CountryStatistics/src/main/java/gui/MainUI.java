@@ -40,18 +40,6 @@ public class MainUI extends JFrame{
 		v.addViewer(new ScatterChart());
 		v.addViewer(new Report());
 		
-		/*
-		Analyser a = new Analyser();
-		a.addAnalyser(new AnalysisAgriVsForest(new WorldBankAdapter()));
-		a.addAnalyser(new AnalysisCoalvsRenewable(new WorldBankAdapter()));
-		a.addAnalyser(new AnalysisRenewableOutputvsRenewableConsumption(new WorldBankAdapter()));
-		a.addAnalyser(new AnalysisFossilFuelvsRenewableConsum(new WorldBankAdapter()));
-		a.addAnalyser(new AnalysisTotalPopvsGDPGrowth(new WorldBankAdapter()));
-		a.addAnalyser(new AnalysisHeatIndexvsCO2Emission(new WorldBankAdapter()));
-		a.addAnalyser(new AnalysisForestvsHeatIndexvsCO2Emissions(new WorldBankAdapter()));
-		a.addAnalyser(new DisplayCovidCases(new OpenCovidAdapter()));
-		*/
-		
 		Analyser analyses = new Analyser();
 		AnalysisFactory analysisFactory = new AnalysisFactory();
 		analyses.addAnalyser(analysisFactory.makeAnalyser("Agriculture vs Forest", new WorldBankAdapter()));

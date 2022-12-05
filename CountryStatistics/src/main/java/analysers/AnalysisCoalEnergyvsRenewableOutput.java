@@ -11,7 +11,7 @@ import jsonDataParser.JsonParser;
 import results.Result;
 import results.TwoSeriesResult;
 
-public class AnalysisCoalvsRenewable implements IAnalyser{
+public class AnalysisCoalEnergyvsRenewableOutput implements IAnalyser{
 	
 	private String coalCode = "EG.ELC.COAL.ZS";
 	private String renewableCode = "EG.ELC.RNEW.ZS";
@@ -34,7 +34,7 @@ public class AnalysisCoalvsRenewable implements IAnalyser{
 	 * Constructor method
 	 * @param adapter
 	 */
-	public AnalysisCoalvsRenewable(IAdapter adapter) {
+	public AnalysisCoalEnergyvsRenewableOutput(IAdapter adapter) {
 		this.fetcherAdapter = adapter;
 		
 		this.jsonParser = new JsonParser();

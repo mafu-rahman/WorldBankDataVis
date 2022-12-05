@@ -11,7 +11,7 @@ public class AnalysisFactory {
 		}
 		
 		else if(newAnalysis.equals("Coal vs Renewable")) {
-			return new AnalysisCoalvsRenewable(adapter);
+			return new AnalysisCoalEnergyvsRenewableOutput(adapter);
 		}
 		
 		else if(newAnalysis.equals("Forest vs Heat Index vs CO2 Emissions")) {
