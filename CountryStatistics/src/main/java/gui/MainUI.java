@@ -61,7 +61,7 @@ public class MainUI extends JFrame{
 		analyses.addAnalyser(analysisFactory.makeAnalyser("Heat Index vs CO2 Emissions", new WorldBankAdapter()));
 		analyses.addAnalyser(analysisFactory.makeAnalyser("Renewable Output vs Renewable Consumption", new WorldBankAdapter()));
 		analyses.addAnalyser(analysisFactory.makeAnalyser("Total Population vs GDP Growth", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Display Covid Cases", new WorldBankAdapter()));
+		analyses.addAnalyser(analysisFactory.makeAnalyser("Display Covid Cases", new OpenCovidAdapter()));
 		// a.addAnalyser(new AnalysisPolStabilityvsGDPGrowth(new WorldBankAdapter()));
 		
 		new MainUI(v, analyses);	
