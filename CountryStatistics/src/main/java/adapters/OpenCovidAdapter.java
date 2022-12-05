@@ -10,6 +10,9 @@ public class OpenCovidAdapter implements IAdapter {
 	
 	private Fetcher fetcher;
 	
+	/**
+	 * Constructor method
+	 */
 	public OpenCovidAdapter() {
 		fetcher = new OpenCovidFetcher();
 	}
@@ -17,9 +20,9 @@ public class OpenCovidAdapter implements IAdapter {
 	/**
 	 * Fetch data based on user provided data selection and analysis type
 	 * and Implement fetching and converting XML to JSON format
-	 * @param selection data composed of country code, start year and end year 
-	 * @param analysisTypeCode type of analysis
-	 * @return Object data object returned using the fetchData method
+	 * @param selection : data composed of country code, start year and end year 
+	 * @param analysisTypeCode : type of analysis
+	 * @return returns Object data object using the fetchData method
 	 */
 	@Override
 	public Object fetchData(UserSelection selection, String analysisTypeCode) {
