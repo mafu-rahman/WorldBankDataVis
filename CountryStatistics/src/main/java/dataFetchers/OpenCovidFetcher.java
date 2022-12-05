@@ -5,6 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
@@ -25,6 +26,7 @@ public class OpenCovidFetcher implements Fetcher {
 	 * Used to fetch data from the OpenCovid API
 	 * @return retrievedJsonArray return the JsonArray containing data from OpenCovid API
 	 */
+<<<<<<< Updated upstream:CountryStatistics/src/main/java/dataFetchers/OpenCovidFetcher.java
 	@Override
 	public Object fetchData(UserSelection selection) {
 		String country = "can";
@@ -34,6 +36,14 @@ public class OpenCovidFetcher implements Fetcher {
 		String urlString = String.format(""
 				+ "\nhttps://api.opencovid.ca/timeseries?stat=all&geo=%s&after=%d&before=%d&fill=false&version=true&pt_names=short&hr_names=short&legacy=false&fmt=json"
 				, country, fromYear, toYear);
+=======
+	public String fetchData(UserSelection selection, String analysisTypeCode) {
+		String country = selection.getCountryCode();
+		long fromYear = selection.getFromYear();
+		long toYear = selection.getToYear();
+		
+		String urlString = "http://130.63.209.45:8000/WBAnalysis/?p1=Analysis1&p2=10&p3=20";
+>>>>>>> Stashed changes:CountryStatistics/src/main/java/dataFetchers/UnitedNationsFetcher.java
 		System.out.println("Connecting to URL: " + urlString);
 		JsonArray retrievedJsonArray = new JsonArray();
 		
@@ -52,6 +62,8 @@ public class OpenCovidFetcher implements Fetcher {
 					inline += sc.nextLine();
 				}
 				sc.close();
+				
+				Gson gson = new Gson();
 				
 				retrievedJsonArray = new JsonParser().parse(inline).getAsJsonArray();
 				
