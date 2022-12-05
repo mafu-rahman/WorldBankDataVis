@@ -11,6 +11,15 @@ import com.google.gson.JsonParser;
 import client.UserSelection;
 
 public class OpenCovidFetcher implements Fetcher {
+	
+	// TODO: Create new UserSelection for OpenCovid OR Add String date attribute to current UserSelection?
+	public static void main(String[] args) {
+		UserSelection selection = new UserSelection();
+		selection.setFromYear(2021);
+		selection.setToYear(2022);
+		OpenCovidFetcher fetcher = new OpenCovidFetcher();
+		fetcher.fetchData(selection);
+	}
 
 	/**
 	 * Used to fetch data from the OpenCovid API
