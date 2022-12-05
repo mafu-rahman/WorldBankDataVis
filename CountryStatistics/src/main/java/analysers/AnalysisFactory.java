@@ -19,7 +19,7 @@ public class AnalysisFactory {
 		}
 		
 		else if(newAnalysis.equals("Fossil Fuel vs Renewable Consum")) {
-			return new AnalysisFossilFuelvsRenewableConsum(adapter);
+			return new AnalysisFossilFuelvsRenewableConsumption(adapter);
 		}
 		
 		else if(newAnalysis.equals("Heat Index vs CO2 Emissions")) {
