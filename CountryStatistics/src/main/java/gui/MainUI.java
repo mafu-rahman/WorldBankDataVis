@@ -41,6 +41,7 @@ public class MainUI extends JFrame{
 		v.addViewer(new ScatterChart());
 		v.addViewer(new Report());
 		
+		/*
 		Analyser a = new Analyser();
 		a.addAnalyser(new AnalysisAgriVsForest(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisCoalvsRenewable(new WorldBankAdapter()));
@@ -50,9 +51,21 @@ public class MainUI extends JFrame{
 		a.addAnalyser(new AnalysisHeatIndexvsCO2Emission(new WorldBankAdapter()));
 		a.addAnalyser(new AnalysisForestvsHeatIndexvsCO2Emissions(new WorldBankAdapter()));
 		a.addAnalyser(new DisplayCovidCases(new OpenCovidAdapter()));
+		*/
+		
+		Analyser analyses = new Analyser();
+		AnalysisFactory analysisFactory = new AnalysisFactory();
+		analyses.addAnalyser(analysisFactory.makeAnalyser("Agriculture vs Forest", new WorldBankAdapter()));
+		analyses.addAnalyser(analysisFactory.makeAnalyser("Coal vs Renewable", new WorldBankAdapter()));
+		analyses.addAnalyser(analysisFactory.makeAnalyser("Forest vs Heat Index vs CO2 Emissions", new WorldBankAdapter()));
+		analyses.addAnalyser(analysisFactory.makeAnalyser("Fossil Fuel vs Renewable Consum", new WorldBankAdapter()));
+		analyses.addAnalyser(analysisFactory.makeAnalyser("Heat Index vs CO2 Emissions", new WorldBankAdapter()));
+		analyses.addAnalyser(analysisFactory.makeAnalyser("Renewable Output vs Renewable Consumption", new WorldBankAdapter()));
+		analyses.addAnalyser(analysisFactory.makeAnalyser("Total Population vs GDP Growth", new WorldBankAdapter()));
+		analyses.addAnalyser(analysisFactory.makeAnalyser("Display Covid Cases", new WorldBankAdapter()));
 		// a.addAnalyser(new AnalysisPolStabilityvsGDPGrowth(new WorldBankAdapter()));
 		
-		new MainUI(v, a);	
+		new MainUI(v, analyses);	
 	}
 
 	/*
