@@ -1,3 +1,9 @@
 /client/
 /META-INF/
 /dataFetchers/
+/adapters/
+/analysers/
+/gui/
+/jsonDataParser/
+/results/
+/viewers/
