@@ -20,24 +20,24 @@ public class Analyser {
 	}
 	
 	/**
-	 * Add an analyser
-	 * @param a analyser type
+	 * Add an analyzer
+	 * @param a : analyzer type
 	 */
 	public void addAnalyser(IAnalyser a) {
 		this.analysers.add(a);
 	}
 	
 	/**
-	 * Remove an analyser
-	 * @param a analyser type
+	 * Remove an analyzer
+	 * @param a : analyzer type
 	 */
 	public void removeAnalyser(IAnalyser a) {
 		this.analysers.remove(a);
 	}
 	
 	/**
-	 * Get all analysers
-	 * @return vector of analysers
+	 * Get all analyzers
+	 * @return returns vector of analyzers
 	 */
 	public Vector<IAnalyser> getAnalysers() {
 		return this.analysers;
