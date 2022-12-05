@@ -2,8 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 
-import adapters.OpenCovidAdapter;
-import adapters.WorldBankAdapter;
+import adapters.*;
 import analysers.*;
 import client.UserSelection;
 import jsonDataParser.JsonParseCountries;
