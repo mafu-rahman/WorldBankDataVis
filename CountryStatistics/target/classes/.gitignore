@@ -1,6 +1,2 @@
-/gui/
-/jsonDataParser/
-/adapters/
-/dataFetchers/
+/META-INF/
 /analysers/
-/client/
