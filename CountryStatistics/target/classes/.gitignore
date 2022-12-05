@@ -1,9 +1,20 @@
+<<<<<<< HEAD
 /client/
 /META-INF/
 /dataFetchers/
 /adapters/
 /analysers/
 /gui/
+=======
+/META-INF/
+/analysers/
+/client/
+/gui/
+/dataFetchers/
+/adapters/
+/test/
+/server/
+>>>>>>> parent of f63f786 (..)
 /jsonDataParser/
 /results/
 /viewers/
