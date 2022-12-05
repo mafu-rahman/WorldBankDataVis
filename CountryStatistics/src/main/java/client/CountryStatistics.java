@@ -1,10 +1,7 @@
 package client;
 
-<<<<<<< Updated upstream
 import adapters.OpenCovidAdapter;
-=======
 import adapters.UnitedNationsAdapter;
->>>>>>> Stashed changes
 import adapters.WorldBankAdapter;
 import analysers.*;
 import gui.LoginUI;
