@@ -11,7 +11,7 @@ import jsonDataParser.JsonParser;
 import results.Result;
 import results.TwoSeriesResult;
 
-public class AnalysisFossilFuelvsRenewableConsumption implements IAnalyser{
+public class AnalysisFossilVsRenew implements IAnalyser{
 	
 	private String fossilFuelCode = "EG.USE.COMM.FO.ZS";
 	private String renewableCode = "EG.FEC.RNEW.ZS";
@@ -20,8 +20,8 @@ public class AnalysisFossilFuelvsRenewableConsumption implements IAnalyser{
 	private final String fossilFuelTopic = "Fossil Fuel Consumption (% of fossil fuel consumed)";
 	private final String renewableTopic = "Renewable Energy Consumption output (% of total energy consumed)";
 	
-	private JsonArray fossilFuelDataJSON;
-	private JsonArray renewableEnergyDataJSON;
+	private HashMap<String, Double> fossilFuelData;
+	private HashMap<String, Double> renewableEnergyData;
 	
 	private IAdapter fetcherAdapter;
 	private UserSelection userSelection;
@@ -34,7 +34,7 @@ public class AnalysisFossilFuelvsRenewableConsumption implements IAnalyser{
 	 * Constructor method
 	 * @param adapter
 	 */
-	public AnalysisFossilFuelvsRenewableConsumption (IAdapter adapter) {
+	public AnalysisFossilVsRenew (IAdapter adapter) {
 		this.fetcherAdapter = adapter;
 		
 		this.jsonParser = new JsonParser();
@@ -42,11 +42,11 @@ public class AnalysisFossilFuelvsRenewableConsumption implements IAnalyser{
 	}
 	
 	private void fetchDataCoal() {
-		fossilFuelDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, fossilFuelCode);
+		fossilFuelData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, fossilFuelCode);
 	}
 	
 	private void fetchDataRenewable() {
-		renewableEnergyDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, renewableCode);
+		renewableEnergyData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, renewableCode);
 	}
 
 	/**
@@ -72,12 +72,6 @@ public class AnalysisFossilFuelvsRenewableConsumption implements IAnalyser{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void processData() {
-		jsonParser.setParser(new JsonParseRetrivedData(fossilFuelDataJSON));
-		HashMap<String, Double> fossilFuelData = (HashMap<String, Double>) jsonParser.parse();
-		
-		jsonParser.setParser(new JsonParseRetrivedData(renewableEnergyDataJSON));
-		HashMap<String, Double> renewableEnergyData = (HashMap<String, Double>) jsonParser.parse();
-		
 		this.result.addTitle(title);
 		this.result.addTopic1(fossilFuelTopic);
 		this.result.addTopic2(renewableTopic);

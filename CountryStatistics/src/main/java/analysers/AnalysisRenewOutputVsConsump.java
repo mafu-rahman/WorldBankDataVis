@@ -11,7 +11,7 @@ import jsonDataParser.JsonParser;
 import results.Result;
 import results.TwoSeriesResult;
 
-public class AnalysisRenewableOutputvsRenewableConsumption implements IAnalyser{
+public class AnalysisRenewOutputVsConsump implements IAnalyser{
 	
 	private String renewableConsum = "EG.FEC.RNEW.ZS";
 	private String renewableOutput = "EG.ELC.RNEW.ZS";
@@ -20,13 +20,11 @@ public class AnalysisRenewableOutputvsRenewableConsumption implements IAnalyser{
 	private final String renewableOutputTopic = "Renewable energy output (% of total energy output)";
 	private final String renewableConsumTopic = "Renewable energy consumption (% of total energy consumed)";
 	
-	private JsonArray renewableConsumDataJSON;
-	private JsonArray renewableEnergyDataJSON;
+	private HashMap<String, Double> renewableConsumData;
+	private HashMap<String, Double> renewableEnergyData;
 	
 	private IAdapter fetcherAdapter;
 	private UserSelection userSelection;
-		
-	private JsonParser jsonParser;
 	
 	private TwoSeriesResult result;
 	
@@ -34,19 +32,17 @@ public class AnalysisRenewableOutputvsRenewableConsumption implements IAnalyser{
 	 * Constructor method
 	 * @param adapter
 	 */
-	public AnalysisRenewableOutputvsRenewableConsumption(IAdapter adapter) {
+	public AnalysisRenewOutputVsConsump(IAdapter adapter) {
 		this.fetcherAdapter = adapter;
-		
-		this.jsonParser = new JsonParser();
 		this.result = new TwoSeriesResult();
 	}
 	
 	private void fetchDataConsumption() {
-		renewableConsumDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, renewableConsum);
+		renewableConsumData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, renewableConsum);
 	}
 	
 	private void fetchDataOutput() {
-		renewableEnergyDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, renewableOutput);
+		renewableEnergyData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, renewableOutput);
 	}
 
 	/**
@@ -69,15 +65,8 @@ public class AnalysisRenewableOutputvsRenewableConsumption implements IAnalyser{
 	/**
 	 * Process the data
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void processData() {
-		jsonParser.setParser(new JsonParseRetrivedData(renewableConsumDataJSON));
-		HashMap<String, Double> renewableConsumData = (HashMap<String, Double>) jsonParser.parse();
-		
-		jsonParser.setParser(new JsonParseRetrivedData(renewableEnergyDataJSON));
-		HashMap<String, Double> renewableEnergyData = (HashMap<String, Double>) jsonParser.parse();
-		
 		this.result.addTitle(title);
 		this.result.addTopic1(renewableConsumTopic);
 		this.result.addTopic2(renewableOutputTopic);

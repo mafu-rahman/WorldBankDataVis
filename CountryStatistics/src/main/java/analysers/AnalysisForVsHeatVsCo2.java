@@ -11,7 +11,7 @@ import jsonDataParser.JsonParser;
 import results.Result;
 import results.ThreeSeriesResult;
 
-public class AnalysisForestvsHeatIndexvsCO2Emissions implements IAnalyser{
+public class AnalysisForVsHeatVsCo2 implements IAnalyser{
 
 	private String forestLandCode = "AG.LND.FRST.ZS";
 	private String heatIndexCode = "EN.CLC.HEAT.XD";
@@ -22,38 +22,22 @@ public class AnalysisForestvsHeatIndexvsCO2Emissions implements IAnalyser{
 	private final String heatIndexTopic = "Heat Index";
 	private final String co2EmissionTopic = "CO2 Emissions";
 	
-	private JsonArray forestLandDataJSON;
-	private JsonArray heatIndexDataJSON;
-	private JsonArray co2EmissionDataJSON;
+	private HashMap<String, Double> forestLandData;
+	private HashMap<String, Double> heatIndexData;
+	private HashMap<String, Double> co2EmissionData;
 	
 	private IAdapter fetcherAdapter;
 	private UserSelection userSelection;
-		
-	private JsonParser jsonParser;
-	
+			
 	private ThreeSeriesResult result;
 	
 	/**
 	 * Constructor method
 	 * @param adapter
 	 */
-	public AnalysisForestvsHeatIndexvsCO2Emissions(IAdapter adapter) {
+	public AnalysisForVsHeatVsCo2(IAdapter adapter) {
 		this.fetcherAdapter = adapter;
-		
-		this.jsonParser = new JsonParser();
 		this.result = new ThreeSeriesResult();
-	}
-	
-	private void fetchDataForestLand() {
-		forestLandDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, forestLandCode);
-	}
-	
-	private void fetchDataHeatIndex() {
-		heatIndexDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, heatIndexCode);
-	}
-	
-	private void fetchDataCO2Emissions() {
-		co2EmissionDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, co2EmissionCode);
 	}
 	
 	/**
@@ -73,21 +57,25 @@ public class AnalysisForestvsHeatIndexvsCO2Emissions implements IAnalyser{
 		
 		return result;
 	}
-
+	
+	private void fetchDataForestLand() {
+		forestLandData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, forestLandCode);
+	}
+	
+	private void fetchDataHeatIndex() {
+		heatIndexData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, heatIndexCode);
+	}
+	
+	private void fetchDataCO2Emissions() {
+		co2EmissionData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, co2EmissionCode);
+	}
+	
 	/**
 	 * Process the data
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void processData() {
-		jsonParser.setParser(new JsonParseRetrivedData(forestLandDataJSON));
-		HashMap<String, Double> forestLandData = (HashMap<String, Double>) jsonParser.parse();
-		
-		jsonParser.setParser(new JsonParseRetrivedData(heatIndexDataJSON));
-		HashMap<String, Double> heatIndexData = (HashMap<String, Double>) jsonParser.parse();
-		
-		jsonParser.setParser(new JsonParseRetrivedData(co2EmissionDataJSON));
-		HashMap<String, Double> co2EmissionData = (HashMap<String, Double>) jsonParser.parse();
 		
 		this.result.addTitle(title);
 		this.result.addTopic1(forestLandTopic);

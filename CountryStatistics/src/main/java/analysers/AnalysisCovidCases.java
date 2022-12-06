@@ -11,7 +11,7 @@ import jsonDataParser.JsonParser;
 import results.OneSeriesResult;
 import results.Result;
 
-public class DisplayCovidCases implements IAnalyser {
+public class AnalysisCovidCases implements IAnalyser {
 	
 	private final String title = "Display Covid Cases";
 	
@@ -23,7 +23,7 @@ public class DisplayCovidCases implements IAnalyser {
 	
 	private OneSeriesResult result;
 	
-	public DisplayCovidCases(IAdapter adapter) {
+	public AnalysisCovidCases(IAdapter adapter) {
 		this.fetcherAdapter = adapter;
 		
 		this.jsonParser = new JsonParser();

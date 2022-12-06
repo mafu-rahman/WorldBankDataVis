@@ -2,8 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 
-import adapters.*;
-import analysers.*;
+
 import client.UserSelection;
 import jsonDataParser.JsonParseAnalysis;
 import jsonDataParser.JsonParseCountries;
@@ -11,14 +10,6 @@ import jsonDataParser.JsonParseYears;
 import jsonDataParser.JsonParseSources;
 import jsonDataParser.JsonParseViewers;
 import jsonDataParser.JsonParser;
-import viewers.BarChart;
-import viewers.IViewer;
-import viewers.LineChart;
-import viewers.PieChart;
-import viewers.Report;
-import viewers.ScatterChart;
-import viewers.Viewer;
-import viewers.ViewerFactory;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;

@@ -11,7 +11,7 @@ import jsonDataParser.JsonParser;
 import results.Result;
 import results.TwoSeriesResult;
 
-public class AnalysisCoalEnergyvsRenewableOutput implements IAnalyser{
+public class AnalysisCoalVsRenewable implements IAnalyser{
 	
 	private String coalCode = "EG.ELC.COAL.ZS";
 	private String renewableCode = "EG.ELC.RNEW.ZS";
@@ -20,24 +20,20 @@ public class AnalysisCoalEnergyvsRenewableOutput implements IAnalyser{
 	private final String electricityToipic = "Electricity production from coal sources (% of total)";
 	private final String renewableTopic = "Renewable electricity output (% of total electricity output)";
 	
-	private JsonArray coalEnergyDataJSON;
-	private JsonArray renewableEnergyDataJSON;
+	private HashMap<String, Double> coalEnergyData;
+	private HashMap<String, Double> renewableEnergyData;
 	
 	private IAdapter fetcherAdapter;
 	private UserSelection userSelection;
-		
-	private JsonParser jsonParser;
-	
+			
 	private TwoSeriesResult result;
 	
 	/**
 	 * Constructor method
 	 * @param adapter
 	 */
-	public AnalysisCoalEnergyvsRenewableOutput(IAdapter adapter) {
+	public AnalysisCoalVsRenewable(IAdapter adapter) {
 		this.fetcherAdapter = adapter;
-		
-		this.jsonParser = new JsonParser();
 		this.result = new TwoSeriesResult();
 	}
 	
@@ -58,6 +54,20 @@ public class AnalysisCoalEnergyvsRenewableOutput implements IAnalyser{
 		
 		return result;
 	}
+	
+	/**
+	 * Fetching data, calling the appropriate adapter
+	 */
+	private void fetchDataCoal() {
+		coalEnergyData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, coalCode);
+	}
+	
+	/**
+	 * Fetching data, calling the appropriate adapter
+	 */
+	private void fetchDataRenewable() {
+		renewableEnergyData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, renewableCode);
+	}
 
 	/**
 	 * This method processes the retrived data if required for it to be viewed to the users.
@@ -65,11 +75,6 @@ public class AnalysisCoalEnergyvsRenewableOutput implements IAnalyser{
 	 */
 	@SuppressWarnings("unchecked")
 	public void processData() {
-		jsonParser.setParser(new JsonParseRetrivedData(coalEnergyDataJSON));
-		HashMap<String, Double> coalEnergyData = (HashMap<String, Double>) jsonParser.parse();
-		
-		jsonParser.setParser(new JsonParseRetrivedData(renewableEnergyDataJSON));
-		HashMap<String, Double> renewableEnergyData = (HashMap<String, Double>) jsonParser.parse();
 		
 		this.result.addTitle(title);
 		this.result.addTopic1(electricityToipic);
@@ -77,20 +82,6 @@ public class AnalysisCoalEnergyvsRenewableOutput implements IAnalyser{
 		this.result.addData1(coalEnergyData);
 		this.result.addData2(renewableEnergyData);
 		
-	}
-	
-	/**
-	 * Fetching data, calling the appropriate adapter
-	 */
-	private void fetchDataCoal() {
-		coalEnergyDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, coalCode);
-	}
-	
-	/**
-	 * Fetching data, calling the appropriate adapter
-	 */
-	private void fetchDataRenewable() {
-		renewableEnergyDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, renewableCode);
 	}
 	
 	public String toString() {

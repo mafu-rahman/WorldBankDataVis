@@ -11,35 +11,9 @@ import com.google.gson.JsonParser;
 
 import client.UserSelection;
 
-public class OpenCovidFetcher implements Fetcher {
+public class OpenCovidFetcher implements IFetcher {
 	
-	// TODO: Create new UserSelection for OpenCovid OR Add String date attribute to current UserSelection?
-	public static void main(String[] args) {
-		UserSelection selection = new UserSelection();
-		selection.setFromYear(2021);
-		selection.setToYear(2022);
-		OpenCovidFetcher fetcher = new OpenCovidFetcher();
-		fetcher.fetchData(selection);
-	}
-
-	/**
-	 * Used to fetch data from the OpenCovid API
-	 * @return retrievedJsonArray return the JsonArray containing data from OpenCovid API
-	 */
-	@Override
-	public Object fetchData(UserSelection selection) {
-		String country = "can";
-		long fromYear = selection.getFromYear();
-		long toYear = selection.getToYear();
-		
-		String urlString = String.format(""
-				+ "\nhttps://api.opencovid.ca/timeseries?stat=all&geo=%s&after=%d&before=%d&fill=false&version=true&pt_names=short&hr_names=short&legacy=false&fmt=json"
-				, country, fromYear, toYear);
-		
-		return null;
-	}
-	
-	public Object fetchData(UserSelection selection, String analysisTypeCode) {
+	public JsonArray fetchData(UserSelection selection, String analysisTypeCode) {
 		String country = selection.getCountryCode();
 		long fromYear = selection.getFromYear();
 		long toYear = selection.getToYear();
@@ -75,5 +49,4 @@ public class OpenCovidFetcher implements Fetcher {
 		
 		return retrievedJsonArray;	
 	}
-
 }

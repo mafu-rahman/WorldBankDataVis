@@ -18,14 +18,12 @@ public class AnalysisAgriVsForest implements IAnalyser{
 	private final String agriToipic = "Agricultural land (% of land area)";
 	private final String forestTopic = "Forest land (% of land area)";
 
-	private JsonArray agricultureDataJSON;
-	private JsonArray forestDataJSON;
+	private HashMap<String, Double> agricultureData;
+	private HashMap<String, Double> forestData;
 	
 	private IAdapter fetcherAdapter;
 	private UserSelection userSelection;
-	
-	private JsonParser jsonParser;
-	
+		
 	private TwoSeriesResult result;
 	
 	/**
@@ -34,8 +32,6 @@ public class AnalysisAgriVsForest implements IAnalyser{
 	 */
 	public AnalysisAgriVsForest(IAdapter adapter) {
 		this.fetcherAdapter = adapter;
-
-		this.jsonParser = new JsonParser();
 		this.result = new TwoSeriesResult();
 	}
 	
@@ -58,16 +54,25 @@ public class AnalysisAgriVsForest implements IAnalyser{
 	}
 	
 	/**
+	 * Fetching data, calling the appropriate adapter
+	 */
+	private void fetchDataAgri() {
+		this.agricultureData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, agriCode);
+	}
+	
+	/**
+	 * Fetching data, calling the appropriate adapter
+	 */
+	private void fetchDataForest() {
+		this.forestData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, forestCode);
+	}
+	
+	/**
 	 * This method processes the retrieved data if required for it to be viewed to the users.
 	 * It parses the JSON data and converts into a HashMap object of key value pairs. 
 	 */
 	@SuppressWarnings("unchecked")
 	public void processData() {
-		this.jsonParser.setParser(new JsonParseRetrivedData(agricultureDataJSON));
-		HashMap<String, Double> agricultureData = (HashMap<String, Double>) jsonParser.parse();
-		
-		this.jsonParser.setParser(new JsonParseRetrivedData(forestDataJSON));
-		HashMap<String, Double> forestData = (HashMap<String, Double>) jsonParser.parse();
 		
 		this.result.addTitle(title);
 		this.result.addTopic1(agriToipic);
@@ -76,19 +81,6 @@ public class AnalysisAgriVsForest implements IAnalyser{
 		this.result.addData2(forestData);	
 	}
 	
-	/**
-	 * Fetching data, calling the appropriate adapter
-	 */
-	private void fetchDataAgri() {
-		this.agricultureDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, agriCode);
-	}
-	
-	/**
-	 * Fetching data, calling the appropriate adapter
-	 */
-	private void fetchDataForest() {
-		this.forestDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, forestCode);
-	}
 	
 	/**
 	 * toString() method

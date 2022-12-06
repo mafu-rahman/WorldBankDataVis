@@ -13,9 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import analysers.Analyser;
-import viewers.Viewer;
-
 public class LoginUI{
 	
 	

@@ -2,7 +2,7 @@ package dataFetchers;
 
 import client.UserSelection;
 
-public interface Fetcher {
+public interface IFetcher {
 	
 	/**
 	 * Method used to fetch data from API 
@@ -10,7 +10,4 @@ public interface Fetcher {
 	 * @return it returns an object of appropriate type depending on the implemented class, exampl, JsonArray
 	 */
 	public Object fetchData(UserSelection selection, String analysisTypeCode);	
-	
-	public Object fetchData(UserSelection selection);
-	
 }

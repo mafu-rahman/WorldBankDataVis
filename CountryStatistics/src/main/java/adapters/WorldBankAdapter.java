@@ -1,20 +1,26 @@
 package adapters;
 
+import java.util.HashMap;
+
 import com.google.gson.JsonArray;
 
 import client.UserSelection;
-import dataFetchers.Fetcher;
+import dataFetchers.IFetcher;
 import dataFetchers.WorldBankFetcher;
+import jsonDataParser.JsonParseRetrivedData;
+import jsonDataParser.JsonParser;
 
 public class WorldBankAdapter implements IAdapter{
 	
-	private Fetcher fetcher;
+	private IFetcher fetcher;
+	private JsonParser jsonParser;
 	
 	/**
 	 * Constructor Method
 	 */
 	public WorldBankAdapter() {
-		fetcher = new WorldBankFetcher();
+		this.fetcher = new WorldBankFetcher();
+		this.jsonParser = new JsonParser();
 	}
 
 	/**
@@ -24,13 +30,12 @@ public class WorldBankAdapter implements IAdapter{
 	 * @param analysisTypeCode : type of analysis
 	 * @return returns Object data object returned using the fetchData method
 	 */
-	public JsonArray fetchData(UserSelection selection, String analysisTypeCode) {
+	public HashMap<String, Double> fetchData(UserSelection selection, String analysisTypeCode) {
 		
-		JsonArray j = (JsonArray) fetcher.fetchData(selection, analysisTypeCode);
+		JsonArray rawData = (JsonArray) fetcher.fetchData(selection, analysisTypeCode);
+		this.jsonParser.setParser(new JsonParseRetrivedData(rawData));
+		HashMap<String, Double> data = (HashMap<String, Double>) jsonParser.parse();
 		
-		return j;
-		
-		
+		return data;
 	}
-
 }

@@ -15,8 +15,7 @@ import client.UserSelection;
  * @author mafu
  *
  */
-public class WorldBankFetcher implements Fetcher{
-	
+public class WorldBankFetcher implements IFetcher{
 	
 	/**
 	 * Used to fetch data from World Bank API
@@ -60,11 +59,4 @@ public class WorldBankFetcher implements Fetcher{
 		
 		return retrievedJsonArray;	
 	}
-
-	@Override
-	public Object fetchData(UserSelection selection) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

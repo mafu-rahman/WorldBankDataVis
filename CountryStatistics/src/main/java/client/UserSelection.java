@@ -26,7 +26,6 @@ public class UserSelection {
 	/*
 	 * Class Attributes
 	 */
-	//private List<IViewer> viewers;
 	private HashMap<String, IViewer> viewers;
 	private IAnalyser analyser;
 	private JPanel viewPanel;
@@ -48,7 +47,6 @@ public class UserSelection {
 		this.viewerFactory = new ViewerFactory();
 		this.adapterFactory = new AdapterFactory();
 		this.viewers = new HashMap<>();
-		
 	}
 	
 	/**

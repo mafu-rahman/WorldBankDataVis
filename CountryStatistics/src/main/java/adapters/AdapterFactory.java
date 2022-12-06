@@ -1,7 +1,7 @@
 package adapters;
 
 import analysers.AnalysisAgriVsForest;
-import analysers.AnalysisCoalEnergyvsRenewableOutput;
+import analysers.AnalysisCoalVsRenewable;
 
 public class AdapterFactory {
 	
@@ -16,5 +16,4 @@ public class AdapterFactory {
 		
 		return null;
 	}
-
 }
