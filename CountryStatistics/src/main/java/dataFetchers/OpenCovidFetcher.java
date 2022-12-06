@@ -35,7 +35,11 @@ public class OpenCovidFetcher implements Fetcher {
 		String urlString = String.format(""
 				+ "\nhttps://api.opencovid.ca/timeseries?stat=all&geo=%s&after=%d&before=%d&fill=false&version=true&pt_names=short&hr_names=short&legacy=false&fmt=json"
 				, country, fromYear, toYear);
-	public String fetchData(UserSelection selection, String analysisTypeCode) {
+		
+		return null;
+	}
+	
+	public Object fetchData(UserSelection selection, String analysisTypeCode) {
 		String country = selection.getCountryCode();
 		long fromYear = selection.getFromYear();
 		long toYear = selection.getToYear();
@@ -70,11 +74,6 @@ public class OpenCovidFetcher implements Fetcher {
 		}
 		
 		return retrievedJsonArray;	
-	}
-
-	@Override
-	public Object fetchData(UserSelection selection, String analysisTypeCode) {
-		return null;
 	}
 
 }

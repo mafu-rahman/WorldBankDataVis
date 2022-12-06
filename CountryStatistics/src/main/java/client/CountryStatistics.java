@@ -1,7 +1,6 @@
 package client;
 
 import adapters.OpenCovidAdapter;
-import adapters.UnitedNationsAdapter;
 import adapters.WorldBankAdapter;
 import analysers.*;
 import gui.LoginUI;
@@ -27,26 +26,22 @@ public class CountryStatistics {
 	 */
 	public static void main(String args[]) {
 		
-		Viewer v = new Viewer();
-		v.addViewer(new BarChart());
-		v.addViewer(new PieChart());
-		v.addViewer(new LineChart());
-		v.addViewer(new ScatterChart());
-		v.addViewer(new Report());
 		
-		Analyser analyses = new Analyser();
-		AnalysisFactory analysisFactory = new AnalysisFactory();
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Agriculture vs Forest", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Coal vs Renewable", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Forest vs Heat Index vs CO2 Emissions", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Fossil Fuel vs Renewable Consum", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Heat Index vs CO2 Emissions", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Renewable Output vs Renewable Consumption", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Total Population vs GDP Growth", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Display Covid Cases", new OpenCovidAdapter()));
-		// analysisFactory.makeAnalyser("Political Stability vs GDP Growth", new WorldBankAdapter());
 		
-		new LoginUI(v, analyses);
+//		Analyser analyses = new Analyser();
+//		AnalysisFactory analysisFactory = new AnalysisFactory();
+//		
+//		analyses.addAnalyser(analysisFactory.createAnalyser("Agriculture vs Forest", new WorldBankAdapter()));
+//		analyses.addAnalyser(analysisFactory.createAnalyser("Coal vs Renewable", new WorldBankAdapter()));
+//		analyses.addAnalyser(analysisFactory.createAnalyser("Forest vs Heat Index vs CO2 Emissions", new WorldBankAdapter()));
+//		analyses.addAnalyser(analysisFactory.createAnalyser("Fossil Fuel vs Renewable Consum", new WorldBankAdapter()));
+//		analyses.addAnalyser(analysisFactory.createAnalyser("Heat Index vs CO2 Emissions", new WorldBankAdapter()));
+//		analyses.addAnalyser(analysisFactory.createAnalyser("Renewable Output vs Renewable Consumption", new WorldBankAdapter()));
+//		analyses.addAnalyser(analysisFactory.createAnalyser("Total Population vs GDP Growth", new WorldBankAdapter()));
+//		analyses.addAnalyser(analysisFactory.createAnalyser("Display Covid Cases", new OpenCovidAdapter()));
+//		// analysisFactory.makeAnalyser("Political Stability vs GDP Growth", new WorldBankAdapter());
+		
+		new LoginUI();
 	}
 
 }

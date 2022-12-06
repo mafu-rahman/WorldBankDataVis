@@ -105,5 +105,4 @@ public class AnalysisForestvsHeatIndexvsCO2Emissions implements IAnalyser{
 	public String toString() {
 		return "Forest Land vs Heat Index vs CO2 Emissions";
 	}
-
 }

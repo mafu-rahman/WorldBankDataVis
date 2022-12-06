@@ -1,13 +1,19 @@
 package client;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JPanel;
 
+import adapters.AdapterFactory;
+import adapters.IAdapter;
+import analysers.AnalysisFactory;
 import analysers.IAnalyser;
 import results.Result;
 import viewers.IViewer;
+import viewers.ViewerFactory;
 
 /**
  * This class contains various sets of data that is selected by the user.
@@ -20,9 +26,13 @@ public class UserSelection {
 	/*
 	 * Class Attributes
 	 */
-	private List<IViewer> viewers;
+	//private List<IViewer> viewers;
+	private HashMap<String, IViewer> viewers;
 	private IAnalyser analyser;
 	private JPanel viewPanel;
+	private AnalysisFactory analysisFactory;
+	private ViewerFactory viewerFactory;
+	private AdapterFactory adapterFactory;
 	private Result result;
 	
 	private String countryCode;
@@ -34,7 +44,11 @@ public class UserSelection {
 	 * Constructor Method
 	 */
 	public UserSelection() {
-		this.viewers = new ArrayList<>();
+		this.analysisFactory = new AnalysisFactory();
+		this.viewerFactory = new ViewerFactory();
+		this.adapterFactory = new AdapterFactory();
+		this.viewers = new HashMap<>();
+		
 	}
 	
 	/**
@@ -49,8 +63,9 @@ public class UserSelection {
 	 * the IViewr class attribute
 	 */
 	public void draw() {
-		for(IViewer v : viewers) {
-			v.draw(result);
+		for (Map.Entry<String, IViewer> entry : viewers.entrySet()) {
+		    IViewer value = entry.getValue();
+		    value.draw(result);
 		}
 	}
 	
@@ -58,26 +73,30 @@ public class UserSelection {
 	 * This method adds the selected viewer by the user and stores into a List
 	 * @param v : the viewer object selected by the user
 	 */
-	public void addViewer(IViewer v) {
-		if(this.viewers.contains(v)) {
+	public void addViewer(String viewerName) {
+		if(this.viewers.containsKey(viewerName)) {
 			System.out.println("Viewer already selected");
 			return;
 		}
 		
 		System.out.println("Viewer selected");
-		this.viewers.add(v);
+		IViewer v = viewerFactory.createViewer(viewerName);
 		v.initialize(this.viewPanel);
+		viewers.put(viewerName, v);
 	}
 	
 	/**
 	 * This method removes the selected viewer by the user and stores into a List
 	 * @param v : the viewer object selected by the user
 	 */
-	public void removeViewer(IViewer v) {
-		if(this.viewers.contains(v)) {
+	public void removeViewer(String viewerName) {
+		if(this.viewers.containsKey(viewerName)) {
 			System.out.println("Viewer removed");
-			v.remove(viewPanel);
-			this.viewers.remove(v);
+			
+			this.viewers.get(viewerName).remove(viewPanel);
+			
+			this.viewers.remove(viewerName);
+			
 			return;
 		}
 		System.out.println("Viewer not selected");
@@ -117,8 +136,10 @@ public class UserSelection {
 	 * Set an analysis type
 	 * @param a analysis type to add
 	 */
-	public void setAnalysis(IAnalyser a) {
-		this.analyser = a;
+	public void setAnalysis(String analyser, String source) {
+		IAdapter adapter = adapterFactory.createAdapter(source);
+		
+		this.analyser = analysisFactory.createAnalyser(analyser, adapter);
 	}
 	
 	/*
@@ -133,9 +154,6 @@ public class UserSelection {
 		return this.toYear;
 	}
 	
-	public List<IViewer> getViewer() {
-		return this.viewers;
-	}
 	
 	public IAnalyser getAnalyser() {
 		return this.analyser;

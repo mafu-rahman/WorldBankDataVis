@@ -30,15 +30,11 @@ public class LoginUI{
 	private static JButton loginButton;
 	private String username;
 	private String password;
-	private Viewer viewer;
-	private Analyser analyser;
 	
 	/**
 	 * Constructor Method
 	 */
-	public LoginUI(Viewer v, Analyser a) {
-		this.viewer = v;
-		this.analyser = a;
+	public LoginUI() {
 		
 		frame = new JFrame();
 		panel = new JPanel();
@@ -116,7 +112,7 @@ public class LoginUI{
 				if(username.equals(values[0]) && password.equals(values[1])){
 					statusLabel.setText("Success!");
 					frame.dispose(); //login window closes when login is successful
-					new MainUI(viewer,analyser);
+					new MainUI();
 					return;
 				}
 			}

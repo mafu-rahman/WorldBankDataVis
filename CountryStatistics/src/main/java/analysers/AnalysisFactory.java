@@ -4,7 +4,7 @@ import adapters.IAdapter;
 
 public class AnalysisFactory {
 	
-	public IAnalyser makeAnalyser(String newAnalysis, IAdapter adapter) {
+	public IAnalyser createAnalyser(String newAnalysis, IAdapter adapter) {
 		
 		
 		if(newAnalysis.equals("Agriculture vs Forest")) {
