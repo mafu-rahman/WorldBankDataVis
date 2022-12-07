@@ -7,11 +7,12 @@ import com.google.gson.JsonArray;
 import adapters.IAdapter;
 import client.UserSelection;
 import jsonDataParser.JsonParseRetrivedData;
-import jsonDataParser.JsonParser;
+import jsonDataParser.JsonDataParser;
 import results.Result;
 import results.TwoSeriesResult;
+import server.BusinessDataObject;
 
-public class AnalysisFossilFuelvsRenewableConsumption implements IAnalyser{
+public class AnalysisFossilVsRenew implements IAnalyser{
 	
 	private String fossilFuelCode = "EG.USE.COMM.FO.ZS";
 	private String renewableCode = "EG.FEC.RNEW.ZS";
@@ -20,13 +21,13 @@ public class AnalysisFossilFuelvsRenewableConsumption implements IAnalyser{
 	private final String fossilFuelTopic = "Fossil Fuel Consumption (% of fossil fuel consumed)";
 	private final String renewableTopic = "Renewable Energy Consumption output (% of total energy consumed)";
 	
-	private JsonArray fossilFuelDataJSON;
-	private JsonArray renewableEnergyDataJSON;
+	private HashMap<String, Double> fossilFuelData;
+	private HashMap<String, Double> renewableEnergyData;
 	
 	private IAdapter fetcherAdapter;
-	private UserSelection userSelection;
+	private BusinessDataObject theData;
 		
-	private JsonParser jsonParser;
+	private JsonDataParser jsonParser;
 	
 	private TwoSeriesResult result;
 	
@@ -34,19 +35,19 @@ public class AnalysisFossilFuelvsRenewableConsumption implements IAnalyser{
 	 * Constructor method
 	 * @param adapter
 	 */
-	public AnalysisFossilFuelvsRenewableConsumption (IAdapter adapter) {
+	public AnalysisFossilVsRenew (IAdapter adapter) {
 		this.fetcherAdapter = adapter;
 		
-		this.jsonParser = new JsonParser();
+		this.jsonParser = new JsonDataParser();
 		this.result = new TwoSeriesResult();
 	}
 	
 	private void fetchDataCoal() {
-		fossilFuelDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, fossilFuelCode);
+		fossilFuelData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, fossilFuelCode);
 	}
 	
 	private void fetchDataRenewable() {
-		renewableEnergyDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, renewableCode);
+		renewableEnergyData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, renewableCode);
 	}
 
 	/**
@@ -54,10 +55,10 @@ public class AnalysisFossilFuelvsRenewableConsumption implements IAnalyser{
 	 * @return result calculated result
 	 */
 	@Override
-	public Result calculate(UserSelection selection) {
+	public Result calculate(BusinessDataObject data) {
 		System.out.println("Calculated using Fossil Fuel Consumption vs Renewable Energy Consumption");
 		
-		this.userSelection = selection;
+		this.theData = data;
 		
 		this.fetchDataCoal();
 		this.fetchDataRenewable();
@@ -72,12 +73,7 @@ public class AnalysisFossilFuelvsRenewableConsumption implements IAnalyser{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void processData() {
-		jsonParser.setParser(new JsonParseRetrivedData(fossilFuelDataJSON));
-		HashMap<String, Double> fossilFuelData = (HashMap<String, Double>) jsonParser.parse();
-		
-		jsonParser.setParser(new JsonParseRetrivedData(renewableEnergyDataJSON));
-		HashMap<String, Double> renewableEnergyData = (HashMap<String, Double>) jsonParser.parse();
-		
+		result.addType("Two Series");
 		this.result.addTitle(title);
 		this.result.addTopic1(fossilFuelTopic);
 		this.result.addTopic2(renewableTopic);

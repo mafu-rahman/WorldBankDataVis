@@ -4,52 +4,52 @@ import adapters.IAdapter;
 
 public class AnalysisFactory {
 	
-	public IAnalyser makeAnalyser(String newAnalysis, IAdapter adapter) {
+	public IAnalyser createAnalyser(String newAnalysis, IAdapter adapter) {
 		
 		
-		if(newAnalysis.equals("Agriculture vs Forest")) {
+		if(newAnalysis.equals("AgriculturevsForest")) {
 			System.out.println("Analyis Factory: Active! | Type: " + newAnalysis);
 			return new AnalysisAgriVsForest(adapter);
 		}
 		
-		else if(newAnalysis.equals("Coal vs Renewable")) {
+		else if(newAnalysis.equals("CoalvsRenewable")) {
 			System.out.println("Analyis Factory: Active! | Type: " + newAnalysis);
-			return new AnalysisCoalEnergyvsRenewableOutput(adapter);
+			return new AnalysisCoalVsRenewable(adapter);
 		}
 		
-		else if(newAnalysis.equals("Forest vs Heat Index vs CO2 Emissions")) {
+		else if(newAnalysis.equals("ForestvsHeatIndexvsCO2Emissions")) {
 			System.out.println("Analyis Factory: Active! | Type: " + newAnalysis);
-			return new AnalysisForestvsHeatIndexvsCO2Emissions(adapter);
+			return new AnalysisForVsHeatVsCo2(adapter);
 		}
 		
-		else if(newAnalysis.equals("Fossil Fuel vs Renewable Consum")) {
+		else if(newAnalysis.equals("FossilFuelvsRenewableConsum")) {
 			System.out.println("Analyis Factory: Active! | Type: " + newAnalysis);
-			return new AnalysisFossilFuelvsRenewableConsumption(adapter);
+			return new AnalysisFossilVsRenew(adapter);
 		}
 		
-		else if(newAnalysis.equals("Heat Index vs CO2 Emissions")) {
+		else if(newAnalysis.equals("HeatIndexvsCO2Emissions")) {
 			System.out.println("Analyis Factory: Active! | Type: " + newAnalysis);
-			return new AnalysisHeatIndexvsCO2Emission(adapter);
+			return new AnalysisHeatVsCO2(adapter);
 		}
 		
-		else if(newAnalysis.equals("Political Stability vs GDP Growth")) {
+		else if(newAnalysis.equals("PoliticalStabilityvsGDPGrowth")) {
 			System.out.println("Analyis Factory: Active! | Type: " + newAnalysis);
-			return new AnalysisPolStabilityvsGDPGrowth(adapter);
+			return new AnalysisPolStabilityVsGDP(adapter);
 		}
 		
-		else if(newAnalysis.equals("Renewable Output vs Renewable Consumption")) {
+		else if(newAnalysis.equals("RenewableOutputvsRenewableConsumption")) {
 			System.out.println("Analyis Factory: Active! | Type: " + newAnalysis);
-			return new AnalysisRenewableOutputvsRenewableConsumption(adapter);
+			return new AnalysisRenewOutputVsConsump(adapter);
 		}
 		
-		else if(newAnalysis.equals("Total Population vs GDP Growth")) {
+		else if(newAnalysis.equals("TotalPopulationvsGDPGrowth")) {
 			System.out.println("Analyis Factory: Active! | Type: " + newAnalysis);
-			return new AnalysisTotalPopvsGDPGrowth(adapter);
+			return new AnalysisTotalPopVsGDP(adapter);
 		}
 		
-		else if(newAnalysis.equals("Display Covid Cases")) {
+		else if(newAnalysis.equals("DisplayCovidCases")) {
 			System.out.println("Analyis Factory: Active! | Type: " + newAnalysis);
-			return new DisplayCovidCases(adapter);
+			return new AnalysisCovidCases(adapter);
 		}
 		
 		return null;

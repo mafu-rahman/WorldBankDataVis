@@ -9,26 +9,26 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
 import client.UserSelection;
+import server.BusinessDataObject;
 
 /**
  * The fetcher class for connecting to world bank API
  * @author mafu
  *
  */
-public class WorldBankFetcher implements Fetcher{
-	
+public class WorldBankFetcher implements IFetcher{
 	
 	/**
 	 * Used to fetch data from World Bank API
 	 * @return retrievedJsonArray return the JsonArray containing data from World Bank API 
 	 */
-	public JsonArray fetchData(UserSelection selection, String analysisTypeCode) {
+	public JsonArray fetchData(BusinessDataObject selection, String analysisTypeCode) {
 		String country = selection.getCountryCode();
-		long fromYear = selection.getFromYear();
-		long toYear = selection.getToYear();
+		String fromYear = selection.getFromYear();
+		String toYear = selection.getToYear();
 		
 		String urlString = String.format(""
-				+ "\nhttp://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json"
+				+ "\nhttp://api.worldbank.org/v2/country/%s/indicator/%s?date=%s:%s&format=json"
 				, country, analysisTypeCode, fromYear, toYear);
 		
 		System.out.println("Connecting to URL: " + urlString);
@@ -60,11 +60,4 @@ public class WorldBankFetcher implements Fetcher{
 		
 		return retrievedJsonArray;	
 	}
-
-	@Override
-	public Object fetchData(UserSelection selection) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

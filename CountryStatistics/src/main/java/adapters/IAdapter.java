@@ -1,6 +1,7 @@
 package adapters;
 
 import client.UserSelection;
+import server.BusinessDataObject;
 
 /**
  * This is an Adapter interface for Fetcher classes
@@ -15,6 +16,6 @@ public interface IAdapter {
 	 * @param analysisTypeCode : the unique code for a specific analysis type
 	 * @return returns an Object of any type suitable with the class that is calling this adapter, eg, JSON Object, XML Object
 	 */
-	public Object fetchData(UserSelection selection, String analysisTypeCode);
+	public Object fetchData(BusinessDataObject data, String analysisTypeCode);
 
 }

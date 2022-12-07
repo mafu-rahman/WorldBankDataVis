@@ -1,0 +1,11 @@
+/analysers/
+/dataFetchers/
+/server/
+/META-INF/
+/client/
+/gui/
+/adapters/
+/jsonDataParser/
+/test/
+/viewers/
+/results/

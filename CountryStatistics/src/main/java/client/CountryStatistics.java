@@ -5,12 +5,7 @@ import adapters.WorldBankAdapter;
 import analysers.*;
 import gui.LoginUI;
 import observers.VisualizerObserver;
-import viewers.BarChart;
-import viewers.LineChart;
-import viewers.PieChart;
-import viewers.Report;
-import viewers.ScatterChart;
-import viewers.Viewer;
+
 
 /**
  * This is the main client class.
@@ -30,33 +25,7 @@ public class CountryStatistics {
 		System.out.println("-------------------------------");
 		System.out.println("");
 		
-		Viewer v = new Viewer();
-		
-		VisualizerObserver observer = new VisualizerObserver(v);
-		System.out.println("Observer Class: " + observer.toString());
-		System.out.println("");
-		
-		v.addViewer(new BarChart());
-		v.addViewer(new PieChart());
-		v.addViewer(new LineChart());
-		v.addViewer(new ScatterChart());
-		v.addViewer(new Report());
-		
-		System.out.println("");
-		
-		Analyser analyses = new Analyser();
-		AnalysisFactory analysisFactory = new AnalysisFactory();
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Agriculture vs Forest", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Coal vs Renewable", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Forest vs Heat Index vs CO2 Emissions", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Fossil Fuel vs Renewable Consum", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Heat Index vs CO2 Emissions", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Renewable Output vs Renewable Consumption", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Total Population vs GDP Growth", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Display Covid Cases", new OpenCovidAdapter()));
-		// analysisFactory.makeAnalyser("Political Stability vs GDP Growth", new WorldBankAdapter());
-		
-		new LoginUI(v, analyses);
+		new LoginUI();
 	}
 
 }

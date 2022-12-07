@@ -1,31 +1,39 @@
 package client;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JPanel;
 
-import analysers.IAnalyser;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+import com.google.gson.annotations.JsonAdapter;
+
+import results.OneSeriesResult;
 import results.Result;
+import results.ThreeSeriesResult;
+import results.TwoSeriesResult;
 import viewers.IViewer;
+import viewers.ViewerFactory;
 
 /**
  * This class contains various sets of data that is selected by the user.
- * 
  * @author mafu
- *
  */
 public class UserSelection {
 	
 	/*
 	 * Class Attributes
 	 */
-	private List<IViewer> viewers;
-	private IAnalyser analyser;
+	private HashMap<String, IViewer> viewers;
 	private JPanel viewPanel;
+	private ViewerFactory viewerFactory;
 	private Result result;
 	
 	private String countryCode;
+	private String analysis;
+	private String source;
 	private long fromYear;
 	private long toYear;
 	
@@ -34,14 +42,33 @@ public class UserSelection {
 	 * Constructor Method
 	 */
 	public UserSelection() {
-		this.viewers = new ArrayList<>();
+		this.viewerFactory = new ViewerFactory();
+		this.viewers = new HashMap<>();
 	}
 	
 	/**
 	 * Analyse Method
 	 */
 	public void analyse() {
-		this.result = analyser.calculate(this);
+		//Call http client
+		HttpClient httpClient = new HttpClient();
+		String httpData = httpClient.call(this);
+		
+		String type = new JsonParser().parse(httpData).getAsJsonObject().get("resultType").getAsString();
+		
+		Gson gson = new Gson();
+		
+		if(type.equals("One Series")) {
+			this.result = gson.fromJson(httpData, OneSeriesResult.class);
+		}
+		
+		else if(type.equals("Two Series")) {
+			this.result = gson.fromJson(httpData, TwoSeriesResult.class);
+		}
+		
+		else if(type.equals("Three Series")) {
+			this.result = gson.fromJson(httpData, ThreeSeriesResult.class);
+		}
 	}
 	
 	/**
@@ -49,8 +76,9 @@ public class UserSelection {
 	 * the IViewr class attribute
 	 */
 	public void draw() {
-		for(IViewer v : viewers) {
-			v.draw(result);
+		for (Map.Entry<String, IViewer> entry : viewers.entrySet()) {
+		    IViewer value = entry.getValue();
+		    value.draw(result);
 		}
 	}
 	
@@ -58,26 +86,30 @@ public class UserSelection {
 	 * This method adds the selected viewer by the user and stores into a List
 	 * @param v : the viewer object selected by the user
 	 */
-	public void addViewer(IViewer v) {
-		if(this.viewers.contains(v)) {
+	public void addViewer(String viewerName) {
+		if(this.viewers.containsKey(viewerName)) {
 			System.out.println("Viewer already selected");
 			return;
 		}
 		
 		System.out.println("Viewer selected");
-		this.viewers.add(v);
+		IViewer v = viewerFactory.createViewer(viewerName);
 		v.initialize(this.viewPanel);
+		viewers.put(viewerName, v);
 	}
 	
 	/**
 	 * This method removes the selected viewer by the user and stores into a List
 	 * @param v : the viewer object selected by the user
 	 */
-	public void removeViewer(IViewer v) {
-		if(this.viewers.contains(v)) {
+	public void removeViewer(String viewerName) {
+		if(this.viewers.containsKey(viewerName)) {
 			System.out.println("Viewer removed");
-			v.remove(viewPanel);
-			this.viewers.remove(v);
+			
+			this.viewers.get(viewerName).remove(viewPanel);
+			
+			this.viewers.remove(viewerName);
+			
 			return;
 		}
 		System.out.println("Viewer not selected");
@@ -86,6 +118,14 @@ public class UserSelection {
 	/*
 	 * Setters
 	 */
+	
+	public void setAnalysis(String analysis) {
+		this.analysis = analysis.replaceAll(" ", "");
+	}
+	
+	public void setSource(String source) {
+		this.source = source;
+	}
 	
 	public void setCountryCode(String s) {
 		this.countryCode = s;
@@ -113,17 +153,17 @@ public class UserSelection {
 		this.viewPanel = viewPanel;
 	}
 	
-	/**
-	 * Set an analysis type
-	 * @param a analysis type to add
-	 */
-	public void setAnalysis(IAnalyser a) {
-		this.analyser = a;
-	}
-	
 	/*
 	 * Getters
 	 */
+	
+	public String getAnalysis() {
+		return this.analysis;
+	}
+	
+	public String getSource() {
+		return this.source;
+	}
 	
 	public long getFromYear() {
 		return this.fromYear;
@@ -131,14 +171,6 @@ public class UserSelection {
 	
 	public long getToYear() {
 		return this.toYear;
-	}
-	
-	public List<IViewer> getViewer() {
-		return this.viewers;
-	}
-	
-	public IAnalyser getAnalyser() {
-		return this.analyser;
 	}
 	
 	public String getCountryCode() {

@@ -1,2 +1,8 @@
 /META-INF/
+<<<<<<< HEAD
 /theData/
+=======
+/theServer/
+/theData/
+/theHandlers/
+>>>>>>> mafu

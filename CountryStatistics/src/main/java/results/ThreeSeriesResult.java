@@ -3,13 +3,18 @@ package results;
 import java.util.HashMap;
 
 public class ThreeSeriesResult extends Result{
+	public String resultType;
+
+	private String title;
+
+	private String topic1;
+	private String topic2;
+	private String topic3;
+	
 	private HashMap<String, Double> data1;
 	private HashMap<String, Double> data2;
 	private HashMap<String, Double> data3;
 	
-	private String topic1;
-	private String topic2;
-	private String topic3;
 
 	
 	/**
@@ -24,6 +29,15 @@ public class ThreeSeriesResult extends Result{
 	/*
 	 * Setters and Getters
 	 */
+	
+	public void addType(String s) {
+		this.resultType = s;
+	}
+	
+	public void addTitle(String s) {
+		this.title = s;
+	}
+	
 	public void addTopic1(String s) {
 		topic1 = s;
 	}
@@ -48,16 +62,15 @@ public class ThreeSeriesResult extends Result{
 		this.data3 = data;
 	}
 	
-	public HashMap<String, Double> getData1(){
-		return this.data1;	
+	public String getType() {
+		return this.resultType;
 	}
-
-	public HashMap<String, Double> getData2(){
-		return this.data2;		
-	}
-	
-	public HashMap<String, Double> getData3(){
-		return this.data3;		
+	/**
+	 * Get a title
+	 * @return title String value of title
+	 */
+	public String getTitle() {
+		return this.title;
 	}
 	
 	public String getTopic1() {
@@ -70,5 +83,17 @@ public class ThreeSeriesResult extends Result{
 	
 	public String getTopic3() {
 		return this.topic3;
+	}
+	
+	public HashMap<String, Double> getData1(){
+		return this.data1;	
+	}
+
+	public HashMap<String, Double> getData2(){
+		return this.data2;		
+	}
+	
+	public HashMap<String, Double> getData3(){
+		return this.data3;		
 	}
 }

@@ -7,11 +7,12 @@ import com.google.gson.JsonArray;
 import adapters.IAdapter;
 import client.UserSelection;
 import jsonDataParser.JsonParseRetrivedData;
-import jsonDataParser.JsonParser;
+import jsonDataParser.JsonDataParser;
 import results.Result;
 import results.TwoSeriesResult;
+import server.BusinessDataObject;
 
-public class AnalysisPolStabilityvsGDPGrowth implements IAnalyser{ 
+public class AnalysisPolStabilityVsGDP implements IAnalyser{ 
 	
 	private String polStabilityCode = "PV.EST";
 	private String gdpCode = "ENY.GDP.MKTP.KD.ZG";
@@ -20,13 +21,11 @@ public class AnalysisPolStabilityvsGDPGrowth implements IAnalyser{
 	private final String polStabilityTopic = "Heat Index";
 	private final String gdpTopic = "CO2 Emissions";
 	
-	private JsonArray polStabilityDataJSON;
-	private JsonArray gdpDataJSON;
+	private HashMap<String, Double> polStabilityData;
+	private HashMap<String, Double> gdpData;
 	
 	private IAdapter fetcherAdapter;
-	private UserSelection userSelection;
-		
-	private JsonParser jsonParser;
+	private BusinessDataObject theData;		
 	
 	private TwoSeriesResult result;
 	
@@ -34,19 +33,17 @@ public class AnalysisPolStabilityvsGDPGrowth implements IAnalyser{
 	 * Constructor method
 	 * @param adapter
 	 */
-	public AnalysisPolStabilityvsGDPGrowth(IAdapter adapter) {
+	public AnalysisPolStabilityVsGDP(IAdapter adapter) {
 		this.fetcherAdapter = adapter;
-		
-		this.jsonParser = new JsonParser();
 		this.result = new TwoSeriesResult();
 	}
 	
 	private void fetchPolStability() {
-		polStabilityDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, polStabilityCode);
+		polStabilityData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, polStabilityCode);
 	}
 	
 	private void fetchGDPGrowth() {
-		gdpDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, gdpCode);
+		gdpData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, gdpCode);
 	}
 
 	/**
@@ -54,10 +51,10 @@ public class AnalysisPolStabilityvsGDPGrowth implements IAnalyser{
 	 * @return result calculated result
 	 */
 	@Override
-	public Result calculate(UserSelection selection) {
+	public Result calculate(BusinessDataObject data) {
 		System.out.println("Calculated using Political Stability vs GDP Growth");
 		
-		this.userSelection = selection;
+		this.theData = data;
 		
 		this.fetchPolStability();
 		this.fetchGDPGrowth();
@@ -69,15 +66,9 @@ public class AnalysisPolStabilityvsGDPGrowth implements IAnalyser{
 	/**
 	 * Process the data
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void processData() {
-		jsonParser.setParser(new JsonParseRetrivedData(polStabilityDataJSON));
-		HashMap<String, Double> polStabilityData = (HashMap<String, Double>) jsonParser.parse();
-		
-		jsonParser.setParser(new JsonParseRetrivedData(gdpDataJSON));
-		HashMap<String, Double> gdpData = (HashMap<String, Double>) jsonParser.parse();
-		
+		result.addType("Two Series");
 		this.result.addTitle(title);
 		this.result.addTopic1(polStabilityTopic);
 		this.result.addTopic2(gdpTopic);

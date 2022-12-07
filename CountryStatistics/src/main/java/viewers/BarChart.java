@@ -69,8 +69,6 @@ public class BarChart implements IViewer{
 		
 		System.out.println("Drawing using BarChart Viewer");
 		this.result = result;
-		String title = result.getTitle();
-		barChart.setTitle(title);
 		
 		if(result instanceof OneSeriesResult) {
 			this.drawOneSeries();
@@ -92,6 +90,8 @@ public class BarChart implements IViewer{
 	
 	private void drawOneSeries() {
 		OneSeriesResult result = (OneSeriesResult) this.result;
+		String title = result.getTitle();
+		barChart.setTitle(title);
 		
 		HashMap<String, Double> data1 = result.getData1();
 		
@@ -104,6 +104,8 @@ public class BarChart implements IViewer{
 	
 	private void drawTwoSeries() {
 		TwoSeriesResult result = (TwoSeriesResult) this.result;
+		String title = result.getTitle();
+		barChart.setTitle(title);
 		
 		HashMap<String, Double> data1 = result.getData1();
 		HashMap<String, Double> data2 = result.getData2();
@@ -122,6 +124,8 @@ public class BarChart implements IViewer{
 	
 	private void drawThreeSeries() {
 		ThreeSeriesResult result = (ThreeSeriesResult) this.result;
+		String title = result.getTitle();
+		barChart.setTitle(title);
 		
 		HashMap<String, Double> data1 = result.getData1();
 		HashMap<String, Double> data2 = result.getData2();

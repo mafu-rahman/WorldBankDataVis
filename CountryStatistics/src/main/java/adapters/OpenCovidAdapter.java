@@ -1,20 +1,29 @@
 package adapters;
 
+import java.util.HashMap;
+
 import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 
 import client.UserSelection;
-import dataFetchers.Fetcher;
-import dataFetchers.OpenCovidFetcher;;
+import dataFetchers.IFetcher;
+import dataFetchers.OpenCovidFetcher;
+import jsonDataParser.JsonParseRetrivedData;
+import jsonDataParser.JsonDataParser;
+import jsonDataParser.JsonParseOpenCovid;
+import server.BusinessDataObject;;
 
 public class OpenCovidAdapter implements IAdapter {
 	
-	private Fetcher fetcher;
+	private IFetcher fetcher;
+	private JsonDataParser jsonParser;
 	
 	/**
 	 * Constructor method
 	 */
 	public OpenCovidAdapter() {
 		fetcher = new OpenCovidFetcher();
+		this.jsonParser = new JsonDataParser();
 	}
 
 	/**
@@ -24,10 +33,16 @@ public class OpenCovidAdapter implements IAdapter {
 	 * @param analysisTypeCode : type of analysis
 	 * @return returns Object data object using the fetchData method
 	 */
-	@Override
-	public Object fetchData(UserSelection selection, String analysisTypeCode) {
-		JsonArray j = (JsonArray) fetcher.fetchData(selection, analysisTypeCode);
-		return j;
-	}
+	public HashMap<String, Double> fetchData(BusinessDataObject selection, String analysisTypeCode) {
+		String dataS = (String) fetcher.fetchData(selection, analysisTypeCode);
+		
+		JsonArray rawData = new JsonArray();
+		
+		rawData = new JsonParser().parse(dataS).getAsJsonObject().get("data").getAsJsonObject().get("cases").getAsJsonArray();
 
+		this.jsonParser.setParser(new JsonParseOpenCovid(rawData));
+		HashMap<String, Double> data = (HashMap<String, Double>) jsonParser.parse();
+	
+		return data;
+	}
 }

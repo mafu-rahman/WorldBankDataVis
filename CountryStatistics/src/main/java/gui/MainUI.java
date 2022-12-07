@@ -2,9 +2,9 @@ package gui;
 
 import java.awt.BorderLayout;
 
-import adapters.*;
-import analysers.*;
+
 import client.UserSelection;
+import jsonDataParser.JsonParseAnalysis;
 import jsonDataParser.JsonParseCountries;
 import jsonDataParser.JsonParseYears;
 import jsonDataParser.JsonParseSources;
@@ -17,6 +17,8 @@ import viewers.PieChart;
 import viewers.Report;
 import viewers.ScatterChart;
 import viewers.Viewer;
+import jsonDataParser.JsonParseViewers;
+import jsonDataParser.JsonDataParser;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -50,20 +52,8 @@ public class MainUI extends JFrame{
 		v.addViewer(new Report());
 		
 		System.out.println("");
-		
-		Analyser analyses = new Analyser();
-		AnalysisFactory analysisFactory = new AnalysisFactory();
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Agriculture vs Forest", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Coal vs Renewable", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Forest vs Heat Index vs CO2 Emissions", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Fossil Fuel vs Renewable Consum", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Heat Index vs CO2 Emissions", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Renewable Output vs Renewable Consumption", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Total Population vs GDP Growth", new WorldBankAdapter()));
-		analyses.addAnalyser(analysisFactory.makeAnalyser("Display Covid Cases", new OpenCovidAdapter()));
-		// a.addAnalyser(new AnalysisPolStabilityvsGDPGrowth(new WorldBankAdapter()));
-		
-		new MainUI(v, analyses);	
+			
+		new MainUI();	
 	}
 
 	/*
@@ -83,13 +73,10 @@ public class MainUI extends JFrame{
 	private JComboBox<String> sourcesList;
 	private JComboBox<Integer> fromYear;
 	private JComboBox<Integer> toYear;
-	private JComboBox<IViewer> viewerList;
-	private JComboBox<IAnalyser> analysisList;
+	private JComboBox<String> viewerList;
+	private JComboBox<String> analysisList;
 
-	
-	private JsonParser jsonParser;
-	private Viewer viewers;
-	private Analyser analysers;
+	private JsonDataParser jsonParser;
 	private UserSelection userSelection;
 	
 	/**
@@ -97,7 +84,7 @@ public class MainUI extends JFrame{
 	 * @param v : This parameter contains all the Viewer objects inside the Viewer class
 	 * @param a : This parameter contains all the analyser objects inside the Analyser class
 	 */
-	public MainUI(Viewer v, Analyser a) {
+	public MainUI() {
 		frame = new JFrame();
 		frame.setTitle("Country Statistics");
 		frame.setSize(1200, 800);
@@ -108,12 +95,9 @@ public class MainUI extends JFrame{
 		
 		this.viewPanel.setLayout(new GridLayout(2, 0));
 		
-		this.jsonParser = new JsonParser();
+		this.jsonParser = new JsonDataParser();
 		this.userSelection = new UserSelection();
 		this.userSelection.setViewPanel(viewPanel);
-		 
-		this.viewers = v;
-		this.analysers = a;
 		
 		this.setupPanel();
 		
@@ -168,7 +152,7 @@ public class MainUI extends JFrame{
 		sourcesList = new JComboBox<String>(sourcesNames);
 		
 		topPanel.add(chooseSourceLabel);
-		topPanel.add(sourcesList);;
+		topPanel.add(sourcesList);
 	}
 	
 	
@@ -207,8 +191,9 @@ public class MainUI extends JFrame{
 	 */
 	private void setupAvailableViews() {
 		JLabel viewsLabel = new JLabel("Available Views: ");
-
-		Vector<IViewer> viewsNames = this.viewers.getViewers();	
+		
+		jsonParser.setParser(new JsonParseViewers("viewers.json"));
+		Vector<String> viewsNames = (Vector<String>) jsonParser.parse();
 		this.viewerList = new JComboBox<>(viewsNames);
 		
 		bottomPanel.add(viewsLabel);
@@ -225,7 +210,8 @@ public class MainUI extends JFrame{
 		addViewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				userSelection.addViewer((IViewer) viewerList.getSelectedItem());
+				String viewerName = (String) viewerList.getSelectedItem();
+				userSelection.addViewer(viewerName);
 				
 				refreshFrame();	
 			}
@@ -242,12 +228,12 @@ public class MainUI extends JFrame{
 		removeViewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				userSelection.removeViewer((IViewer) viewerList.getSelectedItem());				
+				String viewerName = (String) viewerList.getSelectedItem();
+				userSelection.removeViewer(viewerName);				
 				
 				refreshFrame();	
 			}
 		});
-		
 	}
 	
 	/**
@@ -256,8 +242,10 @@ public class MainUI extends JFrame{
 	private void setupAnalysisMethods() {
 		JLabel methodLabel = new JLabel("\t\tChoose analysis method: ");
 		
-		Vector<IAnalyser> analysisNames = this.analysers.getAnalysers();	
-		this.analysisList = new JComboBox<>(analysisNames);
+		jsonParser.setParser(new JsonParseAnalysis("analysis.json"));
+		Vector<String> analysis = (Vector<String>) jsonParser.parse();
+		
+		analysisList = new JComboBox<String>(analysis);
 		
 		bottomPanel.add(methodLabel);
 		bottomPanel.add(analysisList);
@@ -276,7 +264,9 @@ public class MainUI extends JFrame{
 			userSelection.setCountryCode((String) countriesList.getSelectedItem());
 			userSelection.setFromYear((long) fromYear.getSelectedItem());
 			userSelection.setToYear((long) toYear.getSelectedItem());
-			userSelection.setAnalysis((IAnalyser) analysisList.getSelectedItem());
+			userSelection.setAnalysis((String) analysisList.getSelectedItem());
+			userSelection.setSource((String) sourcesList.getSelectedItem());
+			
 			userSelection.analyse();
 			userSelection.draw();
 			refreshFrame();	

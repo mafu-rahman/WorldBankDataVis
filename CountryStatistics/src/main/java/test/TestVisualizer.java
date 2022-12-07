@@ -11,7 +11,7 @@ import adapters.WorldBankAdapter;
 import analysers.AnalysisAgriVsForest;
 import analysers.IAnalyser;
 import client.UserSelection;
-import dataFetchers.Fetcher;
+import dataFetchers.IFetcher;
 import dataFetchers.WorldBankFetcher;
 import results.Result;
 import viewers.BarChart;

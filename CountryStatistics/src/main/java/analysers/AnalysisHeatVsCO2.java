@@ -7,11 +7,12 @@ import com.google.gson.JsonArray;
 import adapters.IAdapter;
 import client.UserSelection;
 import jsonDataParser.JsonParseRetrivedData;
-import jsonDataParser.JsonParser;
+import jsonDataParser.JsonDataParser;
 import results.Result;
 import results.TwoSeriesResult;
+import server.BusinessDataObject;
 
-public class AnalysisHeatIndexvsCO2Emission implements IAnalyser{ 
+public class AnalysisHeatVsCO2 implements IAnalyser{ 
 	
 	private String heatIndexCode = "EN.CLC.HEAT.XD";
 	private String co2EmissionCode = "EN.ATM.CO2E.PC";
@@ -20,33 +21,29 @@ public class AnalysisHeatIndexvsCO2Emission implements IAnalyser{
 	private final String heatIndexTopic = "Heat Index";
 	private final String co2EmissionTopic = "CO2 Emissions";
 	
-	private JsonArray heatIndexDataJSON;
-	private JsonArray co2EmissionDataJSON;
+	private HashMap<String, Double> heatIndexData;
+	private HashMap<String, Double> co2EmissionData;
 	
 	private IAdapter fetcherAdapter;
-	private UserSelection userSelection;
-		
-	private JsonParser jsonParser;
-	
+	private BusinessDataObject theData;
+			
 	private TwoSeriesResult result;
 	
 	/**
 	 * Constructor method
 	 * @param adapter
 	 */
-	public AnalysisHeatIndexvsCO2Emission(IAdapter adapter) {
+	public AnalysisHeatVsCO2(IAdapter adapter) {
 		this.fetcherAdapter = adapter;
-		
-		this.jsonParser = new JsonParser();
 		this.result = new TwoSeriesResult();
 	}
 	
 	private void fetchDataHeatIndex() {
-		heatIndexDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, heatIndexCode);
+		heatIndexData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, heatIndexCode);
 	}
 	
 	private void fetchDataCO2Emissions() {
-		co2EmissionDataJSON = (JsonArray) fetcherAdapter.fetchData(userSelection, co2EmissionCode);
+		co2EmissionData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, co2EmissionCode);
 	}
 
 	/**
@@ -54,10 +51,10 @@ public class AnalysisHeatIndexvsCO2Emission implements IAnalyser{
 	 * @return result calculated result
 	 */
 	@Override
-	public Result calculate(UserSelection selection) {
+	public Result calculate(BusinessDataObject data) {
 		System.out.println("Calculated using Heat Index vs CO2 Emissions");
 		
-		this.userSelection = selection;
+		this.theData = data;
 		
 		this.fetchDataHeatIndex();
 		this.fetchDataCO2Emissions();
@@ -72,12 +69,7 @@ public class AnalysisHeatIndexvsCO2Emission implements IAnalyser{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void processData() {
-		jsonParser.setParser(new JsonParseRetrivedData(heatIndexDataJSON));
-		HashMap<String, Double> heatIndexData = (HashMap<String, Double>) jsonParser.parse();
-		
-		jsonParser.setParser(new JsonParseRetrivedData(co2EmissionDataJSON));
-		HashMap<String, Double> co2EmissionData = (HashMap<String, Double>) jsonParser.parse();
-		
+		result.addType("Two Series");
 		this.result.addTitle(title);
 		this.result.addTopic1(heatIndexTopic);
 		this.result.addTopic2(co2EmissionTopic);

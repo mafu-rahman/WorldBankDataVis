@@ -1,8 +1,11 @@
 package dataFetchers;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
@@ -10,78 +13,53 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
 import client.UserSelection;
+import server.BusinessDataObject;
 
-public class OpenCovidFetcher implements Fetcher {
+public class OpenCovidFetcher implements IFetcher {
 	
-	// TODO: Create new UserSelection for OpenCovid OR Add String date attribute to current UserSelection?
-	public static void main(String[] args) {
-		UserSelection selection = new UserSelection();
-		selection.setFromYear(2021);
-		selection.setToYear(2022);
-		OpenCovidFetcher fetcher = new OpenCovidFetcher();
-		fetcher.fetchData(selection);
+	public static void main(String args[]) {
+//		BusinessDataObject obj = new BusinessDataObject();
+//		obj.setFromYear("2020");
+//		obj.setToYear("2021");
+//		
+//		String s = fetchData1(obj, "");
 	}
-
-	/*
-	@Override
-	public Object fetchData(UserSelection selection) {
-		String country = "can";
-		long fromYear = selection.getFromYear();
-		long toYear = selection.getToYear();
+	
+	public String fetchData(BusinessDataObject selection, String analysisTypeCode) {
+		String fromYear = selection.getFromYear();
+		String toYear = selection.getToYear();
 		
-		String urlString = String.format(""
-				+ "\nhttps://api.opencovid.ca/timeseries?stat=all&geo=%s&after=%d&before=%d&fill=false&version=true&pt_names=short&hr_names=short&legacy=false&fmt=json"
-				, country, fromYear, toYear);
-	
-	*/
-	
-	/**
-	 * Used to fetch data from the OpenCovid API
-	 * @return retrievedJsonArray return the JsonArray containing data from OpenCovid API
-	 */
-	
-	// Changed String to Object
-	public Object fetchData(UserSelection selection, String analysisTypeCode) {
-		String country = selection.getCountryCode();
-		long fromYear = selection.getFromYear();
-		long toYear = selection.getToYear();
+		String urlString = String.format("https://api.opencovid.ca/timeseries?stat=all&geo=can"
+				+ "&after=%s-01-01&before=%s-12-31&"
+				+ "fill=false&version=true&pt_names=short&hr_names=short&legacy=false&fmt=json", fromYear, toYear);
 		
-		String urlString = "http://130.63.209.45:8000/WBAnalysis/?p1=Analysis1&p2=10&p3=20";
 		System.out.println("Connecting to URL: " + urlString);
 		JsonArray retrievedJsonArray = new JsonArray();
 		
-		try {
-			
-			URL url = new URL(urlString);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-			conn.connect();
-			
-			int responsecode = conn.getResponseCode();
-			if (responsecode == 200) {
-				String inline = "";
-				Scanner sc = new Scanner(url.openStream());
-				while (sc.hasNext()) {
-					inline += sc.nextLine();
-				}
-				sc.close();
-				
-				Gson gson = new Gson();
-				
-				retrievedJsonArray = new JsonParser().parse(inline).getAsJsonArray();
-				
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		String inline = "";
+		StringBuilder content = new StringBuilder();  
 		
-		return retrievedJsonArray;	
+		try  
+	    {  
+	      URL url = new URL(urlString); // creating a url object  
+	      URLConnection urlConnection = url.openConnection(); // creating a urlconnection object  
+	  
+	      // wrapping the urlconnection in a bufferedreader  
+	      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));  
+	      String line;  
+	      // reading from the urlconnection using the bufferedreader  
+	      while ((line = bufferedReader.readLine()) != null)  
+	      {  
+	        content.append(line + "\n");  
+	      }  
+	      bufferedReader.close();  
+	    }  
+	    catch(Exception e)  
+	    {  
+	      e.printStackTrace();  
+	    }  
+		
+		return content.toString();	
 	}
-
-	@Override
-	public Object fetchData(UserSelection selection) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }
