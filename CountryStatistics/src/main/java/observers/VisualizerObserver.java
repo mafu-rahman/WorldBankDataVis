@@ -18,10 +18,11 @@ public class VisualizerObserver implements Observer {
 	@Override
 	public void update(Viewer viewer) {
 		this.viewer = viewer;
+		printViewer();
 	}
 	
-	public Viewer getViewer() {
-		return this.viewer;
+	private void printViewer() {
+		System.out.println("Added: " + viewer.toString());
 	}
 	
 }
