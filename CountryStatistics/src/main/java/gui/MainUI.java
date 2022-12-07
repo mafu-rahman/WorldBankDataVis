@@ -9,6 +9,7 @@ import jsonDataParser.JsonParseCountries;
 import jsonDataParser.JsonParseYears;
 import jsonDataParser.JsonParseSources;
 import jsonDataParser.JsonParser;
+import observers.VisualizerObserver;
 import viewers.BarChart;
 import viewers.IViewer;
 import viewers.LineChart;
@@ -34,11 +35,15 @@ public class MainUI extends JFrame{
 
 	public static void main(String[] args) {
 		Viewer v = new Viewer();
+
+		VisualizerObserver observer = new VisualizerObserver(v);
+		
 		v.addViewer(new BarChart());
 		v.addViewer(new PieChart());
 		v.addViewer(new LineChart());
 		v.addViewer(new ScatterChart());
 		v.addViewer(new Report());
+		
 		
 		Analyser analyses = new Analyser();
 		AnalysisFactory analysisFactory = new AnalysisFactory();

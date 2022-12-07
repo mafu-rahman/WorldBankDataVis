@@ -4,6 +4,7 @@ import adapters.OpenCovidAdapter;
 import adapters.WorldBankAdapter;
 import analysers.*;
 import gui.LoginUI;
+import observers.VisualizerObserver;
 import viewers.BarChart;
 import viewers.LineChart;
 import viewers.PieChart;
@@ -27,11 +28,13 @@ public class CountryStatistics {
 	public static void main(String args[]) {
 		
 		Viewer v = new Viewer();
+		
 		v.addViewer(new BarChart());
 		v.addViewer(new PieChart());
 		v.addViewer(new LineChart());
 		v.addViewer(new ScatterChart());
 		v.addViewer(new Report());
+		
 		
 		Analyser analyses = new Analyser();
 		AnalysisFactory analysisFactory = new AnalysisFactory();

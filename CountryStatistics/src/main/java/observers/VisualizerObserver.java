@@ -2,7 +2,7 @@ package observers;
 
 import viewers.Viewer;
 
-public class VisualizerObserver implements Observer {
+public class VisualizerObserver implements Observer{
 	
 	private static int tracker = 0;
 	private int observerID; 
@@ -15,7 +15,6 @@ public class VisualizerObserver implements Observer {
 		viewer.register(this);
 	}
 
-	@Override
 	public void update(Viewer viewer) {
 		this.viewer = viewer;
 		printViewer();
