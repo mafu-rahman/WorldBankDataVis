@@ -1,14 +1,14 @@
 package observers;
 
-import viewers.IViewer;
+import viewers.Viewer;
 
 public class VisualizerObserver implements Observer {
 	
 	private static int tracker = 0;
 	private int observerID; 
-	private IViewer viewer;
+	private Viewer viewer;
 	
-	public VisualizerObserver(IViewer viewer) {
+	public VisualizerObserver(Viewer viewer) {
 		this.viewer = viewer;
 		this.observerID = ++tracker;
 		System.out.println("Observer created: " + this.observerID);
@@ -16,11 +16,11 @@ public class VisualizerObserver implements Observer {
 	}
 
 	@Override
-	public void update(IViewer viewer) {
+	public void update(Viewer viewer) {
 		this.viewer = viewer;
 	}
 	
-	public IViewer getViewer() {
+	public Viewer getViewer() {
 		return this.viewer;
 	}
 	

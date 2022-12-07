@@ -1,9 +1,9 @@
 package observers;
 
-import viewers.IViewer;
+import viewers.Viewer;
 
 public interface Observer {
 	
-	public void update(IViewer viewer);
+	public void update(Viewer viewer);
 
 }

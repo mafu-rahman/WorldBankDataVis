@@ -3,7 +3,6 @@ package viewers;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +17,6 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-import observers.Observer;
 import results.OneSeriesResult;
 import results.Result;
 import results.ThreeSeriesResult;
@@ -33,7 +31,6 @@ public class BarChart implements IViewer{
 	private BarRenderer barrenderer;
 	private Result result;
 	
-	private ArrayList<Observer> observers;
 	
 	
 	/**
@@ -45,7 +42,6 @@ public class BarChart implements IViewer{
 		
 		this.viewPanel = viewPanel;
 		this.dataset = new DefaultCategoryDataset();
-		this.observers = new ArrayList<Observer>();
 
 		plot = new CategoryPlot();
 		plot.setDomainAxis(new CategoryAxis("Year"));
@@ -162,22 +158,4 @@ public class BarChart implements IViewer{
 		return "Bar Chart";
 	}
 
-	@Override
-	public void register(Observer o) {
-		observers.add(o);
-	}
-
-	@Override
-	public void unregister(Observer o) {
-		int observerIndex = observers.indexOf(o);
-		System.out.println("Observer " + (observerIndex+1) + " deleted.");
-		observers.remove(observerIndex);
-	}
-
-	@Override
-	public void notifyRegister() {
-		for(Observer o : observers) {
-			o.update(this);
-		}
-	}
 }

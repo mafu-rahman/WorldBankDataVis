@@ -22,21 +22,16 @@ import results.Result;
 import results.ThreeSeriesResult;
 import results.TwoSeriesResult;
 
-import java.util.ArrayList;
-import observers.Observer;
-
 public class PieChart implements IViewer{
 	private ChartPanel chartPanel;
 	private JPanel viewPanel;
 	private DefaultCategoryDataset dataset;
 	private JFreeChart pieChart;
 	private Result result;
-	private ArrayList<Observer> observers;
 
 
 	public void initialize(JPanel viewPanel) {
 		this.viewPanel = viewPanel;
-		this.observers = new ArrayList<Observer>();
 		System.out.println("Initializing using PieChart Viewer");
 		
 		dataset = new DefaultCategoryDataset();
@@ -142,22 +137,5 @@ public class PieChart implements IViewer{
 		}
 	}
 	
-	@Override
-	public void register(Observer o) {
-		observers.add(o);
-	}
 
-	@Override
-	public void unregister(Observer o) {
-		int observerIndex = observers.indexOf(o);
-		System.out.println("Observer " + (observerIndex+1) + " deleted.");
-		observers.remove(observerIndex);
-	}
-
-	@Override
-	public void notifyRegister() {
-		for(Observer o : observers) {
-			o.update(this);
-		}
-	}
 }
