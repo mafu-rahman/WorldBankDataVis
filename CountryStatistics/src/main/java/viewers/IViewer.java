@@ -2,6 +2,7 @@ package viewers;
 
 import javax.swing.JPanel;
 
+import observers.Observer;
 import results.*;
 
 public interface IViewer {
@@ -30,5 +31,20 @@ public interface IViewer {
 	 * @return string String value
 	 */
 	public String toString();
+	
+	/**
+	 * Register an observer
+	 */
+	public void register(Observer o);
+	
+	/**
+	 * Unregister an observer
+	 */
+	public void unregister(Observer o);
+	
+	/**
+	 * Notify that an observer has been added
+	 */
+	public void notifyRegister();
 
 }
