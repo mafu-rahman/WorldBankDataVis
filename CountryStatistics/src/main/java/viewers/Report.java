@@ -1,16 +1,19 @@
 package viewers;
 
 import java.awt.Color;
+
 import java.awt.Dimension;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import observers.Observer;
 import results.OneSeriesResult;
 import results.Result;
 import results.ThreeSeriesResult;
@@ -22,12 +25,14 @@ public class Report implements IViewer{
 	private JTextArea report;
 	private String reportMessage;
 	private Result result;
+	private ArrayList<Observer> observers;
 
 	@Override
 	public void initialize(JPanel viewPanel) {
 		System.out.println("Initializing using Report Viewer");
 
 		this.viewPanel = viewPanel;
+		this.observers = new ArrayList<Observer>();
 
 		report = new JTextArea();
 		report.setEditable(false);
@@ -147,5 +152,24 @@ public class Report implements IViewer{
 	
 	public String toString() {
 		return "Report";
+	}
+	
+	@Override
+	public void register(Observer o) {
+		observers.add(o);
+	}
+
+	@Override
+	public void unregister(Observer o) {
+		int observerIndex = observers.indexOf(o);
+		System.out.println("Observer " + (observerIndex+1) + " deleted.");
+		observers.remove(observerIndex);
+	}
+
+	@Override
+	public void notifyRegister() {
+		for(Observer o : observers) {
+			o.update();
+		}
 	}
 }
