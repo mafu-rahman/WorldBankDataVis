@@ -34,9 +34,14 @@ public class MainUI extends JFrame{
 	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
+		System.out.println("Country Statistics Application");
+		System.out.println("-------------------------------");
+		System.out.println("");
 		Viewer v = new Viewer();
 
 		VisualizerObserver observer = new VisualizerObserver(v);
+		System.out.println("Observer Class: " + observer.toString());
+		System.out.println("");
 		
 		v.addViewer(new BarChart());
 		v.addViewer(new PieChart());
@@ -44,6 +49,7 @@ public class MainUI extends JFrame{
 		v.addViewer(new ScatterChart());
 		v.addViewer(new Report());
 		
+		System.out.println("");
 		
 		Analyser analyses = new Analyser();
 		AnalysisFactory analysisFactory = new AnalysisFactory();

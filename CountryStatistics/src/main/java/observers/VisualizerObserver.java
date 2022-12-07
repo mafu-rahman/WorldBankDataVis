@@ -21,7 +21,7 @@ public class VisualizerObserver implements Observer{
 	}
 	
 	private void printViewer() {
-		System.out.println("Added: " + viewer.toString());
+		System.out.println("Observer Active -> Added: " + viewer.toString());
 	}
 	
 }
