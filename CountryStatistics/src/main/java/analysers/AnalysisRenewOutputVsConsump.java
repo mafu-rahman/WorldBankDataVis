@@ -7,9 +7,10 @@ import com.google.gson.JsonArray;
 import adapters.IAdapter;
 import client.UserSelection;
 import jsonDataParser.JsonParseRetrivedData;
-import jsonDataParser.JsonParser;
+import jsonDataParser.JsonDataParser;
 import results.Result;
 import results.TwoSeriesResult;
+import server.BusinessDataObject;
 
 public class AnalysisRenewOutputVsConsump implements IAnalyser{
 	
@@ -24,7 +25,7 @@ public class AnalysisRenewOutputVsConsump implements IAnalyser{
 	private HashMap<String, Double> renewableEnergyData;
 	
 	private IAdapter fetcherAdapter;
-	private UserSelection userSelection;
+	private BusinessDataObject theData;
 	
 	private TwoSeriesResult result;
 	
@@ -38,11 +39,11 @@ public class AnalysisRenewOutputVsConsump implements IAnalyser{
 	}
 	
 	private void fetchDataConsumption() {
-		renewableConsumData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, renewableConsum);
+		renewableConsumData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, renewableConsum);
 	}
 	
 	private void fetchDataOutput() {
-		renewableEnergyData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, renewableOutput);
+		renewableEnergyData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, renewableOutput);
 	}
 
 	/**
@@ -50,10 +51,10 @@ public class AnalysisRenewOutputVsConsump implements IAnalyser{
 	 * @return result calculated result
 	 */
 	@Override
-	public Result calculate(UserSelection selection) {
+	public Result calculate(BusinessDataObject data) {
 		System.out.println("Calculated using Renewable Energy Output vs Renewable Energy Consumption Analyser");
 		
-		this.userSelection = selection;
+		this.theData = data;
 		
 		this.fetchDataConsumption();
 		this.fetchDataOutput();
@@ -67,6 +68,7 @@ public class AnalysisRenewOutputVsConsump implements IAnalyser{
 	 */
 	@Override
 	public void processData() {
+		result.addType("Two Series");
 		this.result.addTitle(title);
 		this.result.addTopic1(renewableConsumTopic);
 		this.result.addTopic2(renewableOutputTopic);

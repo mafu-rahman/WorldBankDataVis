@@ -13,5 +13,4 @@ public class Result {
 	public void setTheData(ArrayList<HashMap<Integer, Float>> theData) {
 		this.theData = theData;
 	}
-
 }

@@ -8,19 +8,20 @@ import client.UserSelection;
 import dataFetchers.IFetcher;
 import dataFetchers.WorldBankFetcher;
 import jsonDataParser.JsonParseRetrivedData;
-import jsonDataParser.JsonParser;
+import jsonDataParser.JsonDataParser;
+import server.BusinessDataObject;
 
 public class WorldBankAdapter implements IAdapter{
 	
 	private IFetcher fetcher;
-	private JsonParser jsonParser;
+	private JsonDataParser jsonParser;
 	
 	/**
 	 * Constructor Method
 	 */
 	public WorldBankAdapter() {
 		this.fetcher = new WorldBankFetcher();
-		this.jsonParser = new JsonParser();
+		this.jsonParser = new JsonDataParser();
 	}
 
 	/**
@@ -30,7 +31,7 @@ public class WorldBankAdapter implements IAdapter{
 	 * @param analysisTypeCode : type of analysis
 	 * @return returns Object data object returned using the fetchData method
 	 */
-	public HashMap<String, Double> fetchData(UserSelection selection, String analysisTypeCode) {
+	public HashMap<String, Double> fetchData(BusinessDataObject selection, String analysisTypeCode) {
 		
 		JsonArray rawData = (JsonArray) fetcher.fetchData(selection, analysisTypeCode);
 		this.jsonParser.setParser(new JsonParseRetrivedData(rawData));

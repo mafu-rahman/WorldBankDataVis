@@ -83,10 +83,6 @@ public class LineChart implements IViewer{
 		System.out.println("Drawing using Line Chart Viewer");
 		this.result = result;
 		
-		String title = result.getTitle();
-		chart.setTitle(
-				new TextTitle(title, new Font("Serif", java.awt.Font.BOLD, 18)));
-		
 		if(result instanceof OneSeriesResult) {
 			this.drawOneSeries();
 		}
@@ -106,6 +102,11 @@ public class LineChart implements IViewer{
 	
 	private void drawOneSeries() {
 		OneSeriesResult result = (OneSeriesResult) this.result;
+		
+		String title = result.getTitle();
+		chart.setTitle(
+				new TextTitle(title, new Font("Serif", java.awt.Font.BOLD, 18)));
+		
 		HashMap<String, Double> data1 = result.getData1();
 		
 		String topic1 = result.getTopic1();
@@ -121,6 +122,10 @@ public class LineChart implements IViewer{
 	
 	private void drawTwoSeries() {
 		TwoSeriesResult result = (TwoSeriesResult) this.result;
+		
+		String title = result.getTitle();
+		chart.setTitle(
+				new TextTitle(title, new Font("Serif", java.awt.Font.BOLD, 18)));
 		
 		HashMap<String, Double> data1 = result.getData1();
 		HashMap<String, Double> data2 = result.getData2();
@@ -147,6 +152,10 @@ public class LineChart implements IViewer{
 	
 	private void drawThreeSeries() {
 		ThreeSeriesResult result = (ThreeSeriesResult) this.result;
+		
+		String title = result.getTitle();
+		chart.setTitle(
+				new TextTitle(title, new Font("Serif", java.awt.Font.BOLD, 18)));
 		
 		HashMap<String, Double> data1 = result.getData1();
 		HashMap<String, Double> data2 = result.getData2();

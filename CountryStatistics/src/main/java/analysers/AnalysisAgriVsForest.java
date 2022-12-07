@@ -1,13 +1,15 @@
 package analysers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.google.gson.JsonArray;
 import adapters.IAdapter;
 import client.UserSelection;
 import jsonDataParser.JsonParseRetrivedData;
-import jsonDataParser.JsonParser;
+import jsonDataParser.JsonDataParser;
 import results.*;
+import server.BusinessDataObject;
 
 public class AnalysisAgriVsForest implements IAnalyser{
 	
@@ -22,7 +24,7 @@ public class AnalysisAgriVsForest implements IAnalyser{
 	private HashMap<String, Double> forestData;
 	
 	private IAdapter fetcherAdapter;
-	private UserSelection userSelection;
+	private BusinessDataObject theData;
 		
 	private TwoSeriesResult result;
 	
@@ -41,13 +43,13 @@ public class AnalysisAgriVsForest implements IAnalyser{
 	 * @return result : it stores the processed data in a result object
 	 */
 	@Override
-	public Result calculate(UserSelection selection) {
+	public Result calculate(BusinessDataObject data) {
 		System.out.println("Calculating using Agriculture vs Forest Analyser");
 		
-		this.userSelection = selection;
+		this.theData = data;
 		
-		this.fetchDataAgri();
 		this.fetchDataForest();
+		this.fetchDataAgri();
 		this.processData();	
 		
 		return result;
@@ -56,15 +58,17 @@ public class AnalysisAgriVsForest implements IAnalyser{
 	/**
 	 * Fetching data, calling the appropriate adapter
 	 */
+	@SuppressWarnings("unchecked")
 	private void fetchDataAgri() {
-		this.agricultureData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, agriCode);
+		this.agricultureData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, agriCode);
 	}
 	
 	/**
 	 * Fetching data, calling the appropriate adapter
 	 */
+	@SuppressWarnings("unchecked")
 	private void fetchDataForest() {
-		this.forestData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, forestCode);
+		this.forestData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, forestCode);
 	}
 	
 	/**
@@ -73,14 +77,18 @@ public class AnalysisAgriVsForest implements IAnalyser{
 	 */
 	@SuppressWarnings("unchecked")
 	public void processData() {
+		/*
+		 * Process the data here
+		 * then add to array list
+		 */
 		
-		this.result.addTitle(title);
-		this.result.addTopic1(agriToipic);
-		this.result.addTopic2(forestTopic);
-		this.result.addData1(agricultureData);
-		this.result.addData2(forestData);	
+		result.addType("Two Series");
+		result.addTitle(title);
+		result.addTopic1(agriToipic);
+		result.addTopic2(forestTopic);
+		result.addData1(agricultureData);
+		result.addData2(forestData);
 	}
-	
 	
 	/**
 	 * toString() method

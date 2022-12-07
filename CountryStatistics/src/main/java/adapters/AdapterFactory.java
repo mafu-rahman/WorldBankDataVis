@@ -6,7 +6,7 @@ import analysers.AnalysisCoalVsRenewable;
 public class AdapterFactory {
 	
 	public IAdapter createAdapter(String source) {
-		if(source.equals("World Bank")) {
+		if(source.equals("WorldBank")) {
 			return new WorldBankAdapter();
 		}
 		

@@ -7,9 +7,10 @@ import com.google.gson.JsonArray;
 import adapters.IAdapter;
 import client.UserSelection;
 import jsonDataParser.JsonParseRetrivedData;
-import jsonDataParser.JsonParser;
+import jsonDataParser.JsonDataParser;
 import results.Result;
 import results.ThreeSeriesResult;
+import server.BusinessDataObject;
 
 public class AnalysisForVsHeatVsCo2 implements IAnalyser{
 
@@ -27,7 +28,7 @@ public class AnalysisForVsHeatVsCo2 implements IAnalyser{
 	private HashMap<String, Double> co2EmissionData;
 	
 	private IAdapter fetcherAdapter;
-	private UserSelection userSelection;
+	private BusinessDataObject theData;
 			
 	private ThreeSeriesResult result;
 	
@@ -45,11 +46,10 @@ public class AnalysisForVsHeatVsCo2 implements IAnalyser{
 	 * @return result calculated result
 	 */
 	@Override
-	public Result calculate(UserSelection selection) {
+	public Result calculate(BusinessDataObject data) {
 		System.out.println("Calculated using Forest Land vs Heat Index vs CO2 Emissions");
 		
-		this.userSelection = selection;
-		
+		this.theData = data;		
 		this.fetchDataForestLand();
 		this.fetchDataHeatIndex();
 		this.fetchDataCO2Emissions();
@@ -59,15 +59,15 @@ public class AnalysisForVsHeatVsCo2 implements IAnalyser{
 	}
 	
 	private void fetchDataForestLand() {
-		forestLandData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, forestLandCode);
+		forestLandData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, forestLandCode);
 	}
 	
 	private void fetchDataHeatIndex() {
-		heatIndexData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, heatIndexCode);
+		heatIndexData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, heatIndexCode);
 	}
 	
 	private void fetchDataCO2Emissions() {
-		co2EmissionData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, co2EmissionCode);
+		co2EmissionData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, co2EmissionCode);
 	}
 	
 	/**
@@ -77,6 +77,7 @@ public class AnalysisForVsHeatVsCo2 implements IAnalyser{
 	@Override
 	public void processData() {
 		
+		this.result.addType("Three Series");
 		this.result.addTitle(title);
 		this.result.addTopic1(forestLandTopic);
 		this.result.addTopic2(heatIndexTopic);

@@ -50,9 +50,6 @@ public class Report implements IViewer{
 		System.out.println("Drawing using Report Viewer");
 		this.result = result;
 		
-		String title = result.getTitle();
-		
-		reportMessage = title + "\n" + "==========\n";
 
 		if(result instanceof OneSeriesResult) {
 			this.drawOneSeries();
@@ -74,6 +71,10 @@ public class Report implements IViewer{
 	private void drawOneSeries() {
 		
 		OneSeriesResult result = (OneSeriesResult) this.result;
+		
+		String title = result.getTitle();
+		reportMessage = title + "\n" + "==========\n";
+		
 		HashMap<String, Double> data1 = result.getData1();
 		
 		String topic1 = result.getTopic1();
@@ -88,6 +89,9 @@ public class Report implements IViewer{
 
 	private void drawTwoSeries() {
 		TwoSeriesResult result = (TwoSeriesResult) this.result;
+		
+		String title = result.getTitle();
+		reportMessage = title + "\n" + "==========\n";
 		
 		HashMap<String, Double> data1 = result.getData1();
 		HashMap<String, Double> data2 = result.getData2();
@@ -111,6 +115,9 @@ public class Report implements IViewer{
 
 	private void drawThreeSeries() {
 		ThreeSeriesResult result = (ThreeSeriesResult) this.result;
+		
+		String title = result.getTitle();
+		reportMessage = title + "\n" + "==========\n";
 		
 		HashMap<String, Double> data1 = result.getData1();
 		HashMap<String, Double> data2 = result.getData2();

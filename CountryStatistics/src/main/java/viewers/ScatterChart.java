@@ -76,10 +76,6 @@ public class ScatterChart implements IViewer{
 		System.out.println("Drawing using Line Chart Viewer");
 		this.result = result;
 		
-		String title = result.getTitle();
-		scatterChart.setTitle(
-				new TextTitle(title, new Font("Serif", java.awt.Font.BOLD, 18)));
-		
 		if(result instanceof OneSeriesResult) {
 			this.drawOneSeries();
 		}
@@ -101,6 +97,10 @@ public class ScatterChart implements IViewer{
 		OneSeriesResult result = (OneSeriesResult) this.result;
 		HashMap<String, Double> data1 = result.getData1();
 		
+		String title = result.getTitle();
+		scatterChart.setTitle(
+				new TextTitle(title, new Font("Serif", java.awt.Font.BOLD, 18)));
+		
 		String topic1 = result.getTopic1();
 		TimeSeries series1 = new TimeSeries(topic1);
 		for(Map.Entry<String, Double> set: data1.entrySet()) {
@@ -113,6 +113,10 @@ public class ScatterChart implements IViewer{
 
 	private void drawTwoSeries() {
 		TwoSeriesResult result = (TwoSeriesResult) this.result;
+		
+		String title = result.getTitle();
+		scatterChart.setTitle(
+				new TextTitle(title, new Font("Serif", java.awt.Font.BOLD, 18)));
 		
 		HashMap<String, Double> data1 = result.getData1();
 		HashMap<String, Double> data2 = result.getData2();
@@ -137,6 +141,10 @@ public class ScatterChart implements IViewer{
 
 	private void drawThreeSeries() {
 		ThreeSeriesResult result = (ThreeSeriesResult) this.result;
+		
+		String title = result.getTitle();
+		scatterChart.setTitle(
+				new TextTitle(title, new Font("Serif", java.awt.Font.BOLD, 18)));
 		
 		HashMap<String, Double> data1 = result.getData1();
 		HashMap<String, Double> data2 = result.getData2();

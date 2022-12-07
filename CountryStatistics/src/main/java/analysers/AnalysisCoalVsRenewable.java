@@ -7,9 +7,10 @@ import com.google.gson.JsonArray;
 import adapters.IAdapter;
 import client.UserSelection;
 import jsonDataParser.JsonParseRetrivedData;
-import jsonDataParser.JsonParser;
+import jsonDataParser.JsonDataParser;
 import results.Result;
 import results.TwoSeriesResult;
+import server.BusinessDataObject;
 
 public class AnalysisCoalVsRenewable implements IAnalyser{
 	
@@ -24,7 +25,7 @@ public class AnalysisCoalVsRenewable implements IAnalyser{
 	private HashMap<String, Double> renewableEnergyData;
 	
 	private IAdapter fetcherAdapter;
-	private UserSelection userSelection;
+	private BusinessDataObject theData;
 			
 	private TwoSeriesResult result;
 	
@@ -43,10 +44,10 @@ public class AnalysisCoalVsRenewable implements IAnalyser{
 	 * @return result : it stores the processed data in a result object
 	 */
 	@Override
-	public Result calculate(UserSelection selection) {
+	public Result calculate(BusinessDataObject data) {
 		System.out.println("Calculated using Coal vs Renewable Analyser");
 		
-		this.userSelection = selection;
+		this.theData = data;
 		
 		this.fetchDataCoal();
 		this.fetchDataRenewable();
@@ -59,14 +60,14 @@ public class AnalysisCoalVsRenewable implements IAnalyser{
 	 * Fetching data, calling the appropriate adapter
 	 */
 	private void fetchDataCoal() {
-		coalEnergyData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, coalCode);
+		coalEnergyData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, coalCode);
 	}
 	
 	/**
 	 * Fetching data, calling the appropriate adapter
 	 */
 	private void fetchDataRenewable() {
-		renewableEnergyData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, renewableCode);
+		renewableEnergyData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, renewableCode);
 	}
 
 	/**
@@ -75,7 +76,7 @@ public class AnalysisCoalVsRenewable implements IAnalyser{
 	 */
 	@SuppressWarnings("unchecked")
 	public void processData() {
-		
+		this.result.addType("Two Series");
 		this.result.addTitle(title);
 		this.result.addTopic1(electricityToipic);
 		this.result.addTopic2(renewableTopic);

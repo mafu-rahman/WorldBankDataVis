@@ -1,9 +1,9 @@
 package jsonDataParser;
 
-public class JsonParser {
+public class JsonDataParser {
 	public IJsonParser JsonParser;
 	
-	public JsonParser() {
+	public JsonDataParser() {
 		
 	}
 	

@@ -8,9 +8,10 @@ import com.google.gson.JsonArray;
 import adapters.IAdapter;
 import client.UserSelection;
 import jsonDataParser.JsonParseRetrivedData;
-import jsonDataParser.JsonParser;
+import jsonDataParser.JsonDataParser;
 import results.Result;
 import results.TwoSeriesResult;
+import server.BusinessDataObject;
 import viewers.IViewer;
 
 public class AnalysisTotalPopVsGDP implements IAnalyser{
@@ -26,7 +27,7 @@ public class AnalysisTotalPopVsGDP implements IAnalyser{
 	private HashMap<String, Double> gdpData;
 	
 	private IAdapter fetcherAdapter;
-	private UserSelection userSelection;
+	private BusinessDataObject theData;
 		
 	private TwoSeriesResult result;
 	
@@ -44,11 +45,10 @@ public class AnalysisTotalPopVsGDP implements IAnalyser{
 	 * @return result calculated result
 	 */
 	@Override
-	public Result calculate(UserSelection selection) {
+	public Result calculate(BusinessDataObject data) {
 		System.out.println("Calculated using Total Population vs GDP Growth");
 		
-		this.userSelection = selection;
-		
+		this.theData = data;		
 		this.fetchDataTotalPop();
 		this.fetchDataGDP();
 		this.processData();	
@@ -57,11 +57,11 @@ public class AnalysisTotalPopVsGDP implements IAnalyser{
 	}
 	
 	private void fetchDataTotalPop() {
-		totalPopData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, totalPopCode);
+		totalPopData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, totalPopCode);
 	}
 	
 	private void fetchDataGDP() {
-		gdpData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, gdpCode);
+		gdpData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, gdpCode);
 	}
 
 	/**
@@ -79,6 +79,7 @@ public class AnalysisTotalPopVsGDP implements IAnalyser{
 		   totalPopData.replace(key, value);		   
 		}
 		
+		result.addType("Two Series");
 		this.result.addTitle(title);
 		this.result.addTopic1(totalPopTopic);
 		this.result.addTopic2(gdpTopic);

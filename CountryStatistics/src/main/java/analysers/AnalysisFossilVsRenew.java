@@ -7,9 +7,10 @@ import com.google.gson.JsonArray;
 import adapters.IAdapter;
 import client.UserSelection;
 import jsonDataParser.JsonParseRetrivedData;
-import jsonDataParser.JsonParser;
+import jsonDataParser.JsonDataParser;
 import results.Result;
 import results.TwoSeriesResult;
+import server.BusinessDataObject;
 
 public class AnalysisFossilVsRenew implements IAnalyser{
 	
@@ -24,9 +25,9 @@ public class AnalysisFossilVsRenew implements IAnalyser{
 	private HashMap<String, Double> renewableEnergyData;
 	
 	private IAdapter fetcherAdapter;
-	private UserSelection userSelection;
+	private BusinessDataObject theData;
 		
-	private JsonParser jsonParser;
+	private JsonDataParser jsonParser;
 	
 	private TwoSeriesResult result;
 	
@@ -37,16 +38,16 @@ public class AnalysisFossilVsRenew implements IAnalyser{
 	public AnalysisFossilVsRenew (IAdapter adapter) {
 		this.fetcherAdapter = adapter;
 		
-		this.jsonParser = new JsonParser();
+		this.jsonParser = new JsonDataParser();
 		this.result = new TwoSeriesResult();
 	}
 	
 	private void fetchDataCoal() {
-		fossilFuelData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, fossilFuelCode);
+		fossilFuelData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, fossilFuelCode);
 	}
 	
 	private void fetchDataRenewable() {
-		renewableEnergyData = (HashMap<String, Double>) fetcherAdapter.fetchData(userSelection, renewableCode);
+		renewableEnergyData = (HashMap<String, Double>) fetcherAdapter.fetchData(theData, renewableCode);
 	}
 
 	/**
@@ -54,10 +55,10 @@ public class AnalysisFossilVsRenew implements IAnalyser{
 	 * @return result calculated result
 	 */
 	@Override
-	public Result calculate(UserSelection selection) {
+	public Result calculate(BusinessDataObject data) {
 		System.out.println("Calculated using Fossil Fuel Consumption vs Renewable Energy Consumption");
 		
-		this.userSelection = selection;
+		this.theData = data;
 		
 		this.fetchDataCoal();
 		this.fetchDataRenewable();
@@ -72,6 +73,7 @@ public class AnalysisFossilVsRenew implements IAnalyser{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void processData() {
+		result.addType("Two Series");
 		this.result.addTitle(title);
 		this.result.addTopic1(fossilFuelTopic);
 		this.result.addTopic2(renewableTopic);

@@ -1,25 +1,25 @@
 package client;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JPanel;
 
-import adapters.AdapterFactory;
-import adapters.IAdapter;
-import analysers.AnalysisFactory;
-import analysers.IAnalyser;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+import com.google.gson.annotations.JsonAdapter;
+
+import results.OneSeriesResult;
 import results.Result;
+import results.ThreeSeriesResult;
+import results.TwoSeriesResult;
 import viewers.IViewer;
 import viewers.ViewerFactory;
 
 /**
  * This class contains various sets of data that is selected by the user.
- * 
  * @author mafu
- *
  */
 public class UserSelection {
 	
@@ -27,14 +27,13 @@ public class UserSelection {
 	 * Class Attributes
 	 */
 	private HashMap<String, IViewer> viewers;
-	private IAnalyser analyser;
 	private JPanel viewPanel;
-	private AnalysisFactory analysisFactory;
 	private ViewerFactory viewerFactory;
-	private AdapterFactory adapterFactory;
 	private Result result;
 	
 	private String countryCode;
+	private String analysis;
+	private String source;
 	private long fromYear;
 	private long toYear;
 	
@@ -43,9 +42,7 @@ public class UserSelection {
 	 * Constructor Method
 	 */
 	public UserSelection() {
-		this.analysisFactory = new AnalysisFactory();
 		this.viewerFactory = new ViewerFactory();
-		this.adapterFactory = new AdapterFactory();
 		this.viewers = new HashMap<>();
 	}
 	
@@ -53,7 +50,25 @@ public class UserSelection {
 	 * Analyse Method
 	 */
 	public void analyse() {
-		this.result = analyser.calculate(this);
+		//Call http client
+		HttpClient httpClient = new HttpClient();
+		String httpData = httpClient.call(this);
+		
+		String type = new JsonParser().parse(httpData).getAsJsonObject().get("resultType").getAsString();
+		
+		Gson gson = new Gson();
+		
+		if(type.equals("One Series")) {
+			this.result = gson.fromJson(httpData, OneSeriesResult.class);
+		}
+		
+		else if(type.equals("Two Series")) {
+			this.result = gson.fromJson(httpData, TwoSeriesResult.class);
+		}
+		
+		else if(type.equals("Three Series")) {
+			this.result = gson.fromJson(httpData, ThreeSeriesResult.class);
+		}
 	}
 	
 	/**
@@ -104,6 +119,14 @@ public class UserSelection {
 	 * Setters
 	 */
 	
+	public void setAnalysis(String analysis) {
+		this.analysis = analysis.replaceAll(" ", "");
+	}
+	
+	public void setSource(String source) {
+		this.source = source;
+	}
+	
 	public void setCountryCode(String s) {
 		this.countryCode = s;
 	}
@@ -130,19 +153,17 @@ public class UserSelection {
 		this.viewPanel = viewPanel;
 	}
 	
-	/**
-	 * Set an analysis type
-	 * @param a analysis type to add
-	 */
-	public void setAnalysis(String analyser, String source) {
-		IAdapter adapter = adapterFactory.createAdapter(source);
-		
-		this.analyser = analysisFactory.createAnalyser(analyser, adapter);
-	}
-	
 	/*
 	 * Getters
 	 */
+	
+	public String getAnalysis() {
+		return this.analysis;
+	}
+	
+	public String getSource() {
+		return this.source;
+	}
 	
 	public long getFromYear() {
 		return this.fromYear;
@@ -150,11 +171,6 @@ public class UserSelection {
 	
 	public long getToYear() {
 		return this.toYear;
-	}
-	
-	
-	public IAnalyser getAnalyser() {
-		return this.analyser;
 	}
 	
 	public String getCountryCode() {

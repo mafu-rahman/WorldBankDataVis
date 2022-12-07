@@ -1,11 +1,11 @@
-{"analysis":[ "Agriculture vs Forest", 
+{"analysis":[ 	"Display Covid Cases",
+				"Agriculture vs Forest", 
 				"Coal vs Renewable", 
 				"Forest vs Heat Index vs CO2 Emissions", 
 				"Fossil Fuel vs Renewable Consum", 
 				"Heat Index vs CO2 Emissions", 
 				"Renewable Output vs Renewable Consumption",
 				"Total Population vs GDP Growth",
-				"Political Stability vs GDP Growth",
-				"Display Covid Case"
+				"Political Stability vs GDP Growth"
 				]
 			}

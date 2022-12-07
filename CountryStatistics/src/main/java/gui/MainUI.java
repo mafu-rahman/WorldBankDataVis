@@ -9,7 +9,7 @@ import jsonDataParser.JsonParseCountries;
 import jsonDataParser.JsonParseYears;
 import jsonDataParser.JsonParseSources;
 import jsonDataParser.JsonParseViewers;
-import jsonDataParser.JsonParser;
+import jsonDataParser.JsonDataParser;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -50,7 +50,7 @@ public class MainUI extends JFrame{
 	private JComboBox<String> viewerList;
 	private JComboBox<String> analysisList;
 
-	private JsonParser jsonParser;
+	private JsonDataParser jsonParser;
 	private UserSelection userSelection;
 	
 	/**
@@ -69,7 +69,7 @@ public class MainUI extends JFrame{
 		
 		this.viewPanel.setLayout(new GridLayout(2, 0));
 		
-		this.jsonParser = new JsonParser();
+		this.jsonParser = new JsonDataParser();
 		this.userSelection = new UserSelection();
 		this.userSelection.setViewPanel(viewPanel);
 		
@@ -238,9 +238,8 @@ public class MainUI extends JFrame{
 			userSelection.setCountryCode((String) countriesList.getSelectedItem());
 			userSelection.setFromYear((long) fromYear.getSelectedItem());
 			userSelection.setToYear((long) toYear.getSelectedItem());
-			
-			String source = (String) sourcesList.getSelectedItem();
-			userSelection.setAnalysis((String) analysisList.getSelectedItem(), source);
+			userSelection.setAnalysis((String) analysisList.getSelectedItem());
+			userSelection.setSource((String) sourcesList.getSelectedItem());
 			
 			userSelection.analyse();
 			userSelection.draw();
