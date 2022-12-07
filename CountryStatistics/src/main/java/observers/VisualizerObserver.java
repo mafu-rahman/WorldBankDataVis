@@ -1,22 +1,27 @@
 package observers;
 
 import viewers.IViewer;
-import java.util.Vector;
 
 public class VisualizerObserver implements Observer {
 	
 	private static int tracker = 0;
 	private int observerID; 
-	private Vector<IViewer> viewers;
+	private IViewer viewer;
 	
-	public VisualizerObserver(Vector<IViewer> viewers) {
+	public VisualizerObserver(IViewer viewer) {
+		this.viewer = viewer;
 		this.observerID = ++tracker;
-		this.viewers = viewers;
 		System.out.println("Observer created: " + this.observerID);
+		viewer.register(this);
 	}
 
 	@Override
-	public void update() {
+	public void update(IViewer viewer) {
+		this.viewer = viewer;
+	}
+	
+	public IViewer getViewer() {
+		return this.viewer;
 	}
 	
 }
