@@ -1,8 +1,6 @@
 package client;
 
-import adapters.OpenCovidAdapter;
-import adapters.WorldBankAdapter;
-import analysers.*;
+
 import gui.LoginUI;
 import observers.VisualizerObserver;
 

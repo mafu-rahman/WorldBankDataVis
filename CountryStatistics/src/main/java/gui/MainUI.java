@@ -8,7 +8,6 @@ import jsonDataParser.JsonParseAnalysis;
 import jsonDataParser.JsonParseCountries;
 import jsonDataParser.JsonParseYears;
 import jsonDataParser.JsonParseSources;
-import jsonDataParser.JsonParser;
 import observers.VisualizerObserver;
 import viewers.BarChart;
 import viewers.IViewer;
