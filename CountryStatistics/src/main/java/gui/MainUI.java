@@ -7,14 +7,6 @@ import jsonDataParser.JsonParseCountries;
 import jsonDataParser.JsonParseYears;
 import model.UserSelection;
 import jsonDataParser.JsonParseSources;
-import observers.VisualizerObserver;
-import viewers.BarChart;
-import viewers.IViewer;
-import viewers.LineChart;
-import viewers.PieChart;
-import viewers.Report;
-import viewers.ScatterChart;
-import viewers.Viewer;
 import jsonDataParser.JsonParseViewers;
 import jsonDataParser.JsonDataParser;
 
