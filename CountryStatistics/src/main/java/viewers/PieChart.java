@@ -157,7 +157,7 @@ public class PieChart implements IViewer{
 	@Override
 	public void notifyRegister() {
 		for(Observer o : observers) {
-			o.update();
+			o.update(this);
 		}
 	}
 }
