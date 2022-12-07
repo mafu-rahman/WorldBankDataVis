@@ -1,7 +1,6 @@
 package client;
 
 import adapters.OpenCovidAdapter;
-import adapters.UnitedNationsAdapter;
 import adapters.WorldBankAdapter;
 import analysers.*;
 import gui.LoginUI;
