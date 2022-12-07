@@ -15,6 +15,9 @@ public class VisualizerObserver implements Observer{
 		viewer.register(this);
 	}
 
+	/**
+	 * Update The Observer with the new viewer
+	 */
 	public void update(Viewer viewer) {
 		this.viewer = viewer;
 		printViewer();
