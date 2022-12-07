@@ -117,7 +117,7 @@ public class LineChart implements IViewer{
 		
 		for(Map.Entry<String, Double> set: data1.entrySet()) {
 			Integer key = Integer.valueOf(set.getKey());
-			series1.add(set.getValue(), key);
+			series1.add(key, set.getValue());
 		}
 		dataset.addSeries(series1);
 	}

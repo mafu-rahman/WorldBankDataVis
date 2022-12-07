@@ -1,54 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="results.ThreeSeriesResult" project="CountryStatistics" 
-    file="/CountryStatistics/src/main/java/results/ThreeSeriesResult.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="515" width="250" x="204" y="-88"/>    
+  <class id="1" language="java" name="server.BusinessDataObject" project="ServerCountryStatistics" 
+    file="/ServerCountryStatistics/src/main/java/server/BusinessDataObject.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="413" y="401"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="results.Result" project="CountryStatistics" 
-    file="/CountryStatistics/src/main/java/results/Result.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="83" width="97" x="494" y="-211"/>    
+  <class id="2" language="java" name="server.Server.WBServerHandler" project="ServerCountryStatistics" 
+    file="/ServerCountryStatistics/src/main/java/server/Server.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="443" y="623"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="results.TwoSeriesResult" project="CountryStatistics" 
-    file="/CountryStatistics/src/main/java/results/TwoSeriesResult.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="407" width="250" x="494" y="-88"/>    
+  <class id="3" language="java" name="server.Server.OpenCovid" project="ServerCountryStatistics" 
+    file="/ServerCountryStatistics/src/main/java/server/Server.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="722" y="623"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="results.OneSeriesResult" project="CountryStatistics" 
-    file="/CountryStatistics/src/main/java/results/OneSeriesResult.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="299" width="250" x="784" y="-88"/>    
+  <class id="4" language="java" name="server.Server" project="ServerCountryStatistics" 
+    file="/ServerCountryStatistics/src/main/java/server/Server.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="604" y="329"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="5">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <generalization id="6">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <generalization id="7">    
+  <nesting id="5">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="2"/>  
-  </generalization>  
+  </nesting>  
+  <nesting id="6">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
+  </nesting>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

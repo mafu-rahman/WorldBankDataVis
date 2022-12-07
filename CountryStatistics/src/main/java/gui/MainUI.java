@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 public class MainUI extends JFrame{
 
 	private static final long serialVersionUID = 1L;
+	private static int instance = 0;
 
 	public static void main(String[] args) {
 			
@@ -53,12 +54,21 @@ public class MainUI extends JFrame{
 	private JsonDataParser jsonParser;
 	private UserSelection userSelection;
 	
+	/*
+	 * Singleton Pattern
+	 */
+	public static MainUI getInstanceOfMainUI() {
+		if(instance == 0) {
+			return new MainUI();
+		}
+		return null;
+	}
 	/**
 	 * Constructor Method
 	 * @param v : This parameter contains all the Viewer objects inside the Viewer class
 	 * @param a : This parameter contains all the analyser objects inside the Analyser class
 	 */
-	public MainUI() {
+	private MainUI() {
 		frame = new JFrame();
 		frame.setTitle("Country Statistics");
 		frame.setSize(1200, 800);
@@ -128,7 +138,6 @@ public class MainUI extends JFrame{
 		topPanel.add(chooseSourceLabel);
 		topPanel.add(sourcesList);
 	}
-	
 	
 	/**
 	 * Sets up the 'from' years menu in the top panel

@@ -1,40 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="adapters.WorldBankAdapter" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/adapters/WorldBankAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="119" width="253" x="351" y="191"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="2" language="java" name="adapters.UnitedNationsAdapter" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/adapters/UnitedNationsAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="119" width="233" x="644" y="191"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="3" language="java" name="adapters.TargetAdapter" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/adapters/TargetAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="83" width="233" x="498" y="350"/>    
+  <interface id="1" language="java" name="adapters.IAdapter" project="ServerCountryStatistics" 
+    file="/ServerCountryStatistics/src/main/java/adapters/IAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="267" x="840" y="472"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <realization id="4">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
-  </realization>  
+  <class id="2" language="java" name="adapters.AdapterFactory" project="ServerCountryStatistics" 
+    file="/ServerCountryStatistics/src/main/java/adapters/AdapterFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="190" x="404" y="295"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="adapters.OpenCovidAdapter" project="ServerCountryStatistics" 
+    file="/ServerCountryStatistics/src/main/java/adapters/OpenCovidAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="137" width="371" x="634" y="295"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="adapters.WorldBankAdapter" project="ServerCountryStatistics" 
+    file="/ServerCountryStatistics/src/main/java/adapters/WorldBankAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="137" width="371" x="1045" y="295"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
   <realization id="5">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="3"/>  
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="6">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

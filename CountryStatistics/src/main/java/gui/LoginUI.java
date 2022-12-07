@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 
 public class LoginUI{
 	
-	
+	private static int instance = 0;
 	// Class attributes
 	private static JFrame frame;
 	private static JPanel panel;
@@ -28,10 +28,20 @@ public class LoginUI{
 	private String username;
 	private String password;
 	
+	/*
+	 * Singleton Pattern
+	 */
+	public static LoginUI getInstanceofLoginUI() {
+		if(instance == 0) {
+			instance++;
+			return new LoginUI();
+		}
+		return null;
+	}
 	/**
 	 * Constructor Method
 	 */
-	public LoginUI() {
+	private LoginUI() {
 		
 		frame = new JFrame();
 		panel = new JPanel();
@@ -109,7 +119,7 @@ public class LoginUI{
 				if(username.equals(values[0]) && password.equals(values[1])){
 					statusLabel.setText("Success!");
 					frame.dispose(); //login window closes when login is successful
-					new MainUI();
+					MainUI mainUI = MainUI.getInstanceOfMainUI();
 					return;
 				}
 			}

@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <interface id="1" language="java" name="dataFetchers.Fetcher" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/dataFetchers/Fetcher.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="83" width="233" x="758" y="264"/>    
+  <interface id="1" language="java" name="dataFetchers.IFetcher" project="ServerCountryStatistics" 
+    file="/ServerCountryStatistics/src/main/java/dataFetchers/IFetcher.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="267" x="324" y="582"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="2" language="java" name="dataFetchers.worldBankFetcher" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/dataFetchers/worldBankFetcher.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="253" x="611" y="123"/>    
+  <class id="2" language="java" name="dataFetchers.OpenCovidFetcher" project="ServerCountryStatistics" 
+    file="/ServerCountryStatistics/src/main/java/dataFetchers/OpenCovidFetcher.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="119" width="264" x="172" y="423"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="dataFetchers.unitedNationsFetcher" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/dataFetchers/unitedNationsFetcher.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="253" x="904" y="123"/>    
+  <class id="3" language="java" name="dataFetchers.WorldBankFetcher" project="ServerCountryStatistics" 
+    file="/ServerCountryStatistics/src/main/java/dataFetchers/WorldBankFetcher.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="101" width="287" x="476" y="423"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

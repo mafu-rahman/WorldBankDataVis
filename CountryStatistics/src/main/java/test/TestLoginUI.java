@@ -22,7 +22,7 @@ public class TestLoginUI {
 	@Test
 	public void test_login_01() {
 		Viewer v = null;
-		LoginUI l = new LoginUI();
+		LoginUI l = LoginUI.getInstanceofLoginUI();
 		
 		l.setUsername("Atiq");
 		l.setPassword("incorrectpassword");
@@ -53,7 +53,7 @@ public class TestLoginUI {
 	@Test
 	public void test_login_02() {
 		Viewer v = null;
-		LoginUI l = new LoginUI();
+		LoginUI l = LoginUI.getInstanceofLoginUI();
 		
 		l.setUsername("mafu");
 		l.setPassword("password");
@@ -82,7 +82,7 @@ public class TestLoginUI {
 	@Test(expected = NullPointerException.class)
 	public void test_login_03() {
 		Viewer v = null;
-		LoginUI l = new LoginUI();
+		LoginUI l = LoginUI.getInstanceofLoginUI();
 		
 		
 		assertEquals("Error: No username entered!", l.getUsername());
@@ -94,7 +94,7 @@ public class TestLoginUI {
 	@Test 
 	public void test_login_04() {
 		Viewer v = null;
-		LoginUI l = new LoginUI();
+		LoginUI l = LoginUI.getInstanceofLoginUI();
 		
 		l.setUsername("mafu ");
 		l.setPassword("password");

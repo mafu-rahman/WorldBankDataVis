@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="gui.MainUI" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/gui/MainUI.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="605" width="225" x="227" y="-109"/>    
+  <class id="1" language="java" name="gui.LoginUI" project="CountryStatistics" 
+    file="/CountryStatistics/src/main/java/gui/LoginUI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="353" width="191" x="235" y="-128"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="gui.loginUI" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/gui/loginUI.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="371" width="191" x="492" y="-109"/>    
+  <class id="2" language="java" name="gui.MainUI" project="CountryStatistics" 
+    file="/CountryStatistics/src/main/java/gui/MainUI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="587" width="211" x="466" y="-128"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

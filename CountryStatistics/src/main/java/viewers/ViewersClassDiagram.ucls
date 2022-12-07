@@ -1,96 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="viewers.Report" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/viewers/Report.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="299" width="189" x="341" y="198"/>    
+  <class id="1" language="java" name="viewers.LineChart" project="CountryStatistics" 
+    file="/CountryStatistics/src/main/java/viewers/LineChart.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="335" width="223" x="449" y="193"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="viewers.LineChart" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/viewers/LineChart.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="335" width="223" x="570" y="198"/>    
+  <class id="2" language="java" name="viewers.ViewerFactory" project="CountryStatistics" 
+    file="/CountryStatistics/src/main/java/viewers/ViewerFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="179" x="230" y="193"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="viewers.BarChart" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/viewers/BarChart.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="335" width="201" x="833" y="198"/>    
+  <class id="3" language="java" name="viewers.BarChart" project="CountryStatistics" 
+    file="/CountryStatistics/src/main/java/viewers/BarChart.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="335" width="201" x="712" y="193"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="4" language="java" name="viewers.IViewer" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/viewers/IViewer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="137" width="139" x="946" y="573"/>    
+  <class id="4" language="java" name="viewers.Report" project="CountryStatistics" 
+    file="/CountryStatistics/src/main/java/viewers/Report.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="299" width="189" x="953" y="193"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="viewers.ScatterChart" project="CountryStatistics" 
+    file="/CountryStatistics/src/main/java/viewers/ScatterChart.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="317" width="185" x="1182" y="193"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="viewers.PieChart" project="CountryStatistics" 
+    file="/CountryStatistics/src/main/java/viewers/PieChart.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="299" width="201" x="1407" y="193"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="7" language="java" name="viewers.IViewer" project="CountryStatistics" 
+    file="/CountryStatistics/src/main/java/viewers/IViewer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="137" width="139" x="1059" y="568"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="5" language="java" name="viewers.PieChart" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/viewers/PieChart.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="299" width="201" x="1074" y="198"/>    
+  <class id="8" language="java" name="viewers.Viewer" project="CountryStatistics" 
+    file="/CountryStatistics/src/main/java/viewers/Viewer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="245" width="196" x="1648" y="193"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="viewers.ScatterChart" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/viewers/ScatterChart.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="317" width="185" x="1315" y="198"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="7" language="java" name="viewers.Viewer" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/viewers/Viewer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="137" width="185" x="1540" y="198"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <realization id="8">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <realization id="9">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <realization id="10">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <realization id="11">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <association id="12">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="13" name="viewers"/>      
-      <multiplicity id="14" minimum="0" maximum="2147483647"/>    
+  <association id="9">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="10" name="viewers"/>      
+      <multiplicity id="11" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <realization id="12">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <realization id="13">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <realization id="14">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
   <realization id="15">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <realization id="16">    
     <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="4"/>  
+    <end type="TARGET" refId="7"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

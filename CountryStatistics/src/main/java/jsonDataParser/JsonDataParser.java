@@ -3,6 +3,9 @@ package jsonDataParser;
 public class JsonDataParser {
 	public IJsonParser JsonParser;
 	
+	/*
+	 * Strategy Pattern
+	 */
 	public JsonDataParser() {
 		
 	}

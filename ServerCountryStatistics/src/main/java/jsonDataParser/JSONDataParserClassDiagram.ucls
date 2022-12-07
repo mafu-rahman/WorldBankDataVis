@@ -1,72 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="jsonDataParser.JsonParseRetrivedData" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/jsonDataParser/JsonParseRetrivedData.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="119" width="215" x="418" y="187"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="2" language="java" name="jsonDataParser.JsonParseCountries" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/jsonDataParser/JsonParseCountries.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="119" width="174" x="673" y="187"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="3" language="java" name="jsonDataParser.JsonParser" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/jsonDataParser/JsonParser.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="119" width="175" x="887" y="187"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="4" language="java" name="jsonDataParser.IJsonParser" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/jsonDataParser/IJsonParser.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="83" width="114" x="770" y="346"/>    
+  <interface id="1" language="java" name="jsonDataParser.IJsonParser" project="ServerCountryStatistics" 
+    file="/ServerCountryStatistics/src/main/java/jsonDataParser/IJsonParser.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="114" x="759" y="487"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="5" language="java" name="jsonDataParser.JsonParseYears" project="WorldBankAPIver2" 
-    file="/WorldBankAPIver2/src/main/java/jsonDataParser/JsonParseYears.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="119" width="153" x="1102" y="187"/>    
+  <class id="2" language="java" name="jsonDataParser.JsonParseRetrivedData" project="ServerCountryStatistics" 
+    file="/ServerCountryStatistics/src/main/java/jsonDataParser/JsonParseRetrivedData.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="119" width="215" x="504" y="328"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <realization id="6">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="4"/>  
+  <class id="3" language="java" name="jsonDataParser.JsonParseOpenCovid" project="ServerCountryStatistics" 
+    file="/ServerCountryStatistics/src/main/java/jsonDataParser/JsonParseOpenCovid.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="119" width="205" x="759" y="328"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="jsonDataParser.JsonDataParser" project="ServerCountryStatistics" 
+    file="/ServerCountryStatistics/src/main/java/jsonDataParser/JsonDataParser.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="119" width="175" x="1004" y="328"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <realization id="5">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
   </realization>  
-  <realization id="7">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <realization id="8">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <association id="9">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="10" name="JsonParser"/>      
-      <multiplicity id="11" minimum="0" maximum="1"/>    
+  <association id="6">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="7" name="JsonParser"/>      
+      <multiplicity id="8" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <realization id="9">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

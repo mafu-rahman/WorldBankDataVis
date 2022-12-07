@@ -2,7 +2,6 @@ package client;
 
 
 import gui.LoginUI;
-import observers.VisualizerObserver;
 
 
 /**
@@ -23,7 +22,8 @@ public class CountryStatistics {
 		System.out.println("-------------------------------");
 		System.out.println("");
 		
-		new LoginUI();
+		LoginUI login = LoginUI.getInstanceofLoginUI();
 	}
+	
 
 }
